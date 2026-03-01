@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sprint</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -582,10 +583,16 @@
     <textarea class="notes-area" id="notes" placeholder="Paste themes, attendee counts, anything..."></textarea>
   </div>
 
-  <div class="hint">Hover tasks for ⟶ tmrw / later buttons. Checks saved locally.</div>
+  <div class="hint">Hover tasks for ⟶ tmrw / later buttons. Checks saved to Supabase + local backup.</div>
 </div>
 
 <script>
+  // Supabase configuration
+  const SUPABASE_URL = 'https://cfnuhjfceceojfykznnm.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_oefauf4bsK7QBNecphPI9w_AGrjl7UK';
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // Local storage keys (fallback)
   const STORAGE_KEY = 'sprint-2026-03-01';
   const NOTES_KEY = 'sprint-notes-2026-03-01';
   const TOMORROW_KEY = 'sprint-tomorrow-2026-03-01';
@@ -596,70 +603,167 @@
   const tomorrowContainer = document.getElementById('tomorrow-tasks');
   const tomorrowSection = document.getElementById('sec-tomorrow');
 
-  // Load saved state
-  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-  const tomorrowItems = JSON.parse(localStorage.getItem(TOMORROW_KEY) || '[]');
+  let tomorrowItems = [];
 
-  document.querySelectorAll('.task[data-id]').forEach(task => {
-    const id = task.dataset.id;
-    const cb = task.querySelector('input[type="checkbox"]');
-    if (saved[id]) { cb.checked = true; task.classList.add('done'); }
-    // If it was moved to tomorrow, hide it
-    if (tomorrowItems.find(t => t.id === id)) {
-      task.style.display = 'none';
+  // Initialize app
+  async function init() {
+    await loadFromSupabase();
+    loadFromLocalStorage(); // Fallback for anything not in DB
+    renderTomorrow();
+    updateAll();
+  }
+
+  // Load tasks from Supabase
+  async function loadFromSupabase() {
+    try {
+      const { data, error } = await supabase
+        .from('tasks')
+        .select('*');
+      
+      if (error) {
+        console.error('Supabase load error:', error);
+        return;
+      }
+
+      if (data) {
+        data.forEach(task => {
+          const taskEl = document.querySelector(`.task[data-id="${task.task_id}"]`);
+          if (taskEl) {
+            const cb = taskEl.querySelector('input[type="checkbox"]');
+            if (task.done) {
+              cb.checked = true;
+              taskEl.classList.add('done');
+            }
+          }
+
+          // Handle tomorrow items
+          if (task.moved_to === 'tomorrow') {
+            const name = taskEl ? taskEl.querySelector('.task-name').innerHTML : task.name;
+            const detail = task.detail || '';
+            tomorrowItems.push({ id: task.task_id, name, detail });
+            if (taskEl) taskEl.style.display = 'none';
+          }
+        });
+      }
+    } catch (err) {
+      console.error('Supabase connection error:', err);
     }
-  });
+  }
 
-  // Render tomorrow items
-  renderTomorrow();
+  // Fallback: Load from localStorage
+  function loadFromLocalStorage() {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    const tomorrow = JSON.parse(localStorage.getItem(TOMORROW_KEY) || '[]');
 
-  notes.value = localStorage.getItem(NOTES_KEY) || '';
-  updateAll();
+    // Apply localStorage state only if not already set from Supabase
+    document.querySelectorAll('.task[data-id]').forEach(task => {
+      const id = task.dataset.id;
+      const cb = task.querySelector('input[type="checkbox"]');
+      if (saved[id] && !cb.checked) {
+        cb.checked = true;
+        task.classList.add('done');
+      }
+    });
 
-  // Checkbox handlers
+    // Merge tomorrow items (avoid duplicates)
+    tomorrow.forEach(item => {
+      if (!tomorrowItems.find(t => t.id === item.id)) {
+        tomorrowItems.push(item);
+        const taskEl = document.querySelector(`.task[data-id="${item.id}"]`);
+        if (taskEl) taskEl.style.display = 'none';
+      }
+    });
+
+    notes.value = localStorage.getItem(NOTES_KEY) || '';
+  }
+
+  // Save task to Supabase
+  async function saveTask(taskId, updates) {
+    try {
+      const { error } = await supabase
+        .from('tasks')
+        .upsert({
+          task_id: taskId,
+          ...updates,
+          updated_at: new Date().toISOString()
+        });
+
+      if (error) console.error('Supabase save error:', error);
+    } catch (err) {
+      console.error('Supabase connection error:', err);
+    }
+
+    // Always save to localStorage as fallback
+    saveToLocalStorage();
+  }
+
+  // Save state to localStorage (fallback)
+  function saveToLocalStorage() {
+    const state = {};
+    document.querySelectorAll('.task[data-id] input[type="checkbox"]').forEach(cb => {
+      if (cb.checked) state[cb.closest('.task').dataset.id] = true;
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(TOMORROW_KEY, JSON.stringify(tomorrowItems));
+  }
+
+  // Checkbox change handler
   document.addEventListener('change', e => {
     if (e.target.type === 'checkbox') {
       const task = e.target.closest('.task');
       const taskId = task.dataset.id;
       const taskName = task.querySelector('.task-name').textContent.trim();
+      const taskDetail = task.querySelector('.task-detail')?.textContent || '';
+      const taskSection = task.closest('.section').id.replace('sec-', '');
       const isDone = e.target.checked;
       
       task.classList.toggle('done', isDone);
-      saveState();
-      updateAll();
       
-      // Webhook sync - send to Hanuman (silent fail)
-      fetch('http://localhost:3456/task-update', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          taskId: taskId,
-          taskName: taskName,
-          done: isDone,
-          timestamp: new Date().toISOString()
-        })
-      }).catch(() => {}); // Silent fail
+      // Save to Supabase
+      saveTask(taskId, {
+        name: taskName,
+        detail: taskDetail,
+        section: taskSection,
+        done: isDone
+      });
+      
+      updateAll();
     }
   });
 
-  notes.addEventListener('input', () => localStorage.setItem(NOTES_KEY, notes.value));
+  // Notes autosave
+  notes.addEventListener('input', () => {
+    localStorage.setItem(NOTES_KEY, notes.value);
+  });
 
+  // Move to tomorrow
   function moveToTomorrow(btn) {
     const task = btn.closest('.task');
     const id = task.dataset.id;
     const name = task.querySelector('.task-name').innerHTML;
     const detail = task.querySelector('.task-detail').textContent;
+    const taskSection = task.closest('.section').id.replace('sec-', '');
+    const taskName = task.querySelector('.task-name').textContent.trim();
 
     task.classList.add('moving');
     setTimeout(() => {
       task.style.display = 'none';
       tomorrowItems.push({ id, name, detail });
-      localStorage.setItem(TOMORROW_KEY, JSON.stringify(tomorrowItems));
+      
+      // Save to Supabase
+      saveTask(id, {
+        name: taskName,
+        detail: detail,
+        section: taskSection,
+        moved_to: 'tomorrow'
+      });
+      
       renderTomorrow();
       updateAll();
     }, 300);
   }
 
+  // Move to end (later section)
   function moveToEnd(btn) {
     const task = btn.closest('.task');
     const laterSection = document.querySelector('#sec-later');
@@ -671,16 +775,32 @@
     }, 300);
   }
 
+  // Undo tomorrow
   function undoTomorrow(id) {
     const idx = tomorrowItems.findIndex(t => t.id === id);
     if (idx > -1) tomorrowItems.splice(idx, 1);
-    localStorage.setItem(TOMORROW_KEY, JSON.stringify(tomorrowItems));
+    
     const task = document.querySelector(`.task[data-id="${id}"]`);
-    if (task) task.style.display = '';
+    if (task) {
+      task.style.display = '';
+      const taskSection = task.closest('.section').id.replace('sec-', '');
+      const taskName = task.querySelector('.task-name').textContent.trim();
+      const taskDetail = task.querySelector('.task-detail')?.textContent || '';
+      
+      // Update Supabase
+      saveTask(id, {
+        name: taskName,
+        detail: taskDetail,
+        section: taskSection,
+        moved_to: null
+      });
+    }
+    
     renderTomorrow();
     updateAll();
   }
 
+  // Render tomorrow section
   function renderTomorrow() {
     tomorrowContainer.innerHTML = '';
     tomorrowItems.forEach(item => {
@@ -701,14 +821,7 @@
     tomorrowSection.classList.toggle('has-items', tomorrowItems.length > 0);
   }
 
-  function saveState() {
-    const state = {};
-    document.querySelectorAll('.task[data-id] input[type="checkbox"]').forEach(cb => {
-      if (cb.checked) state[cb.closest('.task').dataset.id] = true;
-    });
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }
-
+  // Update progress and counts
   function updateAll() {
     // Count only visible, non-tomorrow tasks
     const visibleTasks = document.querySelectorAll('.task[data-id]');
@@ -738,6 +851,9 @@
       else if (countEl) countEl.textContent = '';
     });
   }
+
+  // Start the app
+  init();
 </script>
 </body>
 </html>
