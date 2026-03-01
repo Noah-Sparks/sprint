@@ -1,0 +1,14 @@
+CREATE TABLE tasks (
+  id SERIAL PRIMARY KEY,
+  task_id TEXT UNIQUE NOT NULL,
+  name TEXT NOT NULL,
+  detail TEXT,
+  section TEXT,
+  done BOOLEAN DEFAULT FALSE,
+  moved_to TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE tasks ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Allow all" ON tasks FOR ALL USING (true) WITH CHECK (true);
