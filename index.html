@@ -32,7 +32,17 @@
   .progress-count { font-size: 13px; color: var(--text-secondary); font-weight: 500; font-variant-numeric: tabular-nums; }
   .progress-track { height: 3px; background: var(--border); border-radius: 4px; overflow: hidden; }
   .progress-fill { height: 100%; background: var(--accent); border-radius: 4px; transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1); box-shadow: 0 0 12px var(--accent-glow); }
+  .batch-controls { display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .batch-indicator { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; }
+  .toggle-all-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text-secondary); font-size: 11px; font-weight: 600; font-family: inherit; padding: 6px 12px; cursor: pointer; transition: all 0.15s ease; text-transform: uppercase; letter-spacing: 0.5px; }
+  .toggle-all-btn:hover { background: var(--surface-hover); color: var(--text); border-color: var(--accent); }
+  .batch-complete-banner { background: linear-gradient(135deg, var(--accent), #a78bfa); padding: 16px; border-radius: var(--radius); text-align: center; margin-bottom: 20px; animation: slideDown 0.4s ease; display: none; }
+  .batch-complete-banner.show { display: block; }
+  .batch-complete-banner .emoji { font-size: 28px; margin-bottom: 4px; }
+  .batch-complete-banner .msg { font-size: 14px; font-weight: 600; color: white; }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
   .section { margin-bottom: 24px; }
+  .section.batch-hidden { display: none; }
   .section-header { display: flex; align-items: center; gap: 8px; padding: 0 0 10px 0; border-bottom: 1px solid var(--border-subtle); margin-bottom: 2px; }
   .section-indicator { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
   .section-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: #b0b0b8; }
@@ -100,6 +110,14 @@
     </div>
     <div class="progress-track"><div class="progress-fill" id="progressBar" style="width:0%"></div></div>
   </div>
+  <div class="batch-controls">
+    <span class="batch-indicator" id="batchIndicator">Batch 1 of 7</span>
+    <button class="toggle-all-btn" id="toggleAllBtn" onclick="toggleShowAll()">Show all</button>
+  </div>
+  <div id="batchCompleteBanner" class="batch-complete-banner">
+    <div class="emoji">✅</div>
+    <div class="msg">Batch complete! Moving to next...</div>
+  </div>
   <div id="celebration" class="celebration"><div class="emoji">🏁</div><div class="msg">Sprint complete.</div><div class="sub">Go enjoy your day.</div></div>
   <div id="sections"></div>
   <div class="section tomorrow-section" id="sec-tomorrow">
@@ -115,41 +133,47 @@
 // SPRINT CONFIG — Change this to create a new sprint
 // ============================================================
 const SPRINT = {
-  title: 'Sunday Sprint',
-  date: 'March 1, 2026',
-  key: 'sprint-2026-03-01',
+  title: 'Monday Sprint',
+  date: 'March 2, 2026',
+  key: 'sprint-2026-03-02',
   sections: [
-    { id: 'now', title: 'Right Now', priority: 'now', tasks: [
-      { id: 't1', name: 'Text friends re: run club tonight', detail: "Confirm who's coming. Do this first.", tag: 'TEXT', tagClass: 'tag-text' },
-      { id: 't2', name: 'Text Porsche attendees to confirm', detail: '5 yes, 27 awaiting. Lock in headcount. Free event, Fri Mar 6 @ 1:45pm.', tag: 'TEXT', tagClass: 'tag-text' },
-      { id: 't2b', name: 'Text landlord re: extending lease', detail: 'Ask if you can stay longer past Mar 5. Do this today.', tag: 'HOUSING', tagClass: 'tag-housing' },
-      { id: 't2c', name: 'Start setting up rental showings', detail: 'Browse listings, schedule viewings. Sublet with Billy as summer backup.', tag: 'HOUSING', tagClass: 'tag-housing' },
+    { id: 'batch1', title: 'Batch 1 — Right Now', priority: 'now', batch: 1, tasks: [
+      { id: 't1', name: 'Call Helen Min for Aces SF theme', detail: 'Mar 12, 10 days away. Address: 30 Lopez Ave, SF. Thursday nights work. Capacity 8-12.', tag: 'CALL', tagClass: 'tag-call' },
+      { id: 't2', name: 'Call Jason Schumann for Aces NYC venue + theme', detail: 'Mar 17', tag: 'CALL', tagClass: 'tag-call' },
+      { id: 't3', name: 'Deals chat strikes — overdue from Sunday', detail: 'Weekly activity check + remove inactive members.', tag: 'TEXT', tagClass: 'tag-text' },
     ]},
-    { id: 'calls', title: 'Host Calls — themes + details', priority: 'next', tasks: [
-      { id: 't4', name: 'Call Karan', detail: 'Aces LA, Mar 27 — need theme', tag: 'CALL', tagClass: 'tag-call' },
-      { id: 't5', name: 'Call Josh', detail: 'Insiders LA, Mar 20 — need theme', tag: 'CALL', tagClass: 'tag-call' },
-      { id: 't6', name: 'Call Jason Schumann', detail: 'Aces NYC, Mar 17 — need theme + venue', tag: 'CALL', tagClass: 'tag-call' },
-      { id: 't7', name: 'Call Christian', detail: "Insiders NYC, Mar 18 at Rob's — need theme", tag: 'CALL', tagClass: 'tag-call' },
-      { id: 't8', name: 'Call Vishal', detail: 'Need theme', tag: 'CALL', tagClass: 'tag-call' },
+    { id: 'batch2', title: 'Batch 2 — Host Calls continued', priority: 'next', batch: 2, tasks: [
+      { id: 't4', name: 'Call Josh for Insiders LA theme', detail: 'Mar 20', tag: 'CALL', tagClass: 'tag-call' },
+      { id: 't5', name: 'Call Christian for Insiders NYC theme', detail: "Mar 18 at Rob's", tag: 'CALL', tagClass: 'tag-call' },
+      { id: 't6', name: 'Call Vishal for theme', detail: '', tag: 'CALL', tagClass: 'tag-call' },
     ]},
-    { id: 'create', title: 'Create — after calls', priority: 'later', tasks: [
-      { id: 't9', name: "Write up Helen's theme", detail: 'Condense + improve into dinner theme format. Send to Hanuman to draft.', tag: 'DRAFT', tagClass: 'tag-draft' },
-      { id: 't10', name: 'Write up other host themes', detail: 'Same for each host. Send to Hanuman after calls.', tag: 'DRAFT', tagClass: 'tag-draft' },
-      { id: 't11', name: 'Create Luma event pages', detail: 'One per event. Hanuman will draft descriptions.', tag: 'CREATE', tagClass: 'tag-create' },
-      { id: 't12', name: 'Draft Canva graphics', detail: 'Announcement graphics for each March event.', tag: 'CREATE', tagClass: 'tag-create' },
-      { id: 't13', name: 'Draft announcement emails', detail: 'Hanuman will write once events are finalized.', tag: 'DRAFT', tagClass: 'tag-draft' },
-      { id: 't14', name: 'Draft WhatsApp announcements', detail: 'One per group chat. Hanuman drafts.', tag: 'DRAFT', tagClass: 'tag-draft' },
+    { id: 'batch3', title: 'Batch 3 — Create (after calls)', priority: 'later', batch: 3, tasks: [
+      { id: 't7', name: "Write up Helen's theme", detail: 'Condense + improve into dinner theme format. Send to Hanuman to draft.', tag: 'DRAFT', tagClass: 'tag-draft' },
+      { id: 't8', name: 'Write up other host themes', detail: 'Same for each host after calls.', tag: 'DRAFT', tagClass: 'tag-draft' },
+      { id: 't9', name: 'Create Luma event pages', detail: 'One per event. Hanuman will draft descriptions.', tag: 'CREATE', tagClass: 'tag-create' },
+      { id: 't10', name: 'Draft Canva graphics', detail: 'Announcement graphics for each March event.', tag: 'CREATE', tagClass: 'tag-create' },
     ]},
-    { id: 'admin', title: 'Admin', priority: 'low', tasks: [
-      { id: 't15', name: 'Add March events to Airtable', detail: 'Hanuman can do this via API once details are confirmed.', tag: 'CREATE', tagClass: 'tag-create' },
-      { id: 't16', name: 'Deals chat: weekly activity + strikes', detail: 'Sunday task.', tag: 'TEXT', tagClass: 'tag-text' },
-      { id: 't16b', name: 'Prep Monday group chat prompts', detail: 'Get tomorrow\'s prompts ready for Aces + Insiders chats.', tag: 'DRAFT', tagClass: 'tag-draft' },
-      { id: 't17', name: 'Send daily group chat spark', detail: 'Sunday prompt.', tag: 'TEXT', tagClass: 'tag-text' },
+    { id: 'batch4', title: 'Batch 4 — Announcements', priority: 'later', batch: 4, tasks: [
+      { id: 't11', name: 'Draft announcement emails', detail: 'Hanuman will write once events are finalized.', tag: 'DRAFT', tagClass: 'tag-draft' },
+      { id: 't12', name: 'Draft WhatsApp announcements', detail: 'One per group chat. Hanuman drafts.', tag: 'DRAFT', tagClass: 'tag-draft' },
+      { id: 't13', name: 'Group chat spark', detail: 'Seed 4 members for Monday prompts', tag: 'TEXT', tagClass: 'tag-text' },
     ]},
-    { id: 'later', title: 'When you have time', priority: 'low', tasks: [
-      { id: 't18', name: 'Edit yearly trip invite deck', detail: 'Due Tue Mar 3. Not urgent today.', tag: 'DRAFT', tagClass: 'tag-draft' },
-      { id: 't19', name: 'Send 10 welcome emails', detail: 'Drafts ready. 15 min of your time.', tag: 'DRAFT', tagClass: 'tag-draft' },
-      { id: 't20', name: 'Pay invoices + check billing email', detail: 'From overdue list.', tag: 'PAY', tagClass: 'tag-pay' },
+    { id: 'batch5', title: 'Batch 5 — Finance + Admin', priority: 'low', batch: 5, tasks: [
+      { id: 't14', name: 'Pay outstanding invoices', detail: '', tag: 'PAY', tagClass: 'tag-pay' },
+      { id: 't15', name: 'Check billing Notion page', detail: '', tag: 'PAY', tagClass: 'tag-pay' },
+      { id: 't16', name: 'Check finance email', detail: '', tag: 'PAY', tagClass: 'tag-pay' },
+      { id: 't17', name: 'Porsche Experience deposit', detail: 'Mar 6, 4 days away', tag: 'PAY', tagClass: 'tag-pay' },
+    ]},
+    { id: 'batch6', title: 'Batch 6 — Yearly Trip + Prep', priority: 'low', batch: 6, tasks: [
+      { id: 't18', name: 'Send yearly trip attendees deck', detail: 'Due tomorrow Mar 3', tag: 'DRAFT', tagClass: 'tag-draft' },
+      { id: 't19', name: 'Find yearly trip gift', detail: 'Due Wed Mar 5', tag: 'DRAFT', tagClass: 'tag-draft' },
+      { id: 't20', name: 'Deals chat midweek text', detail: 'Due Wed', tag: 'DRAFT', tagClass: 'tag-draft' },
+      { id: 't21', name: 'Storyteller doc redo', detail: 'Due Thu', tag: 'DRAFT', tagClass: 'tag-draft' },
+    ]},
+    { id: 'batch7', title: 'Batch 7 — Pending Decisions', priority: 'low', batch: 7, tasks: [
+      { id: 't22', name: 'EAA Insiders SF host for March', detail: 'Ask Rachel, book restaurant, or ask Grace', tag: 'CALL', tagClass: 'tag-call' },
+      { id: 't23', name: 'Resolve Jason Schumann venue for Aces NYC', detail: '', tag: 'CALL', tagClass: 'tag-call' },
+      { id: 't24', name: 'Add March events to Airtable', detail: 'Hanuman can do via API once details confirmed', tag: 'CREATE', tagClass: 'tag-create' },
     ]},
   ]
 };
@@ -168,8 +192,11 @@ try { if (window.supabase) sb = window.supabase.createClient(SB_URL, SB_KEY); } 
 const STORAGE = SPRINT.key;
 const NOTES_STORAGE = SPRINT.key + '-notes';
 const TOMORROW_STORAGE = SPRINT.key + '-tomorrow';
+const BATCH_STORAGE = SPRINT.key + '-batch';
 let state = JSON.parse(localStorage.getItem(STORAGE) || '{}');
 let tomorrowItems = JSON.parse(localStorage.getItem(TOMORROW_STORAGE) || '[]');
+let currentBatch = parseInt(localStorage.getItem(BATCH_STORAGE) || '1');
+let showAllBatches = false;
 
 // ============================================================
 // RENDER
@@ -184,6 +211,7 @@ SPRINT.sections.forEach(sec => {
   const secEl = document.createElement('div');
   secEl.className = 'section';
   secEl.id = 'sec-' + sec.id;
+  secEl.dataset.batch = sec.batch;
   secEl.innerHTML = `<div class="section-header"><div class="section-indicator priority-${sec.priority}"></div><span class="section-title">${sec.title}</span><span class="section-count"></span></div>`;
   
   sec.tasks.forEach(task => {
@@ -198,8 +226,8 @@ SPRINT.sections.forEach(sec => {
         <div class="checkbox-visual">${checkSvg}</div>
       </div>
       <div class="task-content">
-        <div class="task-name">${task.name} <span class="tag ${task.tagClass}">${task.tag}</span></div>
-        <div class="task-detail">${task.detail}</div>
+        <div class="task-name">${task.name} ${task.tag ? `<span class="tag ${task.tagClass}">${task.tag}</span>` : ''}</div>
+        ${task.detail ? `<div class="task-detail">${task.detail}</div>` : ''}
       </div>
       <div class="task-actions">
         <button class="action-btn tmrw" onclick="moveToTomorrow('${task.id}')">tmrw</button>
@@ -218,7 +246,62 @@ notesEl.addEventListener('input', () => localStorage.setItem(NOTES_STORAGE, note
 
 // Render tomorrow
 renderTomorrow();
+updateBatchVisibility();
 updateProgress();
+
+// ============================================================
+// BATCH SYSTEM
+// ============================================================
+function updateBatchVisibility() {
+  const sections = document.querySelectorAll('.section[data-batch]');
+  sections.forEach(sec => {
+    const batch = parseInt(sec.dataset.batch);
+    if (showAllBatches || batch === currentBatch) {
+      sec.classList.remove('batch-hidden');
+    } else {
+      sec.classList.add('batch-hidden');
+    }
+  });
+  
+  document.getElementById('batchIndicator').textContent = showAllBatches ? 'All batches' : `Batch ${currentBatch} of 7`;
+  document.getElementById('toggleAllBtn').textContent = showAllBatches ? 'Show current' : 'Show all';
+}
+
+function toggleShowAll() {
+  showAllBatches = !showAllBatches;
+  updateBatchVisibility();
+  updateProgress();
+}
+
+function checkBatchComplete() {
+  if (showAllBatches) return; // Don't auto-advance when showing all
+  
+  const currentSection = document.querySelector(`.section[data-batch="${currentBatch}"]`);
+  if (!currentSection) return;
+  
+  const tasks = currentSection.querySelectorAll('.task[data-id]');
+  if (tasks.length === 0) return;
+  
+  let allDone = true;
+  tasks.forEach(t => {
+    if (!t.querySelector('input:checked')) allDone = false;
+  });
+  
+  if (allDone && currentBatch < 7) {
+    // Show batch complete banner
+    const banner = document.getElementById('batchCompleteBanner');
+    banner.classList.add('show');
+    
+    // Auto-advance after 1.5 seconds
+    setTimeout(() => {
+      banner.classList.remove('show');
+      currentBatch++;
+      localStorage.setItem(BATCH_STORAGE, currentBatch);
+      updateBatchVisibility();
+      updateProgress();
+    }, 1500);
+  }
+}
 
 // ============================================================
 // CHECKBOX HANDLER
@@ -238,6 +321,7 @@ document.addEventListener('change', e => {
   localStorage.setItem(STORAGE, JSON.stringify(state));
   updateProgress();
   syncToSupabase(id, done);
+  checkBatchComplete();
 });
 
 // ============================================================
@@ -252,20 +336,26 @@ function moveToTomorrow(id) {
   task.classList.add('moving');
   setTimeout(() => {
     task.remove();
-    tomorrowItems.push({ id, name: nameEl.innerHTML, detail: detailEl.textContent });
+    tomorrowItems.push({ id, name: nameEl.innerHTML, detail: detailEl ? detailEl.textContent : '' });
     localStorage.setItem(TOMORROW_STORAGE, JSON.stringify(tomorrowItems));
     renderTomorrow();
     updateProgress();
+    checkBatchComplete();
   }, 300);
 }
 
 function moveToEnd(id) {
   const task = document.querySelector(`.task[data-id="${id}"]`);
   if (!task) return;
-  const laterSec = document.getElementById('sec-later');
-  if (!laterSec) return;
+  const batch7Sec = document.querySelector('.section[data-batch="7"]');
+  if (!batch7Sec) return;
   task.classList.add('moving');
-  setTimeout(() => { task.classList.remove('moving'); laterSec.appendChild(task); updateProgress(); }, 300);
+  setTimeout(() => { 
+    task.classList.remove('moving'); 
+    batch7Sec.appendChild(task); 
+    updateProgress();
+    checkBatchComplete();
+  }, 300);
 }
 
 function undoTomorrow(id) {
@@ -283,7 +373,7 @@ function renderTomorrow() {
     const div = document.createElement('div');
     div.className = 'task';
     div.style.opacity = '0.5';
-    div.innerHTML = `<div class="task-content"><div class="task-name" style="font-size:13px">${item.name}</div><div class="task-detail">${item.detail}</div></div><div class="task-actions" style="opacity:1"><button class="action-btn" onclick="undoTomorrow('${item.id}')" style="color:var(--accent)">undo</button></div>`;
+    div.innerHTML = `<div class="task-content"><div class="task-name" style="font-size:13px">${item.name}</div>${item.detail ? `<div class="task-detail">${item.detail}</div>` : ''}</div><div class="task-actions" style="opacity:1"><button class="action-btn" onclick="undoTomorrow('${item.id}')" style="color:var(--accent)">undo</button></div>`;
     container.appendChild(div);
   });
   section.classList.toggle('has-items', tomorrowItems.length > 0);
