@@ -590,7 +590,14 @@
   // Supabase configuration
   const SUPABASE_URL = 'https://cfnuhjfceceojfykznnm.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbnVoamZjZWNlb2pmeWt6bm5tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0MDUyNjYsImV4cCI6MjA4Nzk4MTI2Nn0.knZfJwibeGHrbI8xQZ7zeV-Fo7T3_RoAmBdx_HwgpEc';
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  let sb = null;
+  try {
+    const mod = window.supabase || window.Supabase;
+    if (mod && mod.createClient) {
+      sb = mod.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    }
+  } catch(e) { console.error('Supabase init failed:', e); }
+  const supabase = sb;
 
   // Local storage keys (fallback)
   const STORAGE_KEY = 'sprint-2026-03-01';
@@ -619,6 +626,7 @@
 
   // Load tasks from Supabase
   async function loadFromSupabase() {
+    if (!supabase) return;
     try {
       const { data, error } = await supabase
         .from('tasks')
@@ -683,6 +691,7 @@
 
   // Save task to Supabase
   async function saveTask(taskId, updates) {
+    if (!supabase) { saveToLocalStorage(); return; }
     try {
       const { error } = await supabase
         .from('tasks')
