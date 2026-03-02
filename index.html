@@ -7,866 +7,343 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
   :root {
-    --bg: #09090b;
-    --surface: #111113;
-    --surface-hover: #18181b;
-    --border: #1e1e22;
-    --border-subtle: #151518;
-    --text: #ececee;
-    --text-secondary: #7c7c85;
-    --text-muted: #4a4a52;
-    --accent: #8b5cf6;
-    --accent-glow: rgba(139, 92, 246, 0.15);
-    --red: #ef4444;
-    --red-bg: rgba(239, 68, 68, 0.08);
-    --orange: #f59e0b;
-    --orange-bg: rgba(245, 158, 11, 0.08);
-    --blue: #3b82f6;
-    --blue-bg: rgba(59, 130, 246, 0.08);
-    --green: #22c55e;
-    --green-bg: rgba(34, 197, 94, 0.08);
-    --purple: #a78bfa;
-    --purple-bg: rgba(167, 139, 250, 0.08);
-    --yellow: #eab308;
-    --yellow-bg: rgba(234, 179, 8, 0.08);
+    --bg: #09090b; --surface: #111113; --surface-hover: #18181b;
+    --border: #1e1e22; --border-subtle: #151518;
+    --text: #ececee; --text-secondary: #7c7c85; --text-muted: #4a4a52;
+    --accent: #8b5cf6; --accent-glow: rgba(139, 92, 246, 0.15);
+    --red: #ef4444; --red-bg: rgba(239, 68, 68, 0.08);
+    --orange: #f59e0b; --orange-bg: rgba(245, 158, 11, 0.08);
+    --blue: #3b82f6; --blue-bg: rgba(59, 130, 246, 0.08);
+    --green: #22c55e; --green-bg: rgba(34, 197, 94, 0.08);
+    --purple: #a78bfa; --purple-bg: rgba(167, 139, 250, 0.08);
+    --yellow: #eab308; --yellow-bg: rgba(234, 179, 8, 0.08);
     --radius: 8px;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .container {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 40px 20px 80px;
-  }
-
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+  .container { max-width: 640px; margin: 0 auto; padding: 40px 20px 80px; }
   .header { margin-bottom: 32px; }
   .header h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 4px; }
-  .header .date { font-size: 13px; color: var(--text-muted); font-weight: 400; }
-
+  .header .date { font-size: 13px; color: var(--text-muted); }
   .progress-wrap { margin-bottom: 32px; }
   .progress-stats { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
   .progress-label { font-size: 12px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
   .progress-count { font-size: 13px; color: var(--text-secondary); font-weight: 500; font-variant-numeric: tabular-nums; }
   .progress-track { height: 3px; background: var(--border); border-radius: 4px; overflow: hidden; }
   .progress-fill { height: 100%; background: var(--accent); border-radius: 4px; transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1); box-shadow: 0 0 12px var(--accent-glow); }
-
   .section { margin-bottom: 24px; }
-  .section-header {
-    display: flex; align-items: center; gap: 8px;
-    padding: 0 0 10px 0; border-bottom: 1px solid var(--border-subtle); margin-bottom: 2px;
-  }
+  .section-header { display: flex; align-items: center; gap: 8px; padding: 0 0 10px 0; border-bottom: 1px solid var(--border-subtle); margin-bottom: 2px; }
   .section-indicator { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
   .section-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: #b0b0b8; }
   .section-count { font-size: 10px; color: #9898a0; margin-left: auto; font-variant-numeric: tabular-nums; }
-
-  .task {
-    display: flex; align-items: flex-start; gap: 12px;
-    padding: 10px 8px; border-radius: var(--radius);
-    transition: all 0.2s ease; cursor: default;
-    border-bottom: 1px solid var(--border-subtle);
-    position: relative;
-  }
+  .task { display: flex; align-items: flex-start; gap: 12px; padding: 10px 8px; border-radius: var(--radius); transition: all 0.2s ease; cursor: default; border-bottom: 1px solid var(--border-subtle); position: relative; }
   .task:last-child { border-bottom: none; }
   .task:hover { background: var(--surface); }
   .task:hover .task-actions { opacity: 1; }
-
   .checkbox-wrap { position: relative; width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; }
   .checkbox-wrap input { position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer; z-index: 2; }
-  .checkbox-visual {
-    width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--text-muted);
-    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-    display: flex; align-items: center; justify-content: center;
-  }
+  .checkbox-visual { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--text-muted); transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1); display: flex; align-items: center; justify-content: center; }
   .checkbox-visual svg { width: 10px; height: 10px; opacity: 0; transform: scale(0.5); transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1); color: white; }
   .checkbox-wrap input:checked + .checkbox-visual { background: var(--accent); border-color: var(--accent); }
   .checkbox-wrap input:checked + .checkbox-visual svg { opacity: 1; transform: scale(1); }
   .checkbox-wrap input:hover + .checkbox-visual { border-color: var(--text-secondary); }
-
   .task-content { flex: 1; min-width: 0; }
-  .task-name { font-size: 14px; font-weight: 500; line-height: 1.4; transition: all 0.3s ease; letter-spacing: -0.1px; color: #f0f0f0; }
+  .task-name { font-size: 14px; font-weight: 500; line-height: 1.4; letter-spacing: -0.1px; color: #f0f0f0; }
   .task-detail { font-size: 12px; color: #9898a0; margin-top: 2px; line-height: 1.4; }
-  .task.done .task-name { color: var(--text-muted); text-decoration: line-through; text-decoration-color: var(--text-muted); }
+  .task.done .task-name { color: var(--text-muted); text-decoration: line-through; }
   .task.done .task-detail { opacity: 0.3; }
   .task.done { opacity: 0.5; }
-
-  /* Task action buttons */
-  .task-actions {
-    display: flex; gap: 4px; opacity: 0; transition: opacity 0.15s ease;
-    flex-shrink: 0; margin-top: 2px;
-  }
-  .action-btn {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 5px;
-    color: var(--text-muted); font-size: 9px; font-weight: 600; font-family: inherit;
-    padding: 3px 7px; cursor: pointer; transition: all 0.15s ease;
-    text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap;
-  }
+  .task-actions { display: flex; gap: 4px; opacity: 0; transition: opacity 0.15s ease; flex-shrink: 0; margin-top: 2px; }
+  .action-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; color: var(--text-muted); font-size: 9px; font-weight: 600; font-family: inherit; padding: 3px 7px; cursor: pointer; transition: all 0.15s ease; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; }
   .action-btn:hover { background: var(--surface-hover); color: var(--text-secondary); border-color: var(--text-muted); }
   .action-btn.tmrw:hover { color: var(--orange); border-color: var(--orange); background: var(--orange-bg); }
   .action-btn.later:hover { color: var(--blue); border-color: var(--blue); background: var(--blue-bg); }
-
-  /* Tomorrow section */
   .tomorrow-section { display: none; }
   .tomorrow-section.has-items { display: block; }
-
-  .tag {
-    display: inline-flex; align-items: center; font-size: 10px; font-weight: 600;
-    padding: 1px 6px; border-radius: 4px; margin-left: 6px; letter-spacing: 0.3px;
-    vertical-align: middle; position: relative; top: -1px;
-  }
+  .tag { display: inline-flex; align-items: center; font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 4px; margin-left: 6px; letter-spacing: 0.3px; vertical-align: middle; position: relative; top: -1px; }
   .tag-call { background: var(--orange-bg); color: var(--orange); }
   .tag-text { background: var(--green-bg); color: var(--green); }
   .tag-pay { background: var(--red-bg); color: var(--red); }
   .tag-draft { background: var(--blue-bg); color: var(--blue); }
   .tag-create { background: var(--purple-bg); color: var(--purple); }
   .tag-housing { background: var(--yellow-bg); color: var(--yellow); }
-
   .priority-now { background: var(--red); }
   .priority-next { background: var(--orange); }
   .priority-later { background: var(--blue); }
   .priority-low { background: var(--text-muted); }
   .priority-tmrw { background: var(--yellow); }
-
   .notes-section { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border); }
   .notes-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); margin-bottom: 8px; }
-  .notes-area {
-    width: 100%; min-height: 80px; background: var(--surface);
-    border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 12px; color: var(--text-secondary); font-family: inherit;
-    font-size: 13px; line-height: 1.5; resize: vertical; outline: none; transition: border-color 0.2s;
-  }
+  .notes-area { width: 100%; min-height: 80px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; color: var(--text-secondary); font-family: inherit; font-size: 13px; line-height: 1.5; resize: vertical; outline: none; }
   .notes-area:focus { border-color: var(--accent); }
   .notes-area::placeholder { color: var(--text-muted); }
-
   .celebration { display: none; text-align: center; padding: 40px 20px; animation: fadeIn 0.5s ease; }
   .celebration.show { display: block; }
   .celebration .emoji { font-size: 48px; margin-bottom: 12px; }
-  .celebration .msg { font-size: 16px; font-weight: 600; color: var(--text); }
+  .celebration .msg { font-size: 16px; font-weight: 600; }
   .celebration .sub { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
-
   .hint { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 24px; opacity: 0.5; }
-
   @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes slideOut { from { opacity: 1; max-height: 80px; } to { opacity: 0; max-height: 0; padding: 0; margin: 0; } }
-
+  @keyframes slideOut { from { opacity: 1; max-height: 80px; } to { opacity: 0; max-height: 0; padding: 0; } }
   .task.moving { animation: slideOut 0.3s ease forwards; overflow: hidden; }
-
-  @media (max-width: 480px) {
-    .container { padding: 24px 16px 60px; }
-    .header h1 { font-size: 18px; }
-    .task { padding: 8px 4px; }
-    .task-actions { opacity: 1; }
-  }
+  @media (max-width: 480px) { .container { padding: 24px 16px 60px; } .task-actions { opacity: 1; } }
 </style>
 </head>
 <body>
-
 <div class="container">
-  <div class="header">
-    <h1>Sunday Sprint</h1>
-    <div class="date">March 1, 2026</div>
-  </div>
-
+  <div class="header"><h1 id="sprintTitle"></h1><div class="date" id="sprintDate"></div></div>
   <div class="progress-wrap">
     <div class="progress-stats">
       <span class="progress-label">Progress</span>
       <span class="progress-count"><span id="doneCount">0</span> of <span id="totalCount">0</span></span>
     </div>
-    <div class="progress-track">
-      <div class="progress-fill" id="progressBar" style="width: 0%"></div>
-    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressBar" style="width:0%"></div></div>
   </div>
-
-  <div id="celebration" class="celebration">
-    <div class="emoji">🏁</div>
-    <div class="msg">Sprint complete.</div>
-    <div class="sub">Go enjoy your Sunday.</div>
-  </div>
-
-  <!-- DO RIGHT NOW -->
-  <div class="section" id="sec-now">
-    <div class="section-header">
-      <div class="section-indicator priority-now"></div>
-      <span class="section-title">Right Now</span>
-      <span class="section-count"></span>
-    </div>
-
-    <div class="task" data-id="t1">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t1">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Text friends re: run club tonight <span class="tag tag-text">TEXT</span></div>
-        <div class="task-detail">Confirm who's coming. Do this first.</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-
-    <div class="task" data-id="t2">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t2">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Text Porsche attendees to confirm <span class="tag tag-text">TEXT</span></div>
-        <div class="task-detail">5 yes, 27 awaiting. Lock in headcount. Free event, Fri Mar 6 @ 1:45pm.</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-
-    <div class="task" data-id="t2b">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t2b">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Text landlord re: extending lease <span class="tag tag-housing">HOUSING</span></div>
-        <div class="task-detail">Ask if you can stay longer past Mar 5. Do this today.</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-
-    <div class="task" data-id="t2c">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t2c">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Start setting up rental showings <span class="tag tag-housing">HOUSING</span></div>
-        <div class="task-detail">Browse listings, schedule viewings. Sublet with Billy as summer backup.</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- HOST CALLS -->
-  <div class="section" id="sec-calls">
-    <div class="section-header">
-      <div class="section-indicator priority-next"></div>
-      <span class="section-title">Host Calls — themes + details</span>
-      <span class="section-count"></span>
-    </div>
-
-    <div class="task" data-id="t4">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t4">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Call Karan <span class="tag tag-call">CALL</span></div>
-        <div class="task-detail">Aces LA, Mar 27 — need theme</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-
-    <div class="task" data-id="t5">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t5">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Call Josh <span class="tag tag-call">CALL</span></div>
-        <div class="task-detail">Insiders LA, Mar 20 — need theme</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-
-    <div class="task" data-id="t6">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t6">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Call Jason Schumann <span class="tag tag-call">CALL</span></div>
-        <div class="task-detail">Aces NYC, Mar 17 — need theme + venue</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-
-    <div class="task" data-id="t7">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t7">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Call Christian <span class="tag tag-call">CALL</span></div>
-        <div class="task-detail">Insiders NYC, Mar 18 at Rob's — need theme</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-
-    <div class="task" data-id="t8">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t8">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Call Vishal <span class="tag tag-call">CALL</span></div>
-        <div class="task-detail">Need theme</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- CREATE -->
-  <div class="section" id="sec-create">
-    <div class="section-header">
-      <div class="section-indicator priority-later"></div>
-      <span class="section-title">Create — after calls</span>
-      <span class="section-count"></span>
-    </div>
-
-    <div class="task" data-id="t9">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t9">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Write up Helen's theme <span class="tag tag-draft">DRAFT</span></div>
-        <div class="task-detail">Condense + improve into dinner theme format. Send to Hanuman to draft.</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-
-    <div class="task" data-id="t10">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t10">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Write up other host themes <span class="tag tag-draft">DRAFT</span></div>
-        <div class="task-detail">Same for each host. Send to Hanuman after calls.</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-
-    <div class="task" data-id="t11">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t11">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Create Luma event pages <span class="tag tag-create">CREATE</span></div>
-        <div class="task-detail">One per event. Hanuman will draft descriptions.</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-
-    <div class="task" data-id="t12">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t12">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Draft Canva graphics <span class="tag tag-create">CREATE</span></div>
-        <div class="task-detail">Announcement graphics for each March event.</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-
-    <div class="task" data-id="t13">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t13">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Draft announcement emails <span class="tag tag-draft">DRAFT</span></div>
-        <div class="task-detail">Hanuman will write once events are finalized.</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-
-    <div class="task" data-id="t14">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t14">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Draft WhatsApp announcements <span class="tag tag-draft">DRAFT</span></div>
-        <div class="task-detail">One per group chat. Hanuman drafts.</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ADMIN -->
-  <div class="section" id="sec-admin">
-    <div class="section-header">
-      <div class="section-indicator priority-low"></div>
-      <span class="section-title">Admin</span>
-      <span class="section-count"></span>
-    </div>
-
-    <div class="task" data-id="t15">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t15">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Add March events to Airtable <span class="tag tag-create">CREATE</span></div>
-        <div class="task-detail">Hanuman can do this via API once details are confirmed.</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-
-    <div class="task" data-id="t16">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t16">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Deals chat: weekly activity + strikes <span class="tag tag-text">TEXT</span></div>
-        <div class="task-detail">Sunday task.</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-
-    <div class="task" data-id="t16b">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t16b">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Prep Monday group chat prompts <span class="tag tag-draft">DRAFT</span></div>
-        <div class="task-detail">Get tomorrow's prompts ready for Aces + Insiders chats.</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-
-    <div class="task" data-id="t17">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t17">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Send daily group chat spark <span class="tag tag-text">TEXT</span></div>
-        <div class="task-detail">Sunday prompt.</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- WHEN YOU HAVE TIME -->
-  <div class="section" id="sec-later">
-    <div class="section-header">
-      <div class="section-indicator priority-low"></div>
-      <span class="section-title">When you have time</span>
-      <span class="section-count"></span>
-    </div>
-
-    <div class="task" data-id="t18">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t18">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Edit yearly trip invite deck <span class="tag tag-draft">DRAFT</span></div>
-        <div class="task-detail">Due Tue Mar 3. Not urgent today.</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-
-    <div class="task" data-id="t19">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t19">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Send 10 welcome emails <span class="tag tag-draft">DRAFT</span></div>
-        <div class="task-detail">Drafts ready. 15 min of your time.</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-
-    <div class="task" data-id="t20">
-      <div class="checkbox-wrap">
-        <input type="checkbox" id="t20">
-        <div class="checkbox-visual"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg></div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">Pay invoices + check billing email <span class="tag tag-pay">PAY</span></div>
-        <div class="task-detail">From overdue list.</div>
-      </div>
-      <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow(this)">tmrw</button>
-        <button class="action-btn later" onclick="moveToEnd(this)">later</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- TOMORROW -->
+  <div id="celebration" class="celebration"><div class="emoji">🏁</div><div class="msg">Sprint complete.</div><div class="sub">Go enjoy your day.</div></div>
+  <div id="sections"></div>
   <div class="section tomorrow-section" id="sec-tomorrow">
-    <div class="section-header">
-      <div class="section-indicator priority-tmrw"></div>
-      <span class="section-title">Tomorrow</span>
-      <span class="section-count"></span>
-    </div>
+    <div class="section-header"><div class="section-indicator priority-tmrw"></div><span class="section-title">Tomorrow</span><span class="section-count"></span></div>
     <div id="tomorrow-tasks"></div>
   </div>
-
-  <div class="notes-section">
-    <div class="notes-label">Notes</div>
-    <textarea class="notes-area" id="notes" placeholder="Paste themes, attendee counts, anything..."></textarea>
-  </div>
-
-  <div class="hint">Hover tasks for ⟶ tmrw / later buttons. Checks saved to Supabase + local backup.</div>
+  <div class="notes-section"><div class="notes-label">Notes</div><textarea class="notes-area" id="notes" placeholder="Paste themes, attendee counts, anything..."></textarea></div>
+  <div class="hint">Hover tasks for tmrw / later buttons. Checks saved locally + Supabase.</div>
 </div>
 
 <script>
-  // Supabase configuration
-  const SUPABASE_URL = 'https://cfnuhjfceceojfykznnm.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbnVoamZjZWNlb2pmeWt6bm5tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0MDUyNjYsImV4cCI6MjA4Nzk4MTI2Nn0.knZfJwibeGHrbI8xQZ7zeV-Fo7T3_RoAmBdx_HwgpEc';
-  let sb = null;
+// ============================================================
+// SPRINT CONFIG — Change this to create a new sprint
+// ============================================================
+const SPRINT = {
+  title: 'Sunday Sprint',
+  date: 'March 1, 2026',
+  key: 'sprint-2026-03-01',
+  sections: [
+    { id: 'now', title: 'Right Now', priority: 'now', tasks: [
+      { id: 't1', name: 'Text friends re: run club tonight', detail: "Confirm who's coming. Do this first.", tag: 'TEXT', tagClass: 'tag-text' },
+      { id: 't2', name: 'Text Porsche attendees to confirm', detail: '5 yes, 27 awaiting. Lock in headcount. Free event, Fri Mar 6 @ 1:45pm.', tag: 'TEXT', tagClass: 'tag-text' },
+      { id: 't2b', name: 'Text landlord re: extending lease', detail: 'Ask if you can stay longer past Mar 5. Do this today.', tag: 'HOUSING', tagClass: 'tag-housing' },
+      { id: 't2c', name: 'Start setting up rental showings', detail: 'Browse listings, schedule viewings. Sublet with Billy as summer backup.', tag: 'HOUSING', tagClass: 'tag-housing' },
+    ]},
+    { id: 'calls', title: 'Host Calls — themes + details', priority: 'next', tasks: [
+      { id: 't4', name: 'Call Karan', detail: 'Aces LA, Mar 27 — need theme', tag: 'CALL', tagClass: 'tag-call' },
+      { id: 't5', name: 'Call Josh', detail: 'Insiders LA, Mar 20 — need theme', tag: 'CALL', tagClass: 'tag-call' },
+      { id: 't6', name: 'Call Jason Schumann', detail: 'Aces NYC, Mar 17 — need theme + venue', tag: 'CALL', tagClass: 'tag-call' },
+      { id: 't7', name: 'Call Christian', detail: "Insiders NYC, Mar 18 at Rob's — need theme", tag: 'CALL', tagClass: 'tag-call' },
+      { id: 't8', name: 'Call Vishal', detail: 'Need theme', tag: 'CALL', tagClass: 'tag-call' },
+    ]},
+    { id: 'create', title: 'Create — after calls', priority: 'later', tasks: [
+      { id: 't9', name: "Write up Helen's theme", detail: 'Condense + improve into dinner theme format. Send to Hanuman to draft.', tag: 'DRAFT', tagClass: 'tag-draft' },
+      { id: 't10', name: 'Write up other host themes', detail: 'Same for each host. Send to Hanuman after calls.', tag: 'DRAFT', tagClass: 'tag-draft' },
+      { id: 't11', name: 'Create Luma event pages', detail: 'One per event. Hanuman will draft descriptions.', tag: 'CREATE', tagClass: 'tag-create' },
+      { id: 't12', name: 'Draft Canva graphics', detail: 'Announcement graphics for each March event.', tag: 'CREATE', tagClass: 'tag-create' },
+      { id: 't13', name: 'Draft announcement emails', detail: 'Hanuman will write once events are finalized.', tag: 'DRAFT', tagClass: 'tag-draft' },
+      { id: 't14', name: 'Draft WhatsApp announcements', detail: 'One per group chat. Hanuman drafts.', tag: 'DRAFT', tagClass: 'tag-draft' },
+    ]},
+    { id: 'admin', title: 'Admin', priority: 'low', tasks: [
+      { id: 't15', name: 'Add March events to Airtable', detail: 'Hanuman can do this via API once details are confirmed.', tag: 'CREATE', tagClass: 'tag-create' },
+      { id: 't16', name: 'Deals chat: weekly activity + strikes', detail: 'Sunday task.', tag: 'TEXT', tagClass: 'tag-text' },
+      { id: 't16b', name: 'Prep Monday group chat prompts', detail: 'Get tomorrow\'s prompts ready for Aces + Insiders chats.', tag: 'DRAFT', tagClass: 'tag-draft' },
+      { id: 't17', name: 'Send daily group chat spark', detail: 'Sunday prompt.', tag: 'TEXT', tagClass: 'tag-text' },
+    ]},
+    { id: 'later', title: 'When you have time', priority: 'low', tasks: [
+      { id: 't18', name: 'Edit yearly trip invite deck', detail: 'Due Tue Mar 3. Not urgent today.', tag: 'DRAFT', tagClass: 'tag-draft' },
+      { id: 't19', name: 'Send 10 welcome emails', detail: 'Drafts ready. 15 min of your time.', tag: 'DRAFT', tagClass: 'tag-draft' },
+      { id: 't20', name: 'Pay invoices + check billing email', detail: 'From overdue list.', tag: 'PAY', tagClass: 'tag-pay' },
+    ]},
+  ]
+};
+
+// ============================================================
+// SUPABASE (optional background sync)
+// ============================================================
+const SB_URL = 'https://cfnuhjfceceojfykznnm.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbnVoamZjZWNlb2pmeWt6bm5tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0MDUyNjYsImV4cCI6MjA4Nzk4MTI2Nn0.knZfJwibeGHrbI8xQZ7zeV-Fo7T3_RoAmBdx_HwgpEc';
+let sb = null;
+try { if (window.supabase) sb = window.supabase.createClient(SB_URL, SB_KEY); } catch(e) {}
+
+// ============================================================
+// STATE
+// ============================================================
+const STORAGE = SPRINT.key;
+const NOTES_STORAGE = SPRINT.key + '-notes';
+const TOMORROW_STORAGE = SPRINT.key + '-tomorrow';
+let state = JSON.parse(localStorage.getItem(STORAGE) || '{}');
+let tomorrowItems = JSON.parse(localStorage.getItem(TOMORROW_STORAGE) || '[]');
+
+// ============================================================
+// RENDER
+// ============================================================
+document.getElementById('sprintTitle').textContent = SPRINT.title;
+document.getElementById('sprintDate').textContent = SPRINT.date;
+
+const sectionsEl = document.getElementById('sections');
+const checkSvg = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg>';
+
+SPRINT.sections.forEach(sec => {
+  const secEl = document.createElement('div');
+  secEl.className = 'section';
+  secEl.id = 'sec-' + sec.id;
+  secEl.innerHTML = `<div class="section-header"><div class="section-indicator priority-${sec.priority}"></div><span class="section-title">${sec.title}</span><span class="section-count"></span></div>`;
+  
+  sec.tasks.forEach(task => {
+    if (tomorrowItems.find(t => t.id === task.id)) return; // skip tomorrow tasks
+    const isDone = !!state[task.id];
+    const div = document.createElement('div');
+    div.className = 'task' + (isDone ? ' done' : '');
+    div.dataset.id = task.id;
+    div.innerHTML = `
+      <div class="checkbox-wrap">
+        <input type="checkbox" ${isDone ? 'checked' : ''}>
+        <div class="checkbox-visual">${checkSvg}</div>
+      </div>
+      <div class="task-content">
+        <div class="task-name">${task.name} <span class="tag ${task.tagClass}">${task.tag}</span></div>
+        <div class="task-detail">${task.detail}</div>
+      </div>
+      <div class="task-actions">
+        <button class="action-btn tmrw" onclick="moveToTomorrow('${task.id}')">tmrw</button>
+        <button class="action-btn later" onclick="moveToEnd('${task.id}')">later</button>
+      </div>`;
+    secEl.appendChild(div);
+  });
+  
+  sectionsEl.appendChild(secEl);
+});
+
+// Notes
+const notesEl = document.getElementById('notes');
+notesEl.value = localStorage.getItem(NOTES_STORAGE) || '';
+notesEl.addEventListener('input', () => localStorage.setItem(NOTES_STORAGE, notesEl.value));
+
+// Render tomorrow
+renderTomorrow();
+updateProgress();
+
+// ============================================================
+// CHECKBOX HANDLER
+// ============================================================
+document.addEventListener('change', e => {
+  if (e.target.type !== 'checkbox') return;
+  const task = e.target.closest('.task');
+  if (!task) return;
+  const id = task.dataset.id;
+  const done = e.target.checked;
+  
+  task.classList.toggle('done', done);
+  
+  if (done) state[id] = true;
+  else delete state[id];
+  
+  localStorage.setItem(STORAGE, JSON.stringify(state));
+  updateProgress();
+  syncToSupabase(id, done);
+});
+
+// ============================================================
+// MOVE TO TOMORROW
+// ============================================================
+function moveToTomorrow(id) {
+  const task = document.querySelector(`.task[data-id="${id}"]`);
+  if (!task) return;
+  const nameEl = task.querySelector('.task-name');
+  const detailEl = task.querySelector('.task-detail');
+  
+  task.classList.add('moving');
+  setTimeout(() => {
+    task.remove();
+    tomorrowItems.push({ id, name: nameEl.innerHTML, detail: detailEl.textContent });
+    localStorage.setItem(TOMORROW_STORAGE, JSON.stringify(tomorrowItems));
+    renderTomorrow();
+    updateProgress();
+  }, 300);
+}
+
+function moveToEnd(id) {
+  const task = document.querySelector(`.task[data-id="${id}"]`);
+  if (!task) return;
+  const laterSec = document.getElementById('sec-later');
+  if (!laterSec) return;
+  task.classList.add('moving');
+  setTimeout(() => { task.classList.remove('moving'); laterSec.appendChild(task); updateProgress(); }, 300);
+}
+
+function undoTomorrow(id) {
+  tomorrowItems = tomorrowItems.filter(t => t.id !== id);
+  localStorage.setItem(TOMORROW_STORAGE, JSON.stringify(tomorrowItems));
+  // Re-render entire page to restore task
+  location.reload();
+}
+
+function renderTomorrow() {
+  const container = document.getElementById('tomorrow-tasks');
+  const section = document.getElementById('sec-tomorrow');
+  container.innerHTML = '';
+  tomorrowItems.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'task';
+    div.style.opacity = '0.5';
+    div.innerHTML = `<div class="task-content"><div class="task-name" style="font-size:13px">${item.name}</div><div class="task-detail">${item.detail}</div></div><div class="task-actions" style="opacity:1"><button class="action-btn" onclick="undoTomorrow('${item.id}')" style="color:var(--accent)">undo</button></div>`;
+    container.appendChild(div);
+  });
+  section.classList.toggle('has-items', tomorrowItems.length > 0);
+}
+
+// ============================================================
+// PROGRESS
+// ============================================================
+function updateProgress() {
+  const tasks = document.querySelectorAll('.task[data-id]');
+  let total = 0, done = 0;
+  tasks.forEach(t => { total++; if (t.querySelector('input:checked')) done++; });
+  
+  document.getElementById('totalCount').textContent = total;
+  document.getElementById('doneCount').textContent = done;
+  document.getElementById('progressBar').style.width = total ? (done / total * 100) + '%' : '0%';
+  document.getElementById('celebration').classList.toggle('show', done === total && total > 0);
+  
+  // Section counts
+  document.querySelectorAll('.section[id^="sec-"]').forEach(sec => {
+    const sTasks = sec.querySelectorAll('.task[data-id]');
+    let sT = 0, sD = 0;
+    sTasks.forEach(t => { sT++; if (t.querySelector('input:checked')) sD++; });
+    const countEl = sec.querySelector('.section-count');
+    if (countEl) countEl.textContent = sT > 0 ? sD + '/' + sT : '';
+  });
+}
+
+// ============================================================
+// SUPABASE SYNC (background, never blocks UI)
+// ============================================================
+async function syncToSupabase(taskId, done) {
+  if (!sb) return;
   try {
-    const mod = window.supabase || window.Supabase;
-    if (mod && mod.createClient) {
-      sb = mod.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    }
-  } catch(e) { console.error('Supabase init failed:', e); }
-  const supabase = sb;
+    await sb.from('tasks').upsert({ task_id: taskId, done, updated_at: new Date().toISOString() }, { onConflict: 'task_id' });
+  } catch(e) { /* silent */ }
+}
 
-  // Local storage keys (fallback)
-  const STORAGE_KEY = 'sprint-2026-03-01';
-  const NOTES_KEY = 'sprint-notes-2026-03-01';
-  const TOMORROW_KEY = 'sprint-tomorrow-2026-03-01';
-
-  const bar = document.getElementById('progressBar');
-  const celebration = document.getElementById('celebration');
-  const notes = document.getElementById('notes');
-  const tomorrowContainer = document.getElementById('tomorrow-tasks');
-  const tomorrowSection = document.getElementById('sec-tomorrow');
-
-  let tomorrowItems = [];
-
-  // Initialize app
-  async function init() {
-    try {
-      await loadFromSupabase();
-    } catch (e) {
-      console.error('Supabase init failed, using localStorage:', e);
-    }
-    loadFromLocalStorage();
-    renderTomorrow();
-    updateAll();
-  }
-
-  // Load tasks from Supabase
-  async function loadFromSupabase() {
-    if (!supabase) return;
-    try {
-      const { data, error } = await supabase
-        .from('tasks')
-        .select('*');
-      
-      if (error) {
-        console.error('Supabase load error:', error);
-        return;
-      }
-
-      if (data) {
-        data.forEach(task => {
-          const taskEl = document.querySelector(`.task[data-id="${task.task_id}"]`);
-          if (taskEl) {
-            const cb = taskEl.querySelector('input[type="checkbox"]');
-            if (task.done) {
-              cb.checked = true;
-              taskEl.classList.add('done');
-            }
-          }
-
-          // Handle tomorrow items
-          if (task.moved_to === 'tomorrow') {
-            const name = taskEl ? taskEl.querySelector('.task-name').innerHTML : task.name;
-            const detail = task.detail || '';
-            tomorrowItems.push({ id: task.task_id, name, detail });
-            if (taskEl) taskEl.style.display = 'none';
-          }
+// Load state from Supabase on startup (merge with localStorage)
+(async () => {
+  if (!sb) return;
+  try {
+    const { data } = await sb.from('tasks').select('task_id, done').eq('done', true);
+    if (data) {
+      let changed = false;
+      data.forEach(row => {
+        if (!state[row.task_id]) { state[row.task_id] = true; changed = true; }
+      });
+      if (changed) {
+        localStorage.setItem(STORAGE, JSON.stringify(state));
+        // Update UI for any tasks marked done in Supabase but not locally
+        document.querySelectorAll('.task[data-id]').forEach(t => {
+          const id = t.dataset.id;
+          if (state[id]) { t.classList.add('done'); t.querySelector('input').checked = true; }
         });
+        updateProgress();
       }
-    } catch (err) {
-      console.error('Supabase connection error:', err);
     }
-  }
-
-  // Fallback: Load from localStorage
-  function loadFromLocalStorage() {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-    const tomorrow = JSON.parse(localStorage.getItem(TOMORROW_KEY) || '[]');
-
-    // Apply localStorage state only if not already set from Supabase
-    document.querySelectorAll('.task[data-id]').forEach(task => {
-      const id = task.dataset.id;
-      const cb = task.querySelector('input[type="checkbox"]');
-      if (saved[id] && !cb.checked) {
-        cb.checked = true;
-        task.classList.add('done');
-      }
-    });
-
-    // Merge tomorrow items (avoid duplicates)
-    tomorrow.forEach(item => {
-      if (!tomorrowItems.find(t => t.id === item.id)) {
-        tomorrowItems.push(item);
-        const taskEl = document.querySelector(`.task[data-id="${item.id}"]`);
-        if (taskEl) taskEl.style.display = 'none';
-      }
-    });
-
-    notes.value = localStorage.getItem(NOTES_KEY) || '';
-  }
-
-  // Save task to Supabase
-  async function saveTask(taskId, updates) {
-    if (!supabase) { saveToLocalStorage(); return; }
-    try {
-      const { error } = await supabase
-        .from('tasks')
-        .upsert({
-          task_id: taskId,
-          ...updates,
-          updated_at: new Date().toISOString()
-        });
-
-      if (error) console.error('Supabase save error:', error);
-    } catch (err) {
-      console.error('Supabase connection error:', err);
-    }
-
-    // Always save to localStorage as fallback
-    saveToLocalStorage();
-  }
-
-  // Save state to localStorage (fallback)
-  function saveToLocalStorage() {
-    const state = {};
-    document.querySelectorAll('.task[data-id] input[type="checkbox"]').forEach(cb => {
-      if (cb.checked) state[cb.closest('.task').dataset.id] = true;
-    });
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    localStorage.setItem(TOMORROW_KEY, JSON.stringify(tomorrowItems));
-  }
-
-  // Checkbox change handler
-  document.addEventListener('change', e => {
-    if (e.target.type === 'checkbox') {
-      const task = e.target.closest('.task');
-      const taskId = task.dataset.id;
-      const taskName = task.querySelector('.task-name').textContent.trim();
-      const taskDetail = task.querySelector('.task-detail')?.textContent || '';
-      const taskSection = task.closest('.section').id.replace('sec-', '');
-      const isDone = e.target.checked;
-      
-      task.classList.toggle('done', isDone);
-      
-      // Save to Supabase
-      saveTask(taskId, {
-        name: taskName,
-        detail: taskDetail,
-        section: taskSection,
-        done: isDone
-      });
-      
-      updateAll();
-    }
-  });
-
-  // Notes autosave
-  notes.addEventListener('input', () => {
-    localStorage.setItem(NOTES_KEY, notes.value);
-  });
-
-  // Move to tomorrow
-  function moveToTomorrow(btn) {
-    const task = btn.closest('.task');
-    const id = task.dataset.id;
-    const name = task.querySelector('.task-name').innerHTML;
-    const detail = task.querySelector('.task-detail').textContent;
-    const taskSection = task.closest('.section').id.replace('sec-', '');
-    const taskName = task.querySelector('.task-name').textContent.trim();
-
-    task.classList.add('moving');
-    setTimeout(() => {
-      task.style.display = 'none';
-      tomorrowItems.push({ id, name, detail });
-      
-      // Save to Supabase
-      saveTask(id, {
-        name: taskName,
-        detail: detail,
-        section: taskSection,
-        moved_to: 'tomorrow'
-      });
-      
-      renderTomorrow();
-      updateAll();
-    }, 300);
-  }
-
-  // Move to end (later section)
-  function moveToEnd(btn) {
-    const task = btn.closest('.task');
-    const laterSection = document.querySelector('#sec-later');
-    task.classList.add('moving');
-    setTimeout(() => {
-      task.classList.remove('moving');
-      laterSection.appendChild(task);
-      updateAll();
-    }, 300);
-  }
-
-  // Undo tomorrow
-  function undoTomorrow(id) {
-    const idx = tomorrowItems.findIndex(t => t.id === id);
-    if (idx > -1) tomorrowItems.splice(idx, 1);
-    
-    const task = document.querySelector(`.task[data-id="${id}"]`);
-    if (task) {
-      task.style.display = '';
-      const taskSection = task.closest('.section').id.replace('sec-', '');
-      const taskName = task.querySelector('.task-name').textContent.trim();
-      const taskDetail = task.querySelector('.task-detail')?.textContent || '';
-      
-      // Update Supabase
-      saveTask(id, {
-        name: taskName,
-        detail: taskDetail,
-        section: taskSection,
-        moved_to: null
-      });
-    }
-    
-    renderTomorrow();
-    updateAll();
-  }
-
-  // Render tomorrow section
-  function renderTomorrow() {
-    tomorrowContainer.innerHTML = '';
-    tomorrowItems.forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'task';
-      div.style.opacity = '0.5';
-      div.innerHTML = `
-        <div class="task-content">
-          <div class="task-name" style="font-size:13px">${item.name}</div>
-          <div class="task-detail">${item.detail}</div>
-        </div>
-        <div class="task-actions" style="opacity:1">
-          <button class="action-btn" onclick="undoTomorrow('${item.id}')" style="color:var(--accent)">undo</button>
-        </div>
-      `;
-      tomorrowContainer.appendChild(div);
-    });
-    tomorrowSection.classList.toggle('has-items', tomorrowItems.length > 0);
-  }
-
-  // Update progress and counts
-  function updateAll() {
-    // Count only visible, non-tomorrow tasks
-    const visibleTasks = document.querySelectorAll('.task[data-id]');
-    let total = 0, done = 0;
-    visibleTasks.forEach(t => {
-      if (t.style.display === 'none') return;
-      total++;
-      if (t.querySelector('input:checked')) done++;
-    });
-
-    document.getElementById('totalCount').textContent = total;
-    document.getElementById('doneCount').textContent = done;
-    bar.style.width = total ? (done / total * 100) + '%' : '0%';
-    celebration.classList.toggle('show', done === total && total > 0);
-
-    // Section counts
-    document.querySelectorAll('.section').forEach(sec => {
-      const tasks = sec.querySelectorAll('.task[data-id]');
-      let sTotal = 0, sDone = 0;
-      tasks.forEach(t => {
-        if (t.style.display === 'none') return;
-        sTotal++;
-        if (t.querySelector('input:checked')) sDone++;
-      });
-      const countEl = sec.querySelector('.section-count');
-      if (countEl && sTotal > 0) countEl.textContent = sDone + '/' + sTotal;
-      else if (countEl) countEl.textContent = '';
-    });
-  }
-
-  // Start the app
-  init();
+  } catch(e) { /* silent */ }
+})();
 </script>
 </body>
 </html>
