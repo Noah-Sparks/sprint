@@ -133,48 +133,22 @@
 // SPRINT CONFIG — Change this to create a new sprint
 // ============================================================
 const SPRINT = {
-  title: 'Tuesday Sprint',
+  title: 'Yearly Trip Doc',
   date: 'March 3, 2026',
-  key: 'sprint-2026-03-03',
+  key: 'sprint-2026-03-03-yearly',
   sections: [
-    { id: 'batch1', title: 'Batch 1 — Send Forwardables to Hosts', priority: 'now', batch: 1, tasks: [
-      { id: 't1', name: 'Send forwardable to Helen Min', detail: 'Aces SF Mar 12. Paste SF email list. Draft ready in march-forwardables-final.md', tag: 'SEND', tagClass: 'tag-text' },
-      { id: 't2', name: 'Send forwardable to Jason Shuman', detail: 'Aces NY Mar 17. Paste NY email list.', tag: 'SEND', tagClass: 'tag-text' },
-      { id: 't3', name: 'Send forwardable to Karan Wadhera', detail: 'Aces LA Mar 27. Paste LA email list.', tag: 'SEND', tagClass: 'tag-text' },
-      { id: 't4', name: 'Send forwardable to Vishal Tripathi', detail: 'Insiders SF Mar 11. Paste SF email list.', tag: 'SEND', tagClass: 'tag-text' },
-      { id: 't5', name: 'Send forwardable to Christian Reusche', detail: 'Insiders NY Mar 18. Paste NY email list.', tag: 'SEND', tagClass: 'tag-text' },
-      { id: 't6', name: 'Send forwardable to Josh Lumer', detail: 'Insiders LA Mar 20. Paste LA email list.', tag: 'SEND', tagClass: 'tag-text' },
-      { id: 't6b', name: 'Ask Max which Airbnb to use in SF', detail: 'For Insiders SF (Vishal, Mar 11) + Aces SF (Helen, Mar 12). Need venue locked.', tag: 'CALL', tagClass: 'tag-call' },
+    { id: 'batch1', title: 'Update the Doc', priority: 'now', batch: 1, tasks: [
+      { id: 't1', name: 'Add Shahin\'s name', detail: '', tag: 'EDIT', tagClass: 'tag-draft' },
+      { id: 't2', name: 'Shorten Ryan\'s bio', detail: '', tag: 'EDIT', tagClass: 'tag-draft' },
+      { id: 't3', name: 'Make all photos bigger', detail: '', tag: 'EDIT', tagClass: 'tag-draft' },
+      { id: 't4', name: 'Add custom background for Eurie', detail: 'Special background.', tag: 'EDIT', tagClass: 'tag-draft' },
+      { id: 't5', name: 'Add custom backgrounds for all 8 managing partners', detail: 'Edward, Karan, Rachel Schau (partner), + 5 others.', tag: 'EDIT', tagClass: 'tag-draft' },
     ]},
-    { id: 'batch2', title: 'Batch 2 — Yearly Trip', priority: 'later', batch: 2, tasks: [
-      { id: 't10', name: 'Finalize yearly trip attendees doc', detail: 'Add Shahin, shorten Ryan bio, bigger photos, custom backgrounds for 8 managing partners + Eurie. Due today.', tag: 'DRAFT', tagClass: 'tag-draft' },
-      { id: 't11', name: 'Create calendar invite for yearly trip', detail: 'May 27-29, Sage Lodge, Bozeman MT. Attach the attendees doc to the invite so everyone gets it in one shot.', tag: 'CREATE', tagClass: 'tag-create' },
-      { id: 't11b', name: 'Send yearly trip doc to attendees', detail: 'If calendar attachment doesn\'t work, send separately. ~40 people.', tag: 'SEND', tagClass: 'tag-text' },
-    ]},
-    { id: 'batch3', title: 'Batch 3 — Book Vendors', priority: 'later', batch: 3, tasks: [
-      { id: 't12', name: 'Book chef for Insiders SF (Vishal, Mar 11)', detail: '8 days away. Earliest event.', tag: 'CALL', tagClass: 'tag-call' },
-      { id: 't13', name: 'Book chef for Aces SF (Helen, Mar 12)', detail: '9 days away.', tag: 'CALL', tagClass: 'tag-call' },
-      { id: 't14', name: 'Book photographers for SF events', detail: 'Mar 11 + Mar 12.', tag: 'CALL', tagClass: 'tag-call' },
-      { id: 't15', name: 'Start vendor outreach for NY events', detail: 'Jason Mar 17, Christian Mar 18.', tag: 'CALL', tagClass: 'tag-call' },
-      { id: 't16', name: 'Start vendor outreach for LA events', detail: 'Josh Mar 20 (lunch), Karan Mar 27.', tag: 'CALL', tagClass: 'tag-call' },
-    ]},
-    { id: 'batch4', title: 'Batch 4 — Group Chat + Community', priority: 'low', batch: 4, tasks: [
-      { id: 't17', name: 'Seed group chat questions', detail: 'Pick members, send questions, prep for posting.', tag: 'TEXT', tagClass: 'tag-text' },
-      { id: 't18', name: 'Deals chat strikes', detail: 'Overdue from Sunday Mar 1. Kick inactive members.', tag: 'TEXT', tagClass: 'tag-text' },
-      { id: 't18b', name: 'Deals chat midweek reminder', detail: 'Due Wed. Prep now.', tag: 'TEXT', tagClass: 'tag-text' },
-    ]},
-    { id: 'batch5', title: 'Batch 5 — Finance + Admin', priority: 'low', batch: 5, tasks: [
-      { id: 't19', name: 'Catch up on receipts', detail: 'Check Asana for who needs receipts sent.', tag: 'PAY', tagClass: 'tag-pay' },
-      { id: 't20', name: 'Pay invoices + Porsche deposit', detail: 'Porsche Mar 6, 3 days away. Overdue from last week.', tag: 'PAY', tagClass: 'tag-pay' },
-      { id: 't21', name: 'Finance email + billing Notion check', detail: 'Daily task.', tag: 'PAY', tagClass: 'tag-pay' },
-      { id: 't21b', name: 'Review Insiders Luma pages with Max', detail: 'Go through all 3 Insiders pages together before hosts send.', tag: 'CALL', tagClass: 'tag-call' },
-    ]},
-    { id: 'batch6', title: 'Batch 6 — Planning', priority: 'low', batch: 6, tasks: [
-      { id: 't22', name: 'Book flights', detail: 'Check upcoming travel needs.', tag: 'CREATE', tagClass: 'tag-create' },
-      { id: 't23', name: 'Start planning April events', detail: 'Identify hosts, lock cities.', tag: 'DRAFT', tagClass: 'tag-draft' },
-      { id: 't24', name: 'Document new event announcement system', detail: 'Forwardables from hosts -> Luma invites by city -> WhatsApp all 3. Write it down.', tag: 'DRAFT', tagClass: 'tag-draft' },
-      { id: 't25', name: 'Find yearly trip gift', detail: 'Due Wed Mar 5.', tag: 'DRAFT', tagClass: 'tag-draft' },
-      { id: 't26', name: 'Storyteller doc redo', detail: 'Due Thu.', tag: 'DRAFT', tagClass: 'tag-draft' },
+    { id: 'batch2', title: 'Send It Out', priority: 'next', batch: 2, tasks: [
+      { id: 't6', name: 'Create calendar invite', detail: 'May 27-29, Sage Lodge, Bozeman MT. 4pm-12pm hold. Attach the doc.', tag: 'CREATE', tagClass: 'tag-create' },
+      { id: 't7', name: 'Send to ~40 attendees', detail: 'If calendar attachment doesn\'t work, send separately.', tag: 'SEND', tagClass: 'tag-text' },
+      { id: 't8', name: 'Book 2 sponsor rooms at Sage Lodge', detail: '', tag: 'CALL', tagClass: 'tag-call' },
+      { id: 't9', name: 'Order gifts for guests', detail: '', tag: 'CREATE', tagClass: 'tag-create' },
     ]},
   ]
 };
