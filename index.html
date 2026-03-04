@@ -173,23 +173,56 @@ const SPRINT = {
     { id: 'batch1', title: 'Morning Must-Dos', priority: 'now', batch: 1, tasks: [
       { id: 'custom-morning-e', name: 'Catch up on emails', detail: '', tag: '', tagClass: '', source: 'manual' },
       { id: 'custom-morning-gc', name: 'Catch up on group chat', detail: '', tag: '', tagClass: '', source: 'manual' },
-      { id: 'custom-morning-1', name: 'Confirm Porsche Experience (Mar 6)', detail: 'Call to book driving experience', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
-      { id: 'custom-morning-0', name: 'Remove plus-one option on Aces SF Luma page', detail: 'Do this NOW before more RSVPs come in', tag: 'URGENT', tagClass: 'tag-urgent', source: 'manual' },
-      { id: 'custom-morning-2', name: 'Book vendors for March events', detail: 'Chefs + photographers for all March dinners. First event Mar 11 (Insiders SF)', tag: 'URGENT', tagClass: 'tag-urgent', source: 'asana' },
-      { id: 'custom-morning-3', name: 'Group chat stuff — seed members + draft questions', detail: 'Deals chat reminder moved to afternoon', tag: 'DRAFT', tagClass: 'tag-draft', source: 'asana' }
+      { id: 'custom-morning-1', name: 'Confirm Porsche Experience (Mar 6)', detail: 'Call to book — event is Friday', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
+      { id: 'custom-morning-0', name: 'Remove plus-one option on Aces SF Luma page', detail: '', tag: 'URGENT', tagClass: 'tag-urgent', source: 'manual' }
     ]},
-    { id: 'batch2', title: 'People & Comms', priority: 'next', batch: 2, tasks: [
+    { id: 'batch2', title: '🔴 Aces SF — Mar 12 (8 days) — Helen Min', priority: 'now', batch: 2, tasks: [
+      { id: 'at-sf-aces-chef', name: 'Book chef for Aces SF dinner', detail: 'Helen\'s home, 30 Lopez Ave SF. Capacity 8-12. Need chef ASAP.', tag: 'BOOK', tagClass: 'tag-urgent', source: 'airtable' },
+      { id: 'at-sf-aces-photo', name: 'Book photographer for Aces SF', detail: 'Send storyteller guide once booked', tag: 'BOOK', tagClass: 'tag-urgent', source: 'airtable' },
+      { id: 'at-sf-aces-helper', name: 'Book helper/producer for Aces SF', detail: 'Hannah? She was gold standard at Feb 19 dinner', tag: 'BOOK', tagClass: 'tag-urgent', source: 'airtable' },
+      { id: 'at-sf-aces-theme', name: 'Decide theme with Helen', detail: 'Each host picks their own theme', tag: 'DECIDE', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-sf-aces-canva', name: 'Create Canva invite for Aces SF', detail: '2-page invite', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
+      { id: 'at-sf-aces-luma-reminders', name: 'Draft Luma automated reminders (7-day + 3-day)', detail: '', tag: 'DRAFT', tagClass: 'tag-draft', source: 'airtable' },
+      { id: 'at-sf-aces-announce', name: 'Send email + WhatsApp announcement with Luma link', detail: '', tag: 'SEND', tagClass: 'tag-email', source: 'airtable' }
+    ]},
+    { id: 'batch3', title: '🔴 Insiders SF — Mar 13 (9 days) — Vishal Tripathi', priority: 'now', batch: 3, tasks: [
+      { id: 'at-sf-ins-chef', name: 'Book chef for Insiders SF dinner', detail: 'Vishal hosting. Need chef confirmed.', tag: 'BOOK', tagClass: 'tag-urgent', source: 'airtable' },
+      { id: 'at-sf-ins-photo', name: 'Book photographer for Insiders SF', detail: 'Send storyteller guide once booked', tag: 'BOOK', tagClass: 'tag-urgent', source: 'airtable' },
+      { id: 'at-sf-ins-helper', name: 'Book helper/producer for Insiders SF', detail: '', tag: 'BOOK', tagClass: 'tag-urgent', source: 'airtable' },
+      { id: 'at-sf-ins-theme', name: 'Decide theme with Vishal', detail: '', tag: 'DECIDE', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-sf-ins-canva', name: 'Create Canva invite + Luma event for Insiders SF', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
+      { id: 'at-sf-ins-announce', name: 'Send email + WhatsApp announcement with Luma link', detail: '', tag: 'SEND', tagClass: 'tag-email', source: 'airtable' }
+    ]},
+    { id: 'batch4', title: '🟡 NY Events — Mar 17-18 — Shuman + Reusche', priority: 'next', batch: 4, tasks: [
+      { id: 'at-ny-aces-chef', name: 'Book chef for Aces NY (Mar 17)', detail: 'Host: Jason Shuman. Theme TBD.', tag: 'BOOK', tagClass: 'tag-urgent', source: 'airtable' },
+      { id: 'at-ny-aces-photo', name: 'Book photographer for Aces NY', detail: '', tag: 'BOOK', tagClass: 'tag-urgent', source: 'airtable' },
+      { id: 'at-ny-aces-helper', name: 'Book helper for Aces NY', detail: '', tag: 'BOOK', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-ny-aces-theme', name: 'Decide theme with Jason Shuman', detail: '', tag: 'DECIDE', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-ny-aces-luma', name: 'Create Canva + Luma + announce Aces NY', detail: 'Luma shell already created', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
+      { id: 'at-ny-ins-chef', name: 'Book chef for Insiders NY (Mar 18)', detail: 'Host: Christian Reusche at Rob\'s place (134 W 4th St). Theme: CIO for a Night', tag: 'BOOK', tagClass: 'tag-urgent', source: 'airtable' },
+      { id: 'at-ny-ins-photo', name: 'Book photographer for Insiders NY', detail: '', tag: 'BOOK', tagClass: 'tag-urgent', source: 'airtable' },
+      { id: 'at-ny-ins-helper', name: 'Book helper for Insiders NY', detail: '', tag: 'BOOK', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-ny-ins-luma', name: 'Create Canva + Luma + announce Insiders NY', detail: 'Luma page already created', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' }
+    ]},
+    { id: 'batch5', title: '🟡 LA Events — Mar 20 + Mar 27 — Lumer + Karan', priority: 'next', batch: 5, tasks: [
+      { id: 'at-la-ins-chef', name: 'Book chef for Insiders LA lunch (Mar 20)', detail: 'Host: Josh Lumer', tag: 'BOOK', tagClass: 'tag-urgent', source: 'airtable' },
+      { id: 'at-la-ins-photo', name: 'Book photographer for Insiders LA', detail: '', tag: 'BOOK', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-la-ins-luma', name: 'Create Canva + Luma + announce Insiders LA', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
+      { id: 'at-la-aces-chef', name: 'Book chef for Aces LA dinner (Mar 27)', detail: 'Host: Karan Wadhera. Thai food. Theme: Starting Over', tag: 'BOOK', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-la-aces-photo', name: 'Book photographer for Aces LA', detail: '', tag: 'BOOK', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-la-aces-helper', name: 'Book helper for Aces LA', detail: '', tag: 'BOOK', tagClass: 'tag-call', source: 'airtable' }
+    ]},
+    { id: 'batch6', title: 'People & Comms', priority: 'next', batch: 6, tasks: [
       { id: 'custom-comms-1', name: 'Update Rob Biedermann profile everywhere', detail: 'Airtable, Notion, Lovable dashboard, storyteller doc', tag: 'UPDATE', tagClass: 'tag-update', source: 'manual' },
       { id: 'custom-comms-2', name: 'Send post-event emails — Insiders SF + Insiders LA', detail: 'After emails to all attendees from both events', tag: 'EMAIL', tagClass: 'tag-email', source: 'manual' },
-      { id: 'custom-comms-3', name: 'Build Insiders non-member pre/post dinner system', detail: 'What to send non-members before and after events', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' }
+      { id: 'custom-comms-3', name: 'Build Insiders non-member pre/post dinner system', detail: 'What to send non-members before and after events', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' },
+      { id: 'custom-morning-3', name: 'Group chat — seed members + draft questions', detail: 'Deals chat reminder at 6pm', tag: 'DRAFT', tagClass: 'tag-draft', source: 'asana' }
     ]},
-    { id: 'batch3', title: 'Also Today', priority: 'next', batch: 3, tasks: [
+    { id: 'batch7', title: 'Also Today', priority: 'later', batch: 7, tasks: [
       { id: 'custom-afternoon-1', name: 'Prep for Max talk', detail: 'Before 1pm', tag: '', tagClass: '', source: 'manual' },
       { id: 'asana-1213143154693328', name: 'Find a yearly trip gift to give to everyone', detail: '41 attendees', tag: '', tagClass: '', source: 'asana' },
       { id: 'custom-afternoon-2', name: 'Book flights', detail: '', tag: '', tagClass: '', source: 'asana' },
-      { id: 'custom-afternoon-3', name: 'Think about Luma invite acceptance process', detail: 'How do we accept/approve folks on Luma event pages?', tag: 'THINK', tagClass: 'tag-think', source: 'manual' }
-    ]},
-    { id: 'batch4', title: 'This Week', priority: 'later', batch: 4, tasks: [
+      { id: 'custom-afternoon-3', name: 'Think about Luma invite acceptance process', detail: 'How do we accept/approve folks on Luma event pages?', tag: 'THINK', tagClass: 'tag-think', source: 'manual' },
       { id: 'asana-1213271111073500', name: 'Redo the storyteller doc in notion', detail: 'Due Mar 5', tag: '', tagClass: '', source: 'asana' },
       { id: 'asana-1213143154693336', name: 'Create photo sharing system', detail: 'Due Mar 5', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' }
     ]}
