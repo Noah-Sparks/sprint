@@ -167,22 +167,27 @@
 // ============================================================
 const SPRINT = {
   title: 'Daily Sprint',
-  date: 'March 5, 2026',
-  key: 'sprint-2026-03-05',
+  date: 'March 4, 2026',
+  key: 'sprint-2026-03-04',
   sections: [
     { id: 'batch1', title: 'Morning Must-Dos', priority: 'now', batch: 1, tasks: [
-      { id: 'custom-morning-1', name: 'Call Porsche, book driving experience (Mar 6)', detail: 'Need to finalize reservation', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
-      { id: 'custom-morning-2', name: 'Group chat sparks (seed members, draft questions)', detail: 'Prepare content for group chat engagement', tag: 'DRAFT', tagClass: 'tag-draft', source: 'manual' }
+      { id: 'custom-morning-1', name: 'Confirm Porsche Experience (Mar 6)', detail: 'Call to book driving experience', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
+      { id: 'custom-morning-2', name: 'Book vendors for March events', detail: 'Chefs + photographers for all March dinners. First event Mar 11 (Insiders SF)', tag: 'URGENT', tagClass: 'tag-urgent', source: 'asana' },
+      { id: 'custom-morning-3', name: 'Group chat stuff — deals chat + seed members', detail: 'Mid-week deals reminder + draft questions', tag: 'DRAFT', tagClass: 'tag-draft', source: 'asana' }
     ]},
-    { id: 'batch2', title: 'Today', priority: 'next', batch: 2, tasks: [
+    { id: 'batch2', title: 'People & Comms', priority: 'next', batch: 2, tasks: [
+      { id: 'custom-comms-1', name: 'Update Rob Biedermann profile everywhere', detail: 'Airtable, Notion, Lovable dashboard, storyteller doc', tag: 'UPDATE', tagClass: 'tag-update', source: 'manual' },
+      { id: 'custom-comms-2', name: 'Send post-event emails — Insiders SF + Insiders LA', detail: 'After emails to all attendees from both events', tag: 'EMAIL', tagClass: 'tag-email', source: 'manual' },
+      { id: 'custom-comms-3', name: 'Build Insiders non-member pre/post dinner system', detail: 'What to send non-members before and after events', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' }
+    ]},
+    { id: 'batch3', title: 'Also Today', priority: 'next', batch: 3, tasks: [
       { id: 'custom-afternoon-1', name: 'Prep for Max talk', detail: 'Before 1pm', tag: '', tagClass: '', source: 'manual' },
-      { id: 'custom-afternoon-2', name: 'Book flights', detail: '', tag: '', tagClass: '', source: 'manual' },
-      { id: 'asana-1213447591016976', name: 'Send out deals chat mid week text', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
-      { id: 'asana-1213143154693328', name: 'Find a yearly trip gift to give to everyone', detail: '', tag: '', tagClass: '', source: 'asana' }
+      { id: 'asana-1213143154693328', name: 'Find a yearly trip gift to give to everyone', detail: '41 attendees', tag: '', tagClass: '', source: 'asana' },
+      { id: 'custom-afternoon-2', name: 'Book flights', detail: '', tag: '', tagClass: '', source: 'asana' }
     ]},
-    { id: 'batch3', title: 'This Week', priority: 'next', batch: 3, tasks: [
-      { id: 'asana-1213271111073500', name: 'Redo the storyteller doc in notion', detail: '', tag: '', tagClass: '', source: 'asana' },
-      { id: 'asana-1213143154693336', name: 'Create a system for saving the best photos and being able to share them with the group', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' }
+    { id: 'batch4', title: 'This Week', priority: 'later', batch: 4, tasks: [
+      { id: 'asana-1213271111073500', name: 'Redo the storyteller doc in notion', detail: 'Due Mar 5', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1213143154693336', name: 'Create photo sharing system', detail: 'Due Mar 5', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' }
     ]}
   ]
 };
