@@ -401,12 +401,14 @@ function moveToTomorrow(id) {
 function moveToEnd(id) {
   const task = document.querySelector(`.task[data-id="${id}"]`);
   if (!task) return;
-  const batch7Sec = document.querySelector('.section[data-batch="7"]');
-  if (!batch7Sec) return;
+  // Find the last batch section
+  const allBatches = document.querySelectorAll('.section[data-batch]');
+  const lastBatch = allBatches[allBatches.length - 1];
+  if (!lastBatch) return;
   task.classList.add('moving');
   setTimeout(() => { 
     task.classList.remove('moving'); 
-    batch7Sec.appendChild(task); 
+    lastBatch.appendChild(task); 
     updateProgress();
     checkBatchComplete();
   }, 300);
