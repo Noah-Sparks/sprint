@@ -133,53 +133,44 @@
 // SPRINT CONFIG — Change this to create a new sprint
 // ============================================================
 const SPRINT = {
-  title: 'Tuesday Sprint',
-  date: 'March 3, 2026',
-  key: 'sprint-2026-03-03',
+  title: 'Wednesday Sprint',
+  date: 'March 4, 2026',
+  key: 'sprint-2026-03-04',
   sections: [
-    { id: 'batch1', title: 'Batch 1 — Send Forwardables to Hosts', priority: 'now', batch: 1, tasks: [
-      { id: 't1', name: 'Send forwardable to Helen Min', detail: 'Aces SF Mar 12. Paste SF email list. Draft ready in march-forwardables-final.md', tag: 'SEND', tagClass: 'tag-text' },
-      { id: 't2', name: 'Send forwardable to Jason Shuman', detail: 'Aces NY Mar 17. Paste NY email list.', tag: 'SEND', tagClass: 'tag-text' },
-      { id: 't3', name: 'Send forwardable to Karan Wadhera', detail: 'Aces LA Mar 27. Paste LA email list.', tag: 'SEND', tagClass: 'tag-text' },
-      { id: 't4', name: 'Send forwardable to Vishal Tripathi', detail: 'Insiders SF Mar 11. Paste SF email list.', tag: 'SEND', tagClass: 'tag-text' },
-      { id: 't5', name: 'Send forwardable to Christian Reusche', detail: 'Insiders NY Mar 18. Paste NY email list.', tag: 'SEND', tagClass: 'tag-text' },
-      { id: 't6', name: 'Send forwardable to Josh Lumer', detail: 'Insiders LA Mar 20. Paste LA email list.', tag: 'SEND', tagClass: 'tag-text' },
-      { id: 't6b', name: 'Ask Max which Airbnb to use in SF', detail: 'For Insiders SF (Vishal, Mar 11) + Aces SF (Helen, Mar 12). Need venue locked.', tag: 'CALL', tagClass: 'tag-call' },
+    { id: 'batch1', title: 'Batch 1 — Morning Priorities', priority: 'now', batch: 1, tasks: [
+      { id: 't1', name: 'Check host responses to forwardables', detail: 'All 6 sent yesterday. Any edits requested? Did they forward to members?', tag: 'CHECK', tagClass: 'tag-text' },
+      { id: 't2', name: 'Ask Max which Airbnb for SF', detail: 'Insiders SF (Vishal, Mar 11) + Aces SF (Helen, Mar 12). Need venue locked. 7 DAYS AWAY.', tag: 'CALL', tagClass: 'tag-call' },
+      { id: 't3', name: 'Review Insiders Luma pages with Max', detail: 'Go through all 3 Insiders pages before hosts send forwardables.', tag: 'CALL', tagClass: 'tag-call' },
     ]},
-    { id: 'batch2', title: 'Batch 2 — Luma Invites by City', priority: 'next', batch: 2, tasks: [
-      { id: 't7', name: 'Invite SF members on Luma', detail: 'Helen (Aces) + Vishal (Insiders). Only SF members get invited.', tag: 'CREATE', tagClass: 'tag-create' },
-      { id: 't8', name: 'Invite NY members on Luma', detail: 'Jason (Aces) + Christian (Insiders). Only NY members.', tag: 'CREATE', tagClass: 'tag-create' },
-      { id: 't9', name: 'Invite LA members on Luma', detail: 'Karan (Aces) + Josh (Insiders). Only LA members.', tag: 'CREATE', tagClass: 'tag-create' },
+    { id: 'batch2', title: 'Batch 2 — Book SF Vendors (URGENT)', priority: 'now', batch: 2, tasks: [
+      { id: 't4', name: 'Book chef for Insiders SF (Vishal, Mar 11)', detail: '7 days away. Earliest event. Check Airtable Vendors first.', tag: 'CALL', tagClass: 'tag-call' },
+      { id: 't5', name: 'Book chef for Aces SF (Helen, Mar 12)', detail: '8 days away.', tag: 'CALL', tagClass: 'tag-call' },
+      { id: 't6', name: 'Book photographers for SF events', detail: 'Mar 11 + Mar 12. Check Airtable Vendors or post on NOVA.', tag: 'CALL', tagClass: 'tag-call' },
     ]},
-    { id: 'batch3', title: 'Batch 3 — Yearly Trip', priority: 'later', batch: 3, tasks: [
-      { id: 't10', name: 'Finalize yearly trip attendees doc', detail: 'Add Shahin, shorten Ryan bio, bigger photos, custom backgrounds for 8 managing partners + Eurie. Due today.', tag: 'DRAFT', tagClass: 'tag-draft' },
-      { id: 't11', name: 'Send yearly trip doc to attendees', detail: 'After finalizing. ~40 people.', tag: 'SEND', tagClass: 'tag-text' },
-      { id: 't11b', name: 'Create calendar invite for yearly trip', detail: 'May 27-29, Sage Lodge, Bozeman MT.', tag: 'CREATE', tagClass: 'tag-create' },
+    { id: 'batch3', title: 'Batch 3 — Yearly Trip', priority: 'next', batch: 3, tasks: [
+      { id: 't7', name: 'Finalize yearly trip attendees doc', detail: 'Add Shahin, shorten Ryan bio, bigger photos, custom backgrounds for 8 managing partners + Eurie.', tag: 'DRAFT', tagClass: 'tag-draft' },
+      { id: 't8', name: 'Send yearly trip doc to attendees', detail: 'After finalizing. ~40 people.', tag: 'SEND', tagClass: 'tag-text' },
+      { id: 't9', name: 'Create calendar invite for yearly trip', detail: 'May 27-29, Sage Lodge, Bozeman MT.', tag: 'CREATE', tagClass: 'tag-create' },
     ]},
-    { id: 'batch4', title: 'Batch 4 — Book Vendors', priority: 'later', batch: 4, tasks: [
-      { id: 't12', name: 'Book chef for Insiders SF (Vishal, Mar 11)', detail: '8 days away. Earliest event.', tag: 'CALL', tagClass: 'tag-call' },
-      { id: 't13', name: 'Book chef for Aces SF (Helen, Mar 12)', detail: '9 days away.', tag: 'CALL', tagClass: 'tag-call' },
-      { id: 't14', name: 'Book photographers for SF events', detail: 'Mar 11 + Mar 12.', tag: 'CALL', tagClass: 'tag-call' },
-      { id: 't15', name: 'Start vendor outreach for NY events', detail: 'Jason Mar 17, Christian Mar 18.', tag: 'CALL', tagClass: 'tag-call' },
-      { id: 't16', name: 'Start vendor outreach for LA events', detail: 'Josh Mar 20 (lunch), Karan Mar 27.', tag: 'CALL', tagClass: 'tag-call' },
+    { id: 'batch4', title: 'Batch 4 — Group Chat + Community', priority: 'later', batch: 4, tasks: [
+      { id: 't10', name: 'Deals chat midweek reminder', detail: 'Due today. \"Hey just a reminder to share before Friday.\"', tag: 'TEXT', tagClass: 'tag-text' },
+      { id: 't11', name: 'Deals chat strikes', detail: 'Overdue from Sunday Mar 1. Kick inactive members.', tag: 'TEXT', tagClass: 'tag-text' },
+      { id: 't12', name: 'Seed group chat questions', detail: 'Pick members, send questions, prep for posting.', tag: 'TEXT', tagClass: 'tag-text' },
     ]},
-    { id: 'batch5', title: 'Batch 5 — Group Chat + Community', priority: 'low', batch: 5, tasks: [
-      { id: 't17', name: 'Seed group chat questions', detail: 'Pick members, send questions, prep for posting.', tag: 'TEXT', tagClass: 'tag-text' },
-      { id: 't18', name: 'Deals chat strikes', detail: 'Overdue from Sunday Mar 1. Kick inactive members.', tag: 'TEXT', tagClass: 'tag-text' },
-      { id: 't18b', name: 'Deals chat midweek reminder', detail: 'Due Wed. Prep now.', tag: 'TEXT', tagClass: 'tag-text' },
+    { id: 'batch5', title: 'Batch 5 — Finance + Admin', priority: 'low', batch: 5, tasks: [
+      { id: 't13', name: 'Catch up on receipts', detail: 'Check Asana for who needs receipts sent.', tag: 'PAY', tagClass: 'tag-pay' },
+      { id: 't14', name: 'Pay invoices + Porsche deposit', detail: 'Porsche Mar 6, 2 days away.', tag: 'PAY', tagClass: 'tag-pay' },
+      { id: 't15', name: 'Finance email + billing Notion check', detail: 'Daily task.', tag: 'PAY', tagClass: 'tag-pay' },
     ]},
-    { id: 'batch6', title: 'Batch 6 — Finance + Admin', priority: 'low', batch: 6, tasks: [
-      { id: 't19', name: 'Catch up on receipts', detail: 'Check Asana for who needs receipts sent.', tag: 'PAY', tagClass: 'tag-pay' },
-      { id: 't20', name: 'Pay invoices + Porsche deposit', detail: 'Porsche Mar 6, 3 days away. Overdue from last week.', tag: 'PAY', tagClass: 'tag-pay' },
-      { id: 't21', name: 'Finance email + billing Notion check', detail: 'Daily task.', tag: 'PAY', tagClass: 'tag-pay' },
-      { id: 't21b', name: 'Review Insiders Luma pages with Max', detail: 'Go through all 3 Insiders pages together before hosts send.', tag: 'CALL', tagClass: 'tag-call' },
+    { id: 'batch6', title: 'Batch 6 — Vendor Outreach (NY + LA)', priority: 'low', batch: 6, tasks: [
+      { id: 't16', name: 'Start vendor outreach for NY events', detail: 'Jason Mar 17, Christian Mar 18. Chef + photographer.', tag: 'CALL', tagClass: 'tag-call' },
+      { id: 't17', name: 'Start vendor outreach for LA events', detail: 'Josh Mar 20 (lunch), Karan Mar 27. Chef + photographer.', tag: 'CALL', tagClass: 'tag-call' },
     ]},
     { id: 'batch7', title: 'Batch 7 — Planning', priority: 'low', batch: 7, tasks: [
-      { id: 't22', name: 'Book flights', detail: 'Check upcoming travel needs.', tag: 'CREATE', tagClass: 'tag-create' },
-      { id: 't23', name: 'Start planning April events', detail: 'Identify hosts, lock cities.', tag: 'DRAFT', tagClass: 'tag-draft' },
-      { id: 't24', name: 'Document new event announcement system', detail: 'Forwardables from hosts -> Luma invites by city -> WhatsApp all 3. Write it down.', tag: 'DRAFT', tagClass: 'tag-draft' },
-      { id: 't25', name: 'Find yearly trip gift', detail: 'Due Wed Mar 5.', tag: 'DRAFT', tagClass: 'tag-draft' },
-      { id: 't26', name: 'Storyteller doc redo', detail: 'Due Thu.', tag: 'DRAFT', tagClass: 'tag-draft' },
+      { id: 't18', name: 'Book flights', detail: 'Check upcoming travel needs.', tag: 'CREATE', tagClass: 'tag-create' },
+      { id: 't19', name: 'Start planning April events', detail: 'Identify hosts, lock cities.', tag: 'DRAFT', tagClass: 'tag-draft' },
+      { id: 't20', name: 'Find yearly trip gift', detail: 'Due Thu Mar 5.', tag: 'DRAFT', tagClass: 'tag-draft' },
+      { id: 't21', name: 'Storyteller doc redo', detail: 'Due Thu.', tag: 'DRAFT', tagClass: 'tag-draft' },
     ]},
   ]
 };
