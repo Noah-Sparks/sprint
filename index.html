@@ -399,8 +399,37 @@ document.addEventListener('change', e => {
   localStorage.setItem(STORAGE, JSON.stringify(state));
   updateProgress();
   syncToSupabase(id, done, taskName, taskSource);
+  if (done && id.startsWith('at-')) syncVendorStatus(id, taskName);
   checkBatchComplete();
 });
+
+// Vendor reach-out tracking: when a vendor task is checked off, update vendor_tracking
+async function syncVendorStatus(taskId, taskName) {
+  if (!sb) return;
+  // Parse task ID: at-{city}-{community}-{type}
+  const parts = taskId.split('-');
+  if (parts.length < 4) return;
+  const cityCode = parts[1]; // sf, ny, la
+  const commCode = parts[2]; // aces, ins
+  const vendorType = parts[3]; // chef, photo, helper
+  
+  const cityMap = { sf: 'SF', ny: 'NY', la: 'LA' };
+  const commMap = { aces: 'Aces', ins: 'Insiders' };
+  const typeMap = { chef: 'chef', photo: 'photographer', helper: 'helper' };
+  
+  const city = cityMap[cityCode];
+  const community = commMap[commCode];
+  const vType = typeMap[vendorType];
+  if (!city || !community || !vType) return;
+  
+  try {
+    await sb.from('vendor_tracking')
+      .update({ status: 'reached_out', reached_out_at: new Date().toISOString(), updated_at: new Date().toISOString() })
+      .eq('city', city)
+      .eq('community', community)
+      .eq('vendor_type', vType);
+  } catch(e) { console.error('Vendor sync error:', e); }
+}
 
 // ============================================================
 // MOVE TO TOMORROW
