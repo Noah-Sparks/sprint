@@ -23,9 +23,23 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
   .container { max-width: 640px; margin: 0 auto; padding: 40px 20px 80px; }
-  .header { margin-bottom: 32px; }
-  .header h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 4px; }
+  .header { margin-bottom: 24px; }
+  .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+  .header h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.3px; }
+  .recap-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text-secondary); font-size: 11px; font-weight: 600; font-family: inherit; padding: 6px 12px; cursor: pointer; transition: all 0.15s ease; text-transform: uppercase; letter-spacing: 0.5px; }
+  .recap-btn:hover { background: var(--surface-hover); color: var(--text); border-color: var(--accent); }
   .header .date { font-size: 13px; color: var(--text-muted); }
+  .recap-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 1000; padding: 20px; overflow-y: auto; }
+  .recap-modal.show { display: flex; align-items: flex-start; justify-content: center; }
+  .recap-content { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); max-width: 600px; width: 100%; margin: 40px auto; padding: 24px; position: relative; }
+  .recap-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; padding: 4px 8px; line-height: 1; }
+  .recap-close:hover { color: var(--text); }
+  .recap-title { font-size: 18px; font-weight: 600; margin-bottom: 20px; }
+  .recap-day { margin-bottom: 24px; }
+  .recap-day-header { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .recap-task { font-size: 13px; color: var(--text-secondary); padding: 6px 0; border-bottom: 1px solid var(--border-subtle); }
+  .recap-task:last-child { border-bottom: none; }
+  .recap-empty { text-align: center; color: var(--text-muted); padding: 40px 20px; font-size: 13px; }
   .progress-wrap { margin-bottom: 32px; }
   .progress-stats { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
   .progress-label { font-size: 12px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -78,6 +92,10 @@
   .tag-draft { background: var(--blue-bg); color: var(--blue); }
   .tag-create { background: var(--purple-bg); color: var(--purple); }
   .tag-housing { background: var(--yellow-bg); color: var(--yellow); }
+  .tag-source { opacity: 0.4; font-size: 9px; padding: 0px 5px; margin-left: 4px; }
+  .tag-source-asana { background: var(--blue-bg); color: var(--blue); }
+  .tag-source-airtable { background: var(--purple-bg); color: var(--purple); }
+  .tag-source-manual { background: rgba(255,255,255,0.05); color: var(--text-muted); }
   .priority-now { background: var(--red); }
   .priority-next { background: var(--orange); }
   .priority-later { background: var(--blue); }
@@ -102,7 +120,22 @@
 </head>
 <body>
 <div class="container">
-  <div class="header"><h1 id="sprintTitle"></h1><div class="date" id="sprintDate"></div></div>
+  <div class="header">
+    <div class="header-top">
+      <h1 id="sprintTitle"></h1>
+      <button class="recap-btn" onclick="showWeeklyRecap()">This Week</button>
+    </div>
+    <div class="date" id="sprintDate"></div>
+  </div>
+  
+  <div id="recapModal" class="recap-modal" onclick="if(event.target===this) hideWeeklyRecap()">
+    <div class="recap-content">
+      <button class="recap-close" onclick="hideWeeklyRecap()">×</button>
+      <div class="recap-title">📊 This Week's Completed Tasks</div>
+      <div id="recapContent">Loading...</div>
+    </div>
+  </div>
+
   <div class="progress-wrap">
     <div class="progress-stats">
       <span class="progress-label">Progress</span>
@@ -134,8 +167,8 @@
 // ============================================================
 const SPRINT = {
   title: 'Daily Sprint',
-  date: 'March 5, 2026',
-  key: 'sprint-2026-03-05',
+  date: 'March 4, 2026',
+  key: 'sprint-2026-03-04',
   sections: [
     { id: 'batch1', title: 'Morning Must-Dos', priority: 'now', batch: 1, tasks: [
       { id: 'custom-morning-1', name: 'Call Porsche, book driving experience (Mar 6)', detail: 'Need to finalize reservation', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
@@ -155,7 +188,7 @@ const SPRINT = {
 };
 
 // ============================================================
-// SUPABASE (optional background sync)
+// SUPABASE (enhanced with completed_at tracking)
 // ============================================================
 const SB_URL = 'https://cfnuhjfceceojfykznnm.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbnVoamZjZWNlb2pmeWt6bm5tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0MDUyNjYsImV4cCI6MjA4Nzk4MTI2Nn0.knZfJwibeGHrbI8xQZ7zeV-Fo7T3_RoAmBdx_HwgpEc';
@@ -191,18 +224,21 @@ SPRINT.sections.forEach(sec => {
   secEl.innerHTML = `<div class="section-header"><div class="section-indicator priority-${sec.priority}"></div><span class="section-title">${sec.title}</span><span class="section-count"></span></div>`;
   
   sec.tasks.forEach(task => {
-    if (tomorrowItems.find(t => t.id === task.id)) return; // skip tomorrow tasks
+    if (tomorrowItems.find(t => t.id === task.id)) return;
     const isDone = !!state[task.id];
+    const sourceTag = task.source ? `<span class="tag tag-source tag-source-${task.source}">${task.source}</span>` : '';
     const div = document.createElement('div');
     div.className = 'task' + (isDone ? ' done' : '');
     div.dataset.id = task.id;
+    div.dataset.name = task.name;
+    div.dataset.source = task.source || 'manual';
     div.innerHTML = `
       <div class="checkbox-wrap">
         <input type="checkbox" ${isDone ? 'checked' : ''}>
         <div class="checkbox-visual">${checkSvg}</div>
       </div>
       <div class="task-content">
-        <div class="task-name">${task.name} ${task.tag ? `<span class="tag ${task.tagClass}">${task.tag}</span>` : ''}</div>
+        <div class="task-name">${task.name} ${task.tag ? `<span class="tag ${task.tagClass}">${task.tag}</span>` : ''} ${sourceTag}</div>
         ${task.detail ? `<div class="task-detail">${task.detail}</div>` : ''}
       </div>
       <div class="task-actions">
@@ -250,7 +286,7 @@ function toggleShowAll() {
 }
 
 function checkBatchComplete() {
-  if (showAllBatches) return; // Don't auto-advance when showing all
+  if (showAllBatches) return;
   
   const currentSection = document.querySelector(`.section[data-batch="${currentBatch}"]`);
   if (!currentSection) return;
@@ -264,11 +300,9 @@ function checkBatchComplete() {
   });
   
   if (allDone && currentBatch < 7) {
-    // Show batch complete banner
     const banner = document.getElementById('batchCompleteBanner');
     banner.classList.add('show');
     
-    // Auto-advance after 1.5 seconds
     setTimeout(() => {
       banner.classList.remove('show');
       currentBatch++;
@@ -280,7 +314,7 @@ function checkBatchComplete() {
 }
 
 // ============================================================
-// CHECKBOX HANDLER
+// CHECKBOX HANDLER (enhanced with completed_at)
 // ============================================================
 document.addEventListener('change', e => {
   if (e.target.type !== 'checkbox') return;
@@ -288,6 +322,8 @@ document.addEventListener('change', e => {
   if (!task) return;
   const id = task.dataset.id;
   const done = e.target.checked;
+  const taskName = task.dataset.name;
+  const taskSource = task.dataset.source || 'manual';
   
   task.classList.toggle('done', done);
   
@@ -296,7 +332,7 @@ document.addEventListener('change', e => {
   
   localStorage.setItem(STORAGE, JSON.stringify(state));
   updateProgress();
-  syncToSupabase(id, done);
+  syncToSupabase(id, done, taskName, taskSource);
   checkBatchComplete();
 });
 
@@ -337,7 +373,6 @@ function moveToEnd(id) {
 function undoTomorrow(id) {
   tomorrowItems = tomorrowItems.filter(t => t.id !== id);
   localStorage.setItem(TOMORROW_STORAGE, JSON.stringify(tomorrowItems));
-  // Re-render entire page to restore task
   location.reload();
 }
 
@@ -368,7 +403,6 @@ function updateProgress() {
   document.getElementById('progressBar').style.width = total ? (done / total * 100) + '%' : '0%';
   document.getElementById('celebration').classList.toggle('show', done === total && total > 0);
   
-  // Section counts
   document.querySelectorAll('.section[id^="sec-"]').forEach(sec => {
     const sTasks = sec.querySelectorAll('.task[data-id]');
     let sT = 0, sD = 0;
@@ -379,16 +413,91 @@ function updateProgress() {
 }
 
 // ============================================================
-// SUPABASE SYNC (background, never blocks UI)
+// WEEKLY RECAP
 // ============================================================
-async function syncToSupabase(taskId, done) {
-  if (!sb) return;
+async function showWeeklyRecap() {
+  const modal = document.getElementById('recapModal');
+  const content = document.getElementById('recapContent');
+  modal.classList.add('show');
+  content.innerHTML = 'Loading...';
+  
+  if (!sb) {
+    content.innerHTML = '<div class="recap-empty">Supabase not available</div>';
+    return;
+  }
+  
   try {
-    await sb.from('tasks').upsert({ task_id: taskId, done, updated_at: new Date().toISOString() }, { onConflict: 'task_id' });
-  } catch(e) { /* silent */ }
+    const weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    
+    const { data, error } = await sb
+      .from('tasks')
+      .select('task_id, name, completed_at, sprint_key, source')
+      .gte('completed_at', weekAgo.toISOString())
+      .order('completed_at', { ascending: false });
+    
+    if (error) throw error;
+    
+    if (!data || data.length === 0) {
+      content.innerHTML = '<div class="recap-empty">No completed tasks this week</div>';
+      return;
+    }
+    
+    // Group by day
+    const byDay = {};
+    data.forEach(task => {
+      const date = new Date(task.completed_at).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+      if (!byDay[date]) byDay[date] = [];
+      byDay[date].push(task);
+    });
+    
+    let html = '';
+    Object.keys(byDay).forEach(day => {
+      html += `<div class="recap-day">`;
+      html += `<div class="recap-day-header">${day} (${byDay[day].length})</div>`;
+      byDay[day].forEach(task => {
+        const sourceTag = task.source ? `<span class="tag tag-source tag-source-${task.source}">${task.source}</span>` : '';
+        html += `<div class="recap-task">✓ ${task.name} ${sourceTag}</div>`;
+      });
+      html += `</div>`;
+    });
+    
+    content.innerHTML = html;
+  } catch (e) {
+    content.innerHTML = `<div class="recap-empty">Error loading recap: ${e.message}</div>`;
+  }
 }
 
-// Load state from Supabase on startup (merge with localStorage)
+function hideWeeklyRecap() {
+  document.getElementById('recapModal').classList.remove('show');
+}
+
+// ============================================================
+// SUPABASE SYNC (enhanced with completed_at + sprint_key + source)
+// ============================================================
+async function syncToSupabase(taskId, done, taskName, taskSource) {
+  if (!sb) return;
+  try {
+    const payload = {
+      task_id: taskId,
+      name: taskName,
+      done: done,
+      sprint_key: SPRINT.key,
+      source: taskSource || 'manual',
+      updated_at: new Date().toISOString()
+    };
+    
+    if (done) {
+      payload.completed_at = new Date().toISOString();
+    } else {
+      payload.completed_at = null;
+    }
+    
+    await sb.from('tasks').upsert(payload, { onConflict: 'task_id' });
+  } catch(e) { console.error('Supabase sync error:', e); }
+}
+
+// Load state from Supabase on startup
 (async () => {
   if (!sb) return;
   try {
@@ -400,7 +509,6 @@ async function syncToSupabase(taskId, done) {
       });
       if (changed) {
         localStorage.setItem(STORAGE, JSON.stringify(state));
-        // Update UI for any tasks marked done in Supabase but not locally
         document.querySelectorAll('.task[data-id]').forEach(t => {
           const id = t.dataset.id;
           if (state[id]) { t.classList.add('done'); t.querySelector('input').checked = true; }
