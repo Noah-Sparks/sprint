@@ -293,10 +293,38 @@ SPRINT.sections.forEach(sec => {
   sectionsEl.appendChild(secEl);
 });
 
-// Notes
+// Notes (synced to Supabase)
 const notesEl = document.getElementById('notes');
 notesEl.value = localStorage.getItem(NOTES_STORAGE) || '';
-notesEl.addEventListener('input', () => localStorage.setItem(NOTES_STORAGE, notesEl.value));
+let notesTimeout = null;
+notesEl.addEventListener('input', () => {
+  localStorage.setItem(NOTES_STORAGE, notesEl.value);
+  clearTimeout(notesTimeout);
+  notesTimeout = setTimeout(() => syncNotesToSupabase(notesEl.value), 1500);
+});
+
+async function syncNotesToSupabase(text) {
+  if (!sb) return;
+  try {
+    await sb.from('sprint_notes').upsert({
+      sprint_key: SPRINT.key,
+      notes: text,
+      updated_at: new Date().toISOString()
+    }, { onConflict: 'sprint_key' });
+  } catch(e) { console.error('Notes sync error:', e); }
+}
+
+// Load notes from Supabase on startup
+(async () => {
+  if (!sb) return;
+  try {
+    const { data } = await sb.from('sprint_notes').select('notes').eq('sprint_key', SPRINT.key).single();
+    if (data && data.notes && !notesEl.value) {
+      notesEl.value = data.notes;
+      localStorage.setItem(NOTES_STORAGE, data.notes);
+    }
+  } catch(e) { /* silent - table may not exist yet */ }
+})();
 
 // Render tomorrow
 renderTomorrow();
