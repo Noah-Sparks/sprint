@@ -429,10 +429,19 @@ function moveToTomorrow(id) {
     task.remove();
     tomorrowItems.push({ id, name: nameEl.innerHTML, detail: detailEl ? detailEl.textContent : '' });
     localStorage.setItem(TOMORROW_STORAGE, JSON.stringify(tomorrowItems));
+    // Sync to Supabase so sprint builder can pick it up
+    syncTomorrowToSupabase(id);
     renderTomorrow();
     updateProgress();
     checkBatchComplete();
   }, 300);
+}
+
+async function syncTomorrowToSupabase(taskId) {
+  if (!sb) return;
+  try {
+    await sb.from('tasks').update({ moved_to: 'tomorrow' }).eq('task_id', taskId).eq('sprint_key', SPRINT.key);
+  } catch(e) { console.error('Tomorrow sync error:', e); }
 }
 
 function moveToEnd(id) {
@@ -454,6 +463,10 @@ function moveToEnd(id) {
 function undoTomorrow(id) {
   tomorrowItems = tomorrowItems.filter(t => t.id !== id);
   localStorage.setItem(TOMORROW_STORAGE, JSON.stringify(tomorrowItems));
+  // Clear Supabase flag
+  if (sb) {
+    sb.from('tasks').update({ moved_to: null }).eq('task_id', id).eq('sprint_key', SPRINT.key).then(() => {}).catch(() => {});
+  }
   location.reload();
 }
 
