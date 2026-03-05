@@ -166,19 +166,45 @@
 // SPRINT CONFIG — Change this to create a new sprint
 // ============================================================
 const SPRINT = {
-  title: 'Daily Sprint',
-  date: 'March 6, 2026',
-  key: 'sprint-2026-03-06',
+  title: 'Thursday Sprint',
+  date: 'March 5, 2026',
+  key: 'sprint-2026-03-05',
   sections: [
-    { id: 'batch1', title: 'Morning Must-Dos', priority: 'now', batch: 1, tasks: [
-      { id: 'custom-morning-1', name: 'Call Porsche, book driving experience (Mar 6)', detail: 'Need to finalize reservation', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
-      { id: 'custom-morning-2', name: 'Group chat sparks (seed members, draft questions)', detail: 'Prepare content for group chat engagement', tag: 'DRAFT', tagClass: 'tag-draft', source: 'manual' }
+    { id: 'batch1', title: '☀️ Morning — Deep Work + Fires', priority: 'now', batch: 1, tasks: [
+      { id: 'morning-1', name: '🔥 Porsche (TOMORROW) — text guests confirmation + address, confirm RSVPs, deposit', detail: 'Airtable: text guests today, check RSVP count, confirm deposit paid.', tag: 'FIRE', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'morning-2', name: 'Seed 4 members for Friday group chat sparks (Aces + Insiders)', detail: 'Thursday = seed day. DM 4 members, ask for 2 questions each.', tag: 'DAILY', tagClass: 'tag-draft', source: 'asana' },
+      { id: 'morning-3', name: 'Create Canva + Luma for Insiders SF (Mar 11, 6 DAYS)', detail: 'Need Vishal theme. Canva invite, Luma event, email + WhatsApp.', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
+      { id: 'morning-4', name: 'Create Canva + Luma for Aces SF (Mar 12, Helen hosting)', detail: 'Helen @ 30 Lopez Ave, 8-12 capacity.', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
+      { id: 'morning-5', name: 'Create Canva + Luma + announce Aces NY (Mar 17) + Insiders NY (Mar 18)', detail: 'Karl hosting Aces NY. Rob hosting Insiders NY.', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
+      { id: 'morning-6', name: 'Build Insiders non-member pre/post dinner outreach system', detail: 'Template for pre-event brief + post-event pitch. Needed before Mar 11.', tag: 'PROJECT', tagClass: 'tag-create', source: 'carryforward' }
     ]},
-    { id: 'batch2', title: 'Today', priority: 'next', batch: 2, tasks: [
-      { id: 'custom-afternoon-1', name: 'Prep for Max talk', detail: 'Before 1pm', tag: '', tagClass: '', source: 'manual' },
-      { id: 'custom-afternoon-2', name: 'Book flights', detail: '', tag: '', tagClass: '', source: 'manual' },
-      { id: 'asana-1213271111073500', name: 'Redo the storyteller doc in notion', detail: '', tag: '', tagClass: '', source: 'asana' },
-      { id: 'asana-1213143154693336', name: 'Create a system for saving the best photos and being able to share them with the group', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' }
+    { id: 'batch2', title: '🌤️ Mid-Day — Outreach + Vendor Calls', priority: 'next', batch: 2, tasks: [
+      { id: 'midday-1', name: '🔥 Book SF chef for Insiders (Mar 11) — Shabnam first', detail: 'Zero vendors booked. Call, do not just text.', tag: 'FIRE', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'midday-2', name: '🔥 Book SF chef for Aces (Mar 12)', detail: 'Same chef if available back-to-back, otherwise second.', tag: 'FIRE', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'midday-3', name: '🔥 Book SF photographer for both dinners', detail: 'One photographer for both nights if possible.', tag: 'FIRE', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'midday-4', name: 'Text Hannah — helper for both SF dinners', detail: 'Gold standard. Confirm Mar 11 + Mar 12.', tag: 'TEXT', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'midday-5', name: 'Text Vishal — Insiders SF dinner theme', detail: 'Host picks theme. Need before Canva/Luma finalize.', tag: 'TEXT', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'midday-6', name: 'Book NY vendors — Aces NY (Mar 17) chef + photographer + helper', detail: 'Karl hosting. Chef Moss? 12 days out.', tag: 'CALL', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'midday-7', name: 'Book NY vendors — Insiders NY (Mar 18) chef + photographer + helper', detail: 'Rob hosting. Same vendors as night before?', tag: 'CALL', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'midday-8', name: 'Deals chat mid-week reminder', detail: 'Overdue from Mar 4. Tag sharers, remind rest.', tag: 'SEND', tagClass: 'tag-draft', source: 'asana' },
+      { id: 'midday-9', name: 'Ask Max — which Airbnb for SF trip', detail: 'Overdue from Mar 3.', tag: 'ASK', tagClass: 'tag-call', source: 'asana' }
+    ]},
+    { id: 'batch3', title: '🌆 Afternoon — Admin + Ops', priority: 'later', batch: 3, tasks: [
+      { id: 'afternoon-1', name: 'Catch up on receipts', detail: 'Overdue since Mar 3.', tag: 'ADMIN', tagClass: '', source: 'asana' },
+      { id: 'afternoon-2', name: 'Check finance email', detail: 'Overdue since Feb 27.', tag: 'ADMIN', tagClass: '', source: 'asana' },
+      { id: 'afternoon-3', name: 'Pay invoices', detail: 'Overdue since Feb 27.', tag: 'ADMIN', tagClass: '', source: 'asana' },
+      { id: 'afternoon-4', name: 'Check billing/payment issues Notion', detail: 'Overdue since Feb 27.', tag: 'ADMIN', tagClass: '', source: 'asana' },
+      { id: 'afternoon-5', name: 'Deals chat: weekly activity + add strikes', detail: 'Overdue from Mar 1.', tag: 'ADMIN', tagClass: '', source: 'asana' },
+      { id: 'afternoon-6', name: 'Danielle offboarding', detail: 'No due date, sitting in Asana.', tag: 'ADMIN', tagClass: '', source: 'asana' }
+    ]},
+    { id: 'batch4', title: '📌 Backlog — If Time', priority: 'backlog', batch: 4, tasks: [
+      { id: 'backlog-1', name: 'Book flights to SF (Mar 11-12)', detail: '6 days out.', tag: '', tagClass: '', source: 'asana' },
+      { id: 'backlog-2', name: 'Book LA vendors — Insiders LA (Mar 20) + Aces LA (Mar 27)', detail: '15-22 days out.', tag: '', tagClass: '', source: 'airtable' },
+      { id: 'backlog-3', name: 'Finalize yearly trip attendees doc + send', detail: 'Sage Lodge May 27-29.', tag: '', tagClass: '', source: 'asana' },
+      { id: 'backlog-4', name: 'Find yearly trip gift', detail: 'Gift for ~40 attendees.', tag: '', tagClass: '', source: 'asana' },
+      { id: 'backlog-5', name: 'Redo storyteller doc in Notion', detail: 'Due today per Asana.', tag: '', tagClass: '', source: 'asana' },
+      { id: 'backlog-6', name: 'Create photo sharing system', detail: 'Best photos + sharing with group.', tag: '', tagClass: '', source: 'asana' },
+      { id: 'backlog-7', name: 'Start planning April events', detail: 'Shawn Xu Apr 16 SF confirmed.', tag: '', tagClass: '', source: 'asana' }
     ]}
   ]
 };
