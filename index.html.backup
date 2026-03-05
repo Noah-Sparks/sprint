@@ -23,23 +23,9 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
   .container { max-width: 640px; margin: 0 auto; padding: 40px 20px 80px; }
-  .header { margin-bottom: 24px; }
-  .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
-  .header h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.3px; }
-  .recap-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text-secondary); font-size: 11px; font-weight: 600; font-family: inherit; padding: 6px 12px; cursor: pointer; transition: all 0.15s ease; text-transform: uppercase; letter-spacing: 0.5px; }
-  .recap-btn:hover { background: var(--surface-hover); color: var(--text); border-color: var(--accent); }
+  .header { margin-bottom: 32px; }
+  .header h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 4px; }
   .header .date { font-size: 13px; color: var(--text-muted); }
-  .recap-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 1000; padding: 20px; overflow-y: auto; }
-  .recap-modal.show { display: flex; align-items: flex-start; justify-content: center; }
-  .recap-content { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); max-width: 600px; width: 100%; margin: 40px auto; padding: 24px; position: relative; }
-  .recap-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; padding: 4px 8px; line-height: 1; }
-  .recap-close:hover { color: var(--text); }
-  .recap-title { font-size: 18px; font-weight: 600; margin-bottom: 20px; }
-  .recap-day { margin-bottom: 24px; }
-  .recap-day-header { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .recap-task { font-size: 13px; color: var(--text-secondary); padding: 6px 0; border-bottom: 1px solid var(--border-subtle); }
-  .recap-task:last-child { border-bottom: none; }
-  .recap-empty { text-align: center; color: var(--text-muted); padding: 40px 20px; font-size: 13px; }
   .progress-wrap { margin-bottom: 32px; }
   .progress-stats { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
   .progress-label { font-size: 12px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -92,10 +78,6 @@
   .tag-draft { background: var(--blue-bg); color: var(--blue); }
   .tag-create { background: var(--purple-bg); color: var(--purple); }
   .tag-housing { background: var(--yellow-bg); color: var(--yellow); }
-  .tag-source { opacity: 0.4; font-size: 9px; padding: 0px 5px; margin-left: 4px; }
-  .tag-source-asana { background: var(--blue-bg); color: var(--blue); }
-  .tag-source-airtable { background: var(--purple-bg); color: var(--purple); }
-  .tag-source-manual { background: rgba(255,255,255,0.05); color: var(--text-muted); }
   .priority-now { background: var(--red); }
   .priority-next { background: var(--orange); }
   .priority-later { background: var(--blue); }
@@ -120,22 +102,7 @@
 </head>
 <body>
 <div class="container">
-  <div class="header">
-    <div class="header-top">
-      <h1 id="sprintTitle"></h1>
-      <button class="recap-btn" onclick="showWeeklyRecap()">This Week</button>
-    </div>
-    <div class="date" id="sprintDate"></div>
-  </div>
-  
-  <div id="recapModal" class="recap-modal" onclick="if(event.target===this) hideWeeklyRecap()">
-    <div class="recap-content">
-      <button class="recap-close" onclick="hideWeeklyRecap()">×</button>
-      <div class="recap-title">📊 This Week's Completed Tasks</div>
-      <div id="recapContent">Loading...</div>
-    </div>
-  </div>
-
+  <div class="header"><h1 id="sprintTitle"></h1><div class="date" id="sprintDate"></div></div>
   <div class="progress-wrap">
     <div class="progress-stats">
       <span class="progress-label">Progress</span>
@@ -166,67 +133,28 @@
 // SPRINT CONFIG — Change this to create a new sprint
 // ============================================================
 const SPRINT = {
-  title: 'Daily Sprint',
-  date: 'March 4, 2026',
-  key: 'sprint-2026-03-04',
+  title: 'Yearly Trip Doc',
+  date: 'March 3, 2026',
+  key: 'sprint-2026-03-03-yearly',
   sections: [
-    { id: 'batch1', title: 'Morning Must-Dos', priority: 'now', batch: 1, tasks: [
-      { id: 'custom-morning-e', name: 'Catch up on emails', detail: '', tag: '', tagClass: '', source: 'manual' },
-      { id: 'custom-morning-gc', name: 'Catch up on group chat', detail: '', tag: '', tagClass: '', source: 'manual' },
-      { id: 'custom-morning-1', name: 'Confirm Porsche Experience (Mar 6)', detail: 'Call to book — event is Friday', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
-      { id: 'custom-morning-0', name: 'Remove plus-one option on Aces SF Luma page', detail: '', tag: 'URGENT', tagClass: 'tag-urgent', source: 'manual' }
+    { id: 'batch1', title: 'Update the Doc', priority: 'now', batch: 1, tasks: [
+      { id: 't1', name: 'Add Shahin\'s name', detail: '', tag: 'EDIT', tagClass: 'tag-draft' },
+      { id: 't2', name: 'Shorten Ryan\'s bio', detail: '', tag: 'EDIT', tagClass: 'tag-draft' },
+      { id: 't3', name: 'Make all photos bigger', detail: '', tag: 'EDIT', tagClass: 'tag-draft' },
+      { id: 't4', name: 'Add custom background for Eurie', detail: 'Special background.', tag: 'EDIT', tagClass: 'tag-draft' },
+      { id: 't5', name: 'Add custom backgrounds for all 8 managing partners', detail: 'Edward, Karan, Rachel Schau (partner), + 5 others.', tag: 'EDIT', tagClass: 'tag-draft' },
     ]},
-    { id: 'batch2', title: '🔴 Aces SF — Mar 12 (8 days) — Helen Min', priority: 'now', batch: 2, tasks: [
-      { id: 'at-sf-aces-chef', name: 'Reach out to SF chefs to book for Aces dinner', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-sf-aces-photo', name: 'Reach out to SF photographer to book for Aces', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-sf-aces-helper', name: 'Reach out to Hannah for Aces SF helper', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' }
+    { id: 'batch2', title: 'Send It Out', priority: 'next', batch: 2, tasks: [
+      { id: 't6', name: 'Create calendar invite', detail: 'May 27-29, Sage Lodge, Bozeman MT. 4pm-12pm hold. Attach the doc.', tag: 'CREATE', tagClass: 'tag-create' },
+      { id: 't7', name: 'Send to ~40 attendees', detail: 'If calendar attachment doesn\'t work, send separately.', tag: 'SEND', tagClass: 'tag-text' },
+      { id: 't8', name: 'Book 2 sponsor rooms at Sage Lodge', detail: '', tag: 'CALL', tagClass: 'tag-call' },
+      { id: 't9', name: 'Order gifts for guests', detail: '', tag: 'CREATE', tagClass: 'tag-create' },
     ]},
-    { id: 'batch3', title: '🔴 Insiders SF — Mar 13 (9 days) — Vishal Tripathi', priority: 'now', batch: 3, tasks: [
-      { id: 'at-sf-ins-chef', name: 'Reach out to SF chefs to book for Insiders dinner', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-sf-ins-photo', name: 'Reach out to SF photographer to book for Insiders', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-sf-ins-helper', name: 'Reach out to helper for Insiders SF', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-sf-ins-theme', name: 'Text Vishal about dinner theme', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-sf-ins-canva', name: 'Create Canva invite + Luma event for Insiders SF', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
-      { id: 'at-sf-ins-announce', name: 'Send email + WhatsApp with Luma link for Insiders SF', detail: '', tag: 'SEND', tagClass: 'tag-email', source: 'airtable' }
-    ]},
-    { id: 'batch4', title: '🟡 NY Events — Mar 17-18 — Shuman + Reusche', priority: 'next', batch: 4, tasks: [
-      { id: 'at-ny-aces-chef', name: 'Reach out to NY chefs to book for Aces dinner', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-ny-aces-photo', name: 'Reach out to NY photographer to book for Aces', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-ny-aces-helper', name: 'Reach out to NY helper for Aces', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-ny-aces-theme', name: 'Text Jason Shuman about dinner theme', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-ny-aces-luma', name: 'Create Canva + Luma + announce Aces NY', detail: 'Luma shell already created', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
-      { id: 'at-ny-ins-chef', name: 'Reach out to NY chefs to book for Insiders dinner', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-ny-ins-photo', name: 'Reach out to NY photographer to book for Insiders', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-ny-ins-helper', name: 'Reach out to NY helper for Insiders', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-ny-ins-luma', name: 'Create Canva + Luma + announce Insiders NY', detail: 'Luma page already created', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' }
-    ]},
-    { id: 'batch5', title: '🟡 LA Events — Mar 20 + Mar 27 — Lumer + Karan', priority: 'next', batch: 5, tasks: [
-      { id: 'at-la-ins-chef', name: 'Reach out to LA chefs to book for Insiders lunch', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-la-ins-photo', name: 'Reach out to LA photographer to book for Insiders', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-la-ins-luma', name: 'Create Canva + Luma + announce Insiders LA', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
-      { id: 'at-la-aces-chef', name: 'Reach out to LA chefs to book for Aces dinner', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-la-aces-photo', name: 'Reach out to LA photographer to book for Aces', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-la-aces-helper', name: 'Reach out to LA helper for Aces', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' }
-    ]},
-    { id: 'batch6', title: 'People & Comms', priority: 'next', batch: 6, tasks: [
-      { id: 'custom-comms-1', name: 'Update Rob Biedermann profile everywhere', detail: 'Airtable, Notion, Lovable dashboard, storyteller doc', tag: 'UPDATE', tagClass: 'tag-update', source: 'manual' },
-      { id: 'custom-comms-2', name: 'Send post-event emails — Insiders SF + Insiders LA', detail: 'After emails to all attendees from both events', tag: 'EMAIL', tagClass: 'tag-email', source: 'manual' },
-      { id: 'custom-comms-3', name: 'Build Insiders non-member pre/post dinner system', detail: 'What to send non-members before and after events', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' },
-      { id: 'custom-morning-3', name: 'Group chat — seed members + draft questions', detail: 'Deals chat reminder at 6pm', tag: 'DRAFT', tagClass: 'tag-draft', source: 'asana' }
-    ]},
-    { id: 'batch7', title: 'Also Today', priority: 'later', batch: 7, tasks: [
-      { id: 'custom-afternoon-1', name: 'Prep for Max talk', detail: 'Before 1pm', tag: '', tagClass: '', source: 'manual' },
-      { id: 'asana-1213143154693328', name: 'Find a yearly trip gift to give to everyone', detail: '41 attendees', tag: '', tagClass: '', source: 'asana' },
-      { id: 'custom-afternoon-2', name: 'Book flights', detail: '', tag: '', tagClass: '', source: 'asana' },
-      { id: 'custom-afternoon-3', name: 'Think about Luma invite acceptance process', detail: 'How do we accept/approve folks on Luma event pages?', tag: 'THINK', tagClass: 'tag-think', source: 'manual' },
-      { id: 'asana-1213271111073500', name: 'Redo the storyteller doc in notion', detail: 'Due Mar 5', tag: '', tagClass: '', source: 'asana' },
-      { id: 'asana-1213143154693336', name: 'Create photo sharing system', detail: 'Due Mar 5', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' }
-    ]}
   ]
 };
 
 // ============================================================
-// SUPABASE (enhanced with completed_at tracking)
+// SUPABASE (optional background sync)
 // ============================================================
 const SB_URL = 'https://cfnuhjfceceojfykznnm.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbnVoamZjZWNlb2pmeWt6bm5tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0MDUyNjYsImV4cCI6MjA4Nzk4MTI2Nn0.knZfJwibeGHrbI8xQZ7zeV-Fo7T3_RoAmBdx_HwgpEc';
@@ -262,21 +190,18 @@ SPRINT.sections.forEach(sec => {
   secEl.innerHTML = `<div class="section-header"><div class="section-indicator priority-${sec.priority}"></div><span class="section-title">${sec.title}</span><span class="section-count"></span></div>`;
   
   sec.tasks.forEach(task => {
-    if (tomorrowItems.find(t => t.id === task.id)) return;
+    if (tomorrowItems.find(t => t.id === task.id)) return; // skip tomorrow tasks
     const isDone = !!state[task.id];
-    const sourceTag = task.source ? `<span class="tag tag-source tag-source-${task.source}">${task.source}</span>` : '';
     const div = document.createElement('div');
     div.className = 'task' + (isDone ? ' done' : '');
     div.dataset.id = task.id;
-    div.dataset.name = task.name;
-    div.dataset.source = task.source || 'manual';
     div.innerHTML = `
       <div class="checkbox-wrap">
         <input type="checkbox" ${isDone ? 'checked' : ''}>
         <div class="checkbox-visual">${checkSvg}</div>
       </div>
       <div class="task-content">
-        <div class="task-name">${task.name} ${task.tag ? `<span class="tag ${task.tagClass}">${task.tag}</span>` : ''} ${sourceTag}</div>
+        <div class="task-name">${task.name} ${task.tag ? `<span class="tag ${task.tagClass}">${task.tag}</span>` : ''}</div>
         ${task.detail ? `<div class="task-detail">${task.detail}</div>` : ''}
       </div>
       <div class="task-actions">
@@ -289,38 +214,10 @@ SPRINT.sections.forEach(sec => {
   sectionsEl.appendChild(secEl);
 });
 
-// Notes (synced to Supabase)
+// Notes
 const notesEl = document.getElementById('notes');
 notesEl.value = localStorage.getItem(NOTES_STORAGE) || '';
-let notesTimeout = null;
-notesEl.addEventListener('input', () => {
-  localStorage.setItem(NOTES_STORAGE, notesEl.value);
-  clearTimeout(notesTimeout);
-  notesTimeout = setTimeout(() => syncNotesToSupabase(notesEl.value), 1500);
-});
-
-async function syncNotesToSupabase(text) {
-  if (!sb) return;
-  try {
-    await sb.from('sprint_notes').upsert({
-      sprint_key: SPRINT.key,
-      notes: text,
-      updated_at: new Date().toISOString()
-    }, { onConflict: 'sprint_key' });
-  } catch(e) { console.error('Notes sync error:', e); }
-}
-
-// Load notes from Supabase on startup
-(async () => {
-  if (!sb) return;
-  try {
-    const { data } = await sb.from('sprint_notes').select('notes').eq('sprint_key', SPRINT.key).single();
-    if (data && data.notes && !notesEl.value) {
-      notesEl.value = data.notes;
-      localStorage.setItem(NOTES_STORAGE, data.notes);
-    }
-  } catch(e) { /* silent - table may not exist yet */ }
-})();
+notesEl.addEventListener('input', () => localStorage.setItem(NOTES_STORAGE, notesEl.value));
 
 // Render tomorrow
 renderTomorrow();
@@ -352,7 +249,7 @@ function toggleShowAll() {
 }
 
 function checkBatchComplete() {
-  if (showAllBatches) return;
+  if (showAllBatches) return; // Don't auto-advance when showing all
   
   const currentSection = document.querySelector(`.section[data-batch="${currentBatch}"]`);
   if (!currentSection) return;
@@ -366,9 +263,11 @@ function checkBatchComplete() {
   });
   
   if (allDone && currentBatch < 7) {
+    // Show batch complete banner
     const banner = document.getElementById('batchCompleteBanner');
     banner.classList.add('show');
     
+    // Auto-advance after 1.5 seconds
     setTimeout(() => {
       banner.classList.remove('show');
       currentBatch++;
@@ -380,7 +279,7 @@ function checkBatchComplete() {
 }
 
 // ============================================================
-// CHECKBOX HANDLER (enhanced with completed_at)
+// CHECKBOX HANDLER
 // ============================================================
 document.addEventListener('change', e => {
   if (e.target.type !== 'checkbox') return;
@@ -388,8 +287,6 @@ document.addEventListener('change', e => {
   if (!task) return;
   const id = task.dataset.id;
   const done = e.target.checked;
-  const taskName = task.dataset.name;
-  const taskSource = task.dataset.source || 'manual';
   
   task.classList.toggle('done', done);
   
@@ -398,38 +295,9 @@ document.addEventListener('change', e => {
   
   localStorage.setItem(STORAGE, JSON.stringify(state));
   updateProgress();
-  syncToSupabase(id, done, taskName, taskSource);
-  if (done && id.startsWith('at-')) syncVendorStatus(id, taskName);
+  syncToSupabase(id, done);
   checkBatchComplete();
 });
-
-// Vendor reach-out tracking: when a vendor task is checked off, update vendor_tracking
-async function syncVendorStatus(taskId, taskName) {
-  if (!sb) return;
-  // Parse task ID: at-{city}-{community}-{type}
-  const parts = taskId.split('-');
-  if (parts.length < 4) return;
-  const cityCode = parts[1]; // sf, ny, la
-  const commCode = parts[2]; // aces, ins
-  const vendorType = parts[3]; // chef, photo, helper
-  
-  const cityMap = { sf: 'SF', ny: 'NY', la: 'LA' };
-  const commMap = { aces: 'Aces', ins: 'Insiders' };
-  const typeMap = { chef: 'chef', photo: 'photographer', helper: 'helper' };
-  
-  const city = cityMap[cityCode];
-  const community = commMap[commCode];
-  const vType = typeMap[vendorType];
-  if (!city || !community || !vType) return;
-  
-  try {
-    await sb.from('vendor_tracking')
-      .update({ status: 'reached_out', reached_out_at: new Date().toISOString(), updated_at: new Date().toISOString() })
-      .eq('city', city)
-      .eq('community', community)
-      .eq('vendor_type', vType);
-  } catch(e) { console.error('Vendor sync error:', e); }
-}
 
 // ============================================================
 // MOVE TO TOMORROW
@@ -454,14 +322,12 @@ function moveToTomorrow(id) {
 function moveToEnd(id) {
   const task = document.querySelector(`.task[data-id="${id}"]`);
   if (!task) return;
-  // Find the last batch section
-  const allBatches = document.querySelectorAll('.section[data-batch]');
-  const lastBatch = allBatches[allBatches.length - 1];
-  if (!lastBatch) return;
+  const batch7Sec = document.querySelector('.section[data-batch="7"]');
+  if (!batch7Sec) return;
   task.classList.add('moving');
   setTimeout(() => { 
     task.classList.remove('moving'); 
-    lastBatch.appendChild(task); 
+    batch7Sec.appendChild(task); 
     updateProgress();
     checkBatchComplete();
   }, 300);
@@ -470,6 +336,7 @@ function moveToEnd(id) {
 function undoTomorrow(id) {
   tomorrowItems = tomorrowItems.filter(t => t.id !== id);
   localStorage.setItem(TOMORROW_STORAGE, JSON.stringify(tomorrowItems));
+  // Re-render entire page to restore task
   location.reload();
 }
 
@@ -500,6 +367,7 @@ function updateProgress() {
   document.getElementById('progressBar').style.width = total ? (done / total * 100) + '%' : '0%';
   document.getElementById('celebration').classList.toggle('show', done === total && total > 0);
   
+  // Section counts
   document.querySelectorAll('.section[id^="sec-"]').forEach(sec => {
     const sTasks = sec.querySelectorAll('.task[data-id]');
     let sT = 0, sD = 0;
@@ -510,171 +378,28 @@ function updateProgress() {
 }
 
 // ============================================================
-// WEEKLY RECAP
+// SUPABASE SYNC (background, never blocks UI)
 // ============================================================
-async function showWeeklyRecap() {
-  const modal = document.getElementById('recapModal');
-  const content = document.getElementById('recapContent');
-  modal.classList.add('show');
-  content.innerHTML = 'Loading...';
-  
-  if (!sb) {
-    content.innerHTML = '<div class="recap-empty">Supabase not available</div>';
-    return;
-  }
-  
-  try {
-    const weekAgo = new Date();
-    weekAgo.setDate(weekAgo.getDate() - 7);
-    
-    const { data, error } = await sb
-      .from('tasks')
-      .select('task_id, name, completed_at, sprint_key, source')
-      .gte('completed_at', weekAgo.toISOString())
-      .order('completed_at', { ascending: false });
-    
-    if (error) throw error;
-    
-    if (!data || data.length === 0) {
-      content.innerHTML = '<div class="recap-empty">No completed tasks this week</div>';
-      return;
-    }
-    
-    // Group by day
-    const byDay = {};
-    data.forEach(task => {
-      const date = new Date(task.completed_at).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
-      if (!byDay[date]) byDay[date] = [];
-      byDay[date].push(task);
-    });
-    
-    let html = '';
-    Object.keys(byDay).forEach(day => {
-      html += `<div class="recap-day">`;
-      html += `<div class="recap-day-header">${day} (${byDay[day].length})</div>`;
-      byDay[day].forEach(task => {
-        const sourceTag = task.source ? `<span class="tag tag-source tag-source-${task.source}">${task.source}</span>` : '';
-        html += `<div class="recap-task">✓ ${task.name} ${sourceTag}</div>`;
-      });
-      html += `</div>`;
-    });
-    
-    content.innerHTML = html;
-  } catch (e) {
-    content.innerHTML = `<div class="recap-empty">Error loading recap: ${e.message}</div>`;
-  }
-}
-
-function hideWeeklyRecap() {
-  document.getElementById('recapModal').classList.remove('show');
-}
-
-// ============================================================
-// SUPABASE SYNC (with completed_at + sprint_key + source)
-// Composite unique key: (task_id, sprint_key)
-// ============================================================
-
-// Track completed_at timestamps locally so undos preserve original completion time
-const COMPLETED_TS_STORAGE = SPRINT.key + '-completed-ts';
-let completedTimestamps = JSON.parse(localStorage.getItem(COMPLETED_TS_STORAGE) || '{}');
-
-function saveCompletedTimestamps() {
-  localStorage.setItem(COMPLETED_TS_STORAGE, JSON.stringify(completedTimestamps));
-}
-
-async function syncToSupabase(taskId, done, taskName, taskSource) {
+async function syncToSupabase(taskId, done) {
   if (!sb) return;
   try {
-    const now = new Date().toISOString();
-    
-    // Track completion timestamp locally
-    if (done && !completedTimestamps[taskId]) {
-      completedTimestamps[taskId] = now;
-      saveCompletedTimestamps();
-    } else if (!done) {
-      delete completedTimestamps[taskId];
-      saveCompletedTimestamps();
-    }
-    
-    const payload = {
-      task_id: taskId,
-      name: taskName,
-      done: done,
-      sprint_key: SPRINT.key,
-      source: taskSource || 'manual',
-      updated_at: now,
-      completed_at: done ? (completedTimestamps[taskId] || now) : null
-    };
-    
-    const { error } = await sb.from('tasks').upsert(payload, { onConflict: 'task_id,sprint_key' });
-    if (error) console.error('Supabase sync error:', error);
-  } catch(e) { console.error('Supabase sync error:', e); }
+    await sb.from('tasks').upsert({ task_id: taskId, done, updated_at: new Date().toISOString() }, { onConflict: 'task_id' });
+  } catch(e) { /* silent */ }
 }
 
-// Bulk sync ALL tasks on page unload (catches anything missed)
-function bulkSyncAllTasks() {
-  if (!sb) return;
-  const allTasks = document.querySelectorAll('.task[data-id]');
-  const rows = [];
-  allTasks.forEach(t => {
-    const id = t.dataset.id;
-    const name = t.dataset.name;
-    const source = t.dataset.source || 'manual';
-    const done = !!state[id];
-    rows.push({
-      task_id: id,
-      name: name,
-      done: done,
-      sprint_key: SPRINT.key,
-      source: source,
-      updated_at: new Date().toISOString(),
-      completed_at: done ? (completedTimestamps[id] || new Date().toISOString()) : null
-    });
-  });
-  if (rows.length === 0) return;
-  // Use sendBeacon for reliable unload sync
-  const url = SB_URL + '/rest/v1/tasks?on_conflict=task_id,sprint_key';
-  const headers = {
-    'apikey': SB_KEY,
-    'Authorization': 'Bearer ' + SB_KEY,
-    'Content-Type': 'application/json',
-    'Prefer': 'resolution=merge-duplicates'
-  };
-  try {
-    const blob = new Blob([JSON.stringify(rows)], { type: 'application/json' });
-    // sendBeacon doesn't support custom headers, so use fetch with keepalive
-    fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(rows), keepalive: true })
-      .catch(() => {});
-  } catch(e) {}
-}
-
-// Sync on page unload, visibility change, and periodically
-window.addEventListener('beforeunload', bulkSyncAllTasks);
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'hidden') bulkSyncAllTasks();
-});
-// Auto-sync every 2 minutes
-setInterval(bulkSyncAllTasks, 120000);
-
-// Load state from Supabase on startup (scoped to current sprint_key)
+// Load state from Supabase on startup (merge with localStorage)
 (async () => {
   if (!sb) return;
   try {
-    const { data } = await sb.from('tasks')
-      .select('task_id, done, completed_at')
-      .eq('sprint_key', SPRINT.key)
-      .eq('done', true);
+    const { data } = await sb.from('tasks').select('task_id, done').eq('done', true);
     if (data) {
       let changed = false;
       data.forEach(row => {
         if (!state[row.task_id]) { state[row.task_id] = true; changed = true; }
-        if (row.completed_at && !completedTimestamps[row.task_id]) {
-          completedTimestamps[row.task_id] = row.completed_at;
-        }
       });
       if (changed) {
         localStorage.setItem(STORAGE, JSON.stringify(state));
-        saveCompletedTimestamps();
+        // Update UI for any tasks marked done in Supabase but not locally
         document.querySelectorAll('.task[data-id]').forEach(t => {
           const id = t.dataset.id;
           if (state[id]) { t.classList.add('done'); t.querySelector('input').checked = true; }
@@ -684,9 +409,6 @@ setInterval(bulkSyncAllTasks, 120000);
     }
   } catch(e) { /* silent */ }
 })();
-
-// Initial bulk sync on load (seeds all tasks into Supabase so we have the full picture)
-setTimeout(bulkSyncAllTasks, 3000);
 </script>
 </body>
 </html>

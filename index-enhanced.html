@@ -171,57 +171,15 @@ const SPRINT = {
   key: 'sprint-2026-03-04',
   sections: [
     { id: 'batch1', title: 'Morning Must-Dos', priority: 'now', batch: 1, tasks: [
-      { id: 'custom-morning-e', name: 'Catch up on emails', detail: '', tag: '', tagClass: '', source: 'manual' },
-      { id: 'custom-morning-gc', name: 'Catch up on group chat', detail: '', tag: '', tagClass: '', source: 'manual' },
-      { id: 'custom-morning-1', name: 'Confirm Porsche Experience (Mar 6)', detail: 'Call to book — event is Friday', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
-      { id: 'custom-morning-0', name: 'Remove plus-one option on Aces SF Luma page', detail: '', tag: 'URGENT', tagClass: 'tag-urgent', source: 'manual' }
+      { id: 'custom-morning-1', name: 'Call Porsche, book driving experience (Mar 6)', detail: 'Need to finalize reservation', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
+      { id: 'custom-morning-2', name: 'Group chat sparks (seed members, draft questions)', detail: 'Prepare content for group chat engagement', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' }
     ]},
-    { id: 'batch2', title: '🔴 Aces SF — Mar 12 (8 days) — Helen Min', priority: 'now', batch: 2, tasks: [
-      { id: 'at-sf-aces-chef', name: 'Reach out to SF chefs to book for Aces dinner', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-sf-aces-photo', name: 'Reach out to SF photographer to book for Aces', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-sf-aces-helper', name: 'Reach out to Hannah for Aces SF helper', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' }
+    { id: 'batch2', title: 'Before 1pm', priority: 'next', batch: 2, tasks: [
+      { id: 'custom-afternoon-1', name: 'Prep for Max talk', detail: 'Before 1pm', tag: 'DRAFT', tagClass: 'tag-draft', source: 'manual' }
     ]},
-    { id: 'batch3', title: '🔴 Insiders SF — Mar 13 (9 days) — Vishal Tripathi', priority: 'now', batch: 3, tasks: [
-      { id: 'at-sf-ins-chef', name: 'Reach out to SF chefs to book for Insiders dinner', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-sf-ins-photo', name: 'Reach out to SF photographer to book for Insiders', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-sf-ins-helper', name: 'Reach out to helper for Insiders SF', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-sf-ins-theme', name: 'Text Vishal about dinner theme', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-sf-ins-canva', name: 'Create Canva invite + Luma event for Insiders SF', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
-      { id: 'at-sf-ins-announce', name: 'Send email + WhatsApp with Luma link for Insiders SF', detail: '', tag: 'SEND', tagClass: 'tag-email', source: 'airtable' }
+    { id: 'batch3', title: 'Afternoon', priority: 'next', batch: 3, tasks: [
+      { id: 'custom-afternoon-2', name: 'Book flights', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' }
     ]},
-    { id: 'batch4', title: '🟡 NY Events — Mar 17-18 — Shuman + Reusche', priority: 'next', batch: 4, tasks: [
-      { id: 'at-ny-aces-chef', name: 'Reach out to NY chefs to book for Aces dinner', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-ny-aces-photo', name: 'Reach out to NY photographer to book for Aces', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-ny-aces-helper', name: 'Reach out to NY helper for Aces', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-ny-aces-theme', name: 'Text Jason Shuman about dinner theme', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-ny-aces-luma', name: 'Create Canva + Luma + announce Aces NY', detail: 'Luma shell already created', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
-      { id: 'at-ny-ins-chef', name: 'Reach out to NY chefs to book for Insiders dinner', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-ny-ins-photo', name: 'Reach out to NY photographer to book for Insiders', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-ny-ins-helper', name: 'Reach out to NY helper for Insiders', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-ny-ins-luma', name: 'Create Canva + Luma + announce Insiders NY', detail: 'Luma page already created', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' }
-    ]},
-    { id: 'batch5', title: '🟡 LA Events — Mar 20 + Mar 27 — Lumer + Karan', priority: 'next', batch: 5, tasks: [
-      { id: 'at-la-ins-chef', name: 'Reach out to LA chefs to book for Insiders lunch', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-la-ins-photo', name: 'Reach out to LA photographer to book for Insiders', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-la-ins-luma', name: 'Create Canva + Luma + announce Insiders LA', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
-      { id: 'at-la-aces-chef', name: 'Reach out to LA chefs to book for Aces dinner', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-la-aces-photo', name: 'Reach out to LA photographer to book for Aces', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'at-la-aces-helper', name: 'Reach out to LA helper for Aces', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' }
-    ]},
-    { id: 'batch6', title: 'People & Comms', priority: 'next', batch: 6, tasks: [
-      { id: 'custom-comms-1', name: 'Update Rob Biedermann profile everywhere', detail: 'Airtable, Notion, Lovable dashboard, storyteller doc', tag: 'UPDATE', tagClass: 'tag-update', source: 'manual' },
-      { id: 'custom-comms-2', name: 'Send post-event emails — Insiders SF + Insiders LA', detail: 'After emails to all attendees from both events', tag: 'EMAIL', tagClass: 'tag-email', source: 'manual' },
-      { id: 'custom-comms-3', name: 'Build Insiders non-member pre/post dinner system', detail: 'What to send non-members before and after events', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' },
-      { id: 'custom-morning-3', name: 'Group chat — seed members + draft questions', detail: 'Deals chat reminder at 6pm', tag: 'DRAFT', tagClass: 'tag-draft', source: 'asana' }
-    ]},
-    { id: 'batch7', title: 'Also Today', priority: 'later', batch: 7, tasks: [
-      { id: 'custom-afternoon-1', name: 'Prep for Max talk', detail: 'Before 1pm', tag: '', tagClass: '', source: 'manual' },
-      { id: 'asana-1213143154693328', name: 'Find a yearly trip gift to give to everyone', detail: '41 attendees', tag: '', tagClass: '', source: 'asana' },
-      { id: 'custom-afternoon-2', name: 'Book flights', detail: '', tag: '', tagClass: '', source: 'asana' },
-      { id: 'custom-afternoon-3', name: 'Think about Luma invite acceptance process', detail: 'How do we accept/approve folks on Luma event pages?', tag: 'THINK', tagClass: 'tag-think', source: 'manual' },
-      { id: 'asana-1213271111073500', name: 'Redo the storyteller doc in notion', detail: 'Due Mar 5', tag: '', tagClass: '', source: 'asana' },
-      { id: 'asana-1213143154693336', name: 'Create photo sharing system', detail: 'Due Mar 5', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' }
-    ]}
   ]
 };
 
@@ -289,38 +247,10 @@ SPRINT.sections.forEach(sec => {
   sectionsEl.appendChild(secEl);
 });
 
-// Notes (synced to Supabase)
+// Notes
 const notesEl = document.getElementById('notes');
 notesEl.value = localStorage.getItem(NOTES_STORAGE) || '';
-let notesTimeout = null;
-notesEl.addEventListener('input', () => {
-  localStorage.setItem(NOTES_STORAGE, notesEl.value);
-  clearTimeout(notesTimeout);
-  notesTimeout = setTimeout(() => syncNotesToSupabase(notesEl.value), 1500);
-});
-
-async function syncNotesToSupabase(text) {
-  if (!sb) return;
-  try {
-    await sb.from('sprint_notes').upsert({
-      sprint_key: SPRINT.key,
-      notes: text,
-      updated_at: new Date().toISOString()
-    }, { onConflict: 'sprint_key' });
-  } catch(e) { console.error('Notes sync error:', e); }
-}
-
-// Load notes from Supabase on startup
-(async () => {
-  if (!sb) return;
-  try {
-    const { data } = await sb.from('sprint_notes').select('notes').eq('sprint_key', SPRINT.key).single();
-    if (data && data.notes && !notesEl.value) {
-      notesEl.value = data.notes;
-      localStorage.setItem(NOTES_STORAGE, data.notes);
-    }
-  } catch(e) { /* silent - table may not exist yet */ }
-})();
+notesEl.addEventListener('input', () => localStorage.setItem(NOTES_STORAGE, notesEl.value));
 
 // Render tomorrow
 renderTomorrow();
@@ -399,37 +329,8 @@ document.addEventListener('change', e => {
   localStorage.setItem(STORAGE, JSON.stringify(state));
   updateProgress();
   syncToSupabase(id, done, taskName, taskSource);
-  if (done && id.startsWith('at-')) syncVendorStatus(id, taskName);
   checkBatchComplete();
 });
-
-// Vendor reach-out tracking: when a vendor task is checked off, update vendor_tracking
-async function syncVendorStatus(taskId, taskName) {
-  if (!sb) return;
-  // Parse task ID: at-{city}-{community}-{type}
-  const parts = taskId.split('-');
-  if (parts.length < 4) return;
-  const cityCode = parts[1]; // sf, ny, la
-  const commCode = parts[2]; // aces, ins
-  const vendorType = parts[3]; // chef, photo, helper
-  
-  const cityMap = { sf: 'SF', ny: 'NY', la: 'LA' };
-  const commMap = { aces: 'Aces', ins: 'Insiders' };
-  const typeMap = { chef: 'chef', photo: 'photographer', helper: 'helper' };
-  
-  const city = cityMap[cityCode];
-  const community = commMap[commCode];
-  const vType = typeMap[vendorType];
-  if (!city || !community || !vType) return;
-  
-  try {
-    await sb.from('vendor_tracking')
-      .update({ status: 'reached_out', reached_out_at: new Date().toISOString(), updated_at: new Date().toISOString() })
-      .eq('city', city)
-      .eq('community', community)
-      .eq('vendor_type', vType);
-  } catch(e) { console.error('Vendor sync error:', e); }
-}
 
 // ============================================================
 // MOVE TO TOMORROW
@@ -454,14 +355,12 @@ function moveToTomorrow(id) {
 function moveToEnd(id) {
   const task = document.querySelector(`.task[data-id="${id}"]`);
   if (!task) return;
-  // Find the last batch section
-  const allBatches = document.querySelectorAll('.section[data-batch]');
-  const lastBatch = allBatches[allBatches.length - 1];
-  if (!lastBatch) return;
+  const batch7Sec = document.querySelector('.section[data-batch="7"]');
+  if (!batch7Sec) return;
   task.classList.add('moving');
   setTimeout(() => { 
     task.classList.remove('moving'); 
-    lastBatch.appendChild(task); 
+    batch7Sec.appendChild(task); 
     updateProgress();
     checkBatchComplete();
   }, 300);
@@ -570,111 +469,42 @@ function hideWeeklyRecap() {
 }
 
 // ============================================================
-// SUPABASE SYNC (with completed_at + sprint_key + source)
-// Composite unique key: (task_id, sprint_key)
+// SUPABASE SYNC (enhanced with completed_at + sprint_key + source)
 // ============================================================
-
-// Track completed_at timestamps locally so undos preserve original completion time
-const COMPLETED_TS_STORAGE = SPRINT.key + '-completed-ts';
-let completedTimestamps = JSON.parse(localStorage.getItem(COMPLETED_TS_STORAGE) || '{}');
-
-function saveCompletedTimestamps() {
-  localStorage.setItem(COMPLETED_TS_STORAGE, JSON.stringify(completedTimestamps));
-}
-
 async function syncToSupabase(taskId, done, taskName, taskSource) {
   if (!sb) return;
   try {
-    const now = new Date().toISOString();
-    
-    // Track completion timestamp locally
-    if (done && !completedTimestamps[taskId]) {
-      completedTimestamps[taskId] = now;
-      saveCompletedTimestamps();
-    } else if (!done) {
-      delete completedTimestamps[taskId];
-      saveCompletedTimestamps();
-    }
-    
     const payload = {
       task_id: taskId,
       name: taskName,
       done: done,
       sprint_key: SPRINT.key,
       source: taskSource || 'manual',
-      updated_at: now,
-      completed_at: done ? (completedTimestamps[taskId] || now) : null
+      updated_at: new Date().toISOString()
     };
     
-    const { error } = await sb.from('tasks').upsert(payload, { onConflict: 'task_id,sprint_key' });
-    if (error) console.error('Supabase sync error:', error);
+    if (done) {
+      payload.completed_at = new Date().toISOString();
+    } else {
+      payload.completed_at = null;
+    }
+    
+    await sb.from('tasks').upsert(payload, { onConflict: 'task_id' });
   } catch(e) { console.error('Supabase sync error:', e); }
 }
 
-// Bulk sync ALL tasks on page unload (catches anything missed)
-function bulkSyncAllTasks() {
-  if (!sb) return;
-  const allTasks = document.querySelectorAll('.task[data-id]');
-  const rows = [];
-  allTasks.forEach(t => {
-    const id = t.dataset.id;
-    const name = t.dataset.name;
-    const source = t.dataset.source || 'manual';
-    const done = !!state[id];
-    rows.push({
-      task_id: id,
-      name: name,
-      done: done,
-      sprint_key: SPRINT.key,
-      source: source,
-      updated_at: new Date().toISOString(),
-      completed_at: done ? (completedTimestamps[id] || new Date().toISOString()) : null
-    });
-  });
-  if (rows.length === 0) return;
-  // Use sendBeacon for reliable unload sync
-  const url = SB_URL + '/rest/v1/tasks?on_conflict=task_id,sprint_key';
-  const headers = {
-    'apikey': SB_KEY,
-    'Authorization': 'Bearer ' + SB_KEY,
-    'Content-Type': 'application/json',
-    'Prefer': 'resolution=merge-duplicates'
-  };
-  try {
-    const blob = new Blob([JSON.stringify(rows)], { type: 'application/json' });
-    // sendBeacon doesn't support custom headers, so use fetch with keepalive
-    fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(rows), keepalive: true })
-      .catch(() => {});
-  } catch(e) {}
-}
-
-// Sync on page unload, visibility change, and periodically
-window.addEventListener('beforeunload', bulkSyncAllTasks);
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'hidden') bulkSyncAllTasks();
-});
-// Auto-sync every 2 minutes
-setInterval(bulkSyncAllTasks, 120000);
-
-// Load state from Supabase on startup (scoped to current sprint_key)
+// Load state from Supabase on startup
 (async () => {
   if (!sb) return;
   try {
-    const { data } = await sb.from('tasks')
-      .select('task_id, done, completed_at')
-      .eq('sprint_key', SPRINT.key)
-      .eq('done', true);
+    const { data } = await sb.from('tasks').select('task_id, done').eq('done', true);
     if (data) {
       let changed = false;
       data.forEach(row => {
         if (!state[row.task_id]) { state[row.task_id] = true; changed = true; }
-        if (row.completed_at && !completedTimestamps[row.task_id]) {
-          completedTimestamps[row.task_id] = row.completed_at;
-        }
       });
       if (changed) {
         localStorage.setItem(STORAGE, JSON.stringify(state));
-        saveCompletedTimestamps();
         document.querySelectorAll('.task[data-id]').forEach(t => {
           const id = t.dataset.id;
           if (state[id]) { t.classList.add('done'); t.querySelector('input').checked = true; }
@@ -684,9 +514,6 @@ setInterval(bulkSyncAllTasks, 120000);
     }
   } catch(e) { /* silent */ }
 })();
-
-// Initial bulk sync on load (seeds all tasks into Supabase so we have the full picture)
-setTimeout(bulkSyncAllTasks, 3000);
 </script>
 </body>
 </html>

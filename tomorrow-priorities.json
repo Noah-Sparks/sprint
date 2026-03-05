@@ -1,0 +1,34 @@
+[
+  {
+    "id": "custom-morning-1",
+    "name": "Call Porsche, book driving experience (Mar 6)",
+    "detail": "Need to finalize reservation",
+    "source": "manual",
+    "priority": "custom-morning",
+    "tags": []
+  },
+  {
+    "id": "custom-morning-2",
+    "name": "Group chat sparks (seed members, draft questions)",
+    "detail": "Prepare content for group chat engagement",
+    "source": "manual",
+    "priority": "custom-morning",
+    "tags": []
+  },
+  {
+    "id": "custom-afternoon-1",
+    "name": "Prep for Max talk",
+    "detail": "Before 1pm",
+    "source": "manual",
+    "priority": "custom-afternoon",
+    "tags": []
+  },
+  {
+    "id": "custom-afternoon-2",
+    "name": "Book flights",
+    "detail": "",
+    "source": "manual",
+    "priority": "custom-afternoon",
+    "tags": []
+  }
+]
