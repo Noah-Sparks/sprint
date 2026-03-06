@@ -50,11 +50,25 @@
   .batch-indicator { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; }
   .toggle-all-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text-secondary); font-size: 11px; font-weight: 600; font-family: inherit; padding: 6px 12px; cursor: pointer; transition: all 0.15s ease; text-transform: uppercase; letter-spacing: 0.5px; }
   .toggle-all-btn:hover { background: var(--surface-hover); color: var(--text); border-color: var(--accent); }
-  .batch-complete-banner { background: linear-gradient(135deg, var(--accent), #a78bfa); padding: 16px; border-radius: var(--radius); text-align: center; margin-bottom: 20px; animation: slideDown 0.4s ease; display: none; }
-  .batch-complete-banner.show { display: block; }
-  .batch-complete-banner .emoji { font-size: 28px; margin-bottom: 4px; }
-  .batch-complete-banner .msg { font-size: 14px; font-weight: 600; color: white; }
-  @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+  .batch-complete-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 1000; pointer-events: none; opacity: 0; transition: opacity 0.3s ease; }
+  .batch-complete-overlay.show { opacity: 1; }
+  .batch-complete-ring { width: 80px; height: 80px; position: relative; }
+  .batch-complete-ring svg { width: 80px; height: 80px; transform: rotate(-90deg); }
+  .batch-complete-ring .ring-bg { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 3; }
+  .batch-complete-ring .ring-fill { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 226; stroke-dashoffset: 226; }
+  .batch-complete-ring.animate .ring-fill { animation: ringClose 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .batch-complete-check { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 28px; height: 28px; opacity: 0; }
+  .batch-complete-check path { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 30; stroke-dashoffset: 30; }
+  .batch-complete-ring.animate .batch-complete-check { opacity: 1; transition: opacity 0.1s ease 0.5s; }
+  .batch-complete-ring.animate .batch-complete-check path { animation: checkDraw 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards; }
+  .batch-complete-glow { position: absolute; top: 50%; left: 50%; width: 80px; height: 80px; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); opacity: 0; }
+  .batch-complete-ring.animate .batch-complete-glow { animation: glowPulse 0.8s ease 0.4s forwards; }
+  .batch-complete-label { position: absolute; top: calc(50% + 56px); left: 50%; transform: translateX(-50%); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); opacity: 0; white-space: nowrap; }
+  .batch-complete-ring.animate .batch-complete-label { animation: labelFade 0.4s ease 0.7s forwards; }
+  @keyframes ringClose { to { stroke-dashoffset: 0; } }
+  @keyframes checkDraw { to { stroke-dashoffset: 0; } }
+  @keyframes glowPulse { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); } 50% { opacity: 0.4; transform: translate(-50%, -50%) scale(1.2); } 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.4); } }
+  @keyframes labelFade { from { opacity: 0; transform: translateX(-50%) translateY(4px); } to { opacity: 0.6; transform: translateX(-50%) translateY(0); } }
   .section { margin-bottom: 24px; }
   .section.batch-hidden { display: none; }
   .section-header { display: flex; align-items: center; gap: 8px; padding: 0 0 10px 0; border-bottom: 1px solid var(--border-subtle); margin-bottom: 2px; }
@@ -106,11 +120,17 @@
   .notes-area { width: 100%; min-height: 80px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; color: var(--text-secondary); font-family: inherit; font-size: 13px; line-height: 1.5; resize: vertical; outline: none; }
   .notes-area:focus { border-color: var(--accent); }
   .notes-area::placeholder { color: var(--text-muted); }
-  .celebration { display: none; text-align: center; padding: 40px 20px; animation: fadeIn 0.5s ease; }
-  .celebration.show { display: block; }
-  .celebration .emoji { font-size: 48px; margin-bottom: 12px; }
-  .celebration .msg { font-size: 16px; font-weight: 600; }
-  .celebration .sub { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+  .celebration { display: none; text-align: center; padding: 60px 20px; }
+  .celebration.show { display: block; animation: celebFadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+  .celebration .done-text { font-size: 32px; font-weight: 700; letter-spacing: -1px; color: var(--text); opacity: 0; animation: celebTextIn 0.5s ease 0.3s forwards; }
+  .celebration .done-sub { font-size: 13px; color: var(--text-muted); margin-top: 8px; opacity: 0; animation: celebTextIn 0.5s ease 0.5s forwards; }
+  .celebration .done-line { width: 32px; height: 2px; background: var(--accent); margin: 16px auto 0; border-radius: 1px; opacity: 0; animation: celebLineIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards; }
+  .celebration.show .progress-fill { box-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent-glow); }
+  @keyframes celebFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes celebTextIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes celebLineIn { from { opacity: 0; width: 0; } to { opacity: 0.6; width: 32px; } }
+  .particles-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
+  .particle { position: absolute; width: 4px; height: 4px; border-radius: 50%; opacity: 0; }
   .hint { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 24px; opacity: 0.5; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes slideOut { from { opacity: 1; max-height: 80px; } to { opacity: 0; max-height: 0; padding: 0; } }
@@ -147,11 +167,16 @@
     <span class="batch-indicator" id="batchIndicator">Batch 1 of 7</span>
     <button class="toggle-all-btn" id="toggleAllBtn" onclick="toggleShowAll()">Show all</button>
   </div>
-  <div id="batchCompleteBanner" class="batch-complete-banner">
-    <div class="emoji">✅</div>
-    <div class="msg">Batch complete! Moving to next...</div>
+  <div id="batchCompleteOverlay" class="batch-complete-overlay">
+    <div id="batchCompleteRing" class="batch-complete-ring">
+      <div class="batch-complete-glow"></div>
+      <svg viewBox="0 0 80 80"><circle class="ring-bg" cx="40" cy="40" r="36"/><circle class="ring-fill" cx="40" cy="40" r="36"/></svg>
+      <div class="batch-complete-check"><svg viewBox="0 0 28 28"><path d="M7 14.5L12 19.5L21 9"/></svg></div>
+      <div class="batch-complete-label">Next batch</div>
+    </div>
   </div>
-  <div id="celebration" class="celebration"><div class="emoji">🏁</div><div class="msg">Sprint complete.</div><div class="sub">Go enjoy your day.</div></div>
+  <div id="celebration" class="celebration"><div class="done-line"></div><div class="done-text">Done.</div><div class="done-sub">Go enjoy your day.</div></div>
+  <div id="particlesContainer" class="particles-container"></div>
   <div id="sections"></div>
   <div class="section tomorrow-section" id="sec-tomorrow">
     <div class="section-header"><div class="section-indicator priority-tmrw"></div><span class="section-title">Tomorrow</span><span class="section-count"></span></div>
@@ -350,16 +375,33 @@ function checkBatchComplete() {
   });
   
   if (allDone && currentBatch < 7) {
-    const banner = document.getElementById('batchCompleteBanner');
-    banner.classList.add('show');
+    const overlay = document.getElementById('batchCompleteOverlay');
+    const ring = document.getElementById('batchCompleteRing');
+    
+    // Reset animation
+    ring.classList.remove('animate');
+    void ring.offsetWidth;
+    
+    overlay.classList.add('show');
+    ring.classList.add('animate');
+    
+    // Haptic feedback if available
+    if (navigator.vibrate) navigator.vibrate(10);
     
     setTimeout(() => {
-      banner.classList.remove('show');
+      overlay.classList.remove('show');
+      ring.classList.remove('animate');
+      // Reset SVG for next use
+      const fill = ring.querySelector('.ring-fill');
+      fill.style.strokeDashoffset = '226';
+      void fill.offsetWidth;
+      fill.style.strokeDashoffset = '';
+      
       currentBatch++;
       localStorage.setItem(BATCH_STORAGE, currentBatch);
       updateBatchVisibility();
       updateProgress();
-    }, 1500);
+    }, 1800);
   }
 }
 
@@ -495,7 +537,16 @@ function updateProgress() {
   document.getElementById('totalCount').textContent = total;
   document.getElementById('doneCount').textContent = done;
   document.getElementById('progressBar').style.width = total ? (done / total * 100) + '%' : '0%';
-  document.getElementById('celebration').classList.toggle('show', done === total && total > 0);
+  const celebEl = document.getElementById('celebration');
+  const wasShowing = celebEl.classList.contains('show');
+  const shouldShow = done === total && total > 0;
+  celebEl.classList.toggle('show', shouldShow);
+  
+  // Trigger particles on first show
+  if (shouldShow && !wasShowing) {
+    spawnParticles();
+    if (navigator.vibrate) navigator.vibrate([10, 50, 10]);
+  }
   
   document.querySelectorAll('.section[id^="sec-"]').forEach(sec => {
     const sTasks = sec.querySelectorAll('.task[data-id]');
@@ -684,6 +735,53 @@ setInterval(bulkSyncAllTasks, 120000);
 
 // Initial bulk sync on load (seeds all tasks into Supabase so we have the full picture)
 setTimeout(bulkSyncAllTasks, 3000);
+
+// ============================================================
+// PARTICLES (sprint complete celebration)
+// ============================================================
+function spawnParticles() {
+  const container = document.getElementById('particlesContainer');
+  const colors = ['#7c5cfc', '#a78bfa', '#34d399', '#60a5fa', '#f472b6', '#fbbf24'];
+  const count = 40;
+  
+  for (let i = 0; i < count; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const x = 50 + (Math.random() - 0.5) * 20;
+    const y = 45 + (Math.random() - 0.5) * 10;
+    const angle = (Math.random() * Math.PI * 2);
+    const velocity = 80 + Math.random() * 160;
+    const dx = Math.cos(angle) * velocity;
+    const dy = Math.sin(angle) * velocity;
+    const size = 3 + Math.random() * 4;
+    const duration = 0.6 + Math.random() * 0.6;
+    const delay = Math.random() * 0.15;
+    
+    particle.style.cssText = `
+      left: ${x}%; top: ${y}%;
+      width: ${size}px; height: ${size}px;
+      background: ${color};
+      border-radius: ${Math.random() > 0.5 ? '50%' : '1px'};
+      animation: particleBurst ${duration}s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s forwards;
+      --dx: ${dx}px; --dy: ${dy}px;
+    `;
+    container.appendChild(particle);
+  }
+  
+  // Clean up after animation
+  setTimeout(() => { container.innerHTML = ''; }, 1500);
+}
+
+// Add particle keyframes dynamically
+const particleStyle = document.createElement('style');
+particleStyle.textContent = `
+  @keyframes particleBurst {
+    0% { opacity: 1; transform: translate(0, 0) scale(1); }
+    100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0); }
+  }
+`;
+document.head.appendChild(particleStyle);
 </script>
 </body>
 </html>
