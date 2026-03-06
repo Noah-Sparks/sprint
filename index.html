@@ -50,25 +50,28 @@
   .batch-indicator { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; }
   .toggle-all-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text-secondary); font-size: 11px; font-weight: 600; font-family: inherit; padding: 6px 12px; cursor: pointer; transition: all 0.15s ease; text-transform: uppercase; letter-spacing: 0.5px; }
   .toggle-all-btn:hover { background: var(--surface-hover); color: var(--text); border-color: var(--accent); }
-  .batch-complete-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 1000; pointer-events: none; opacity: 0; transition: opacity 0.3s ease; }
+  .batch-complete-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 1000; pointer-events: none; opacity: 0; transition: opacity 0.4s ease; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
   .batch-complete-overlay.show { opacity: 1; }
-  .batch-complete-ring { width: 80px; height: 80px; position: relative; }
-  .batch-complete-ring svg { width: 80px; height: 80px; transform: rotate(-90deg); }
-  .batch-complete-ring .ring-bg { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 3; }
-  .batch-complete-ring .ring-fill { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 226; stroke-dashoffset: 226; }
-  .batch-complete-ring.animate .ring-fill { animation: ringClose 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-  .batch-complete-check { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 28px; height: 28px; opacity: 0; }
-  .batch-complete-check path { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 30; stroke-dashoffset: 30; }
-  .batch-complete-ring.animate .batch-complete-check { opacity: 1; transition: opacity 0.1s ease 0.5s; }
-  .batch-complete-ring.animate .batch-complete-check path { animation: checkDraw 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards; }
-  .batch-complete-glow { position: absolute; top: 50%; left: 50%; width: 80px; height: 80px; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); opacity: 0; }
-  .batch-complete-ring.animate .batch-complete-glow { animation: glowPulse 0.8s ease 0.4s forwards; }
-  .batch-complete-label { position: absolute; top: calc(50% + 56px); left: 50%; transform: translateX(-50%); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); opacity: 0; white-space: nowrap; }
-  .batch-complete-ring.animate .batch-complete-label { animation: labelFade 0.4s ease 0.7s forwards; }
-  @keyframes ringClose { to { stroke-dashoffset: 0; } }
+  .batch-complete-ring { width: 120px; height: 120px; position: relative; transform: scale(0.9); transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .batch-complete-ring.animate { transform: scale(1); }
+  .batch-complete-ring svg.ring-svg { width: 120px; height: 120px; transform: rotate(-90deg); filter: drop-shadow(0 0 12px rgba(124,92,252,0.3)); }
+  .batch-complete-ring .ring-bg { fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 6; }
+  .batch-complete-ring .ring-fill { fill: none; stroke: url(#ringGradient); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 327; stroke-dashoffset: 327; }
+  .batch-complete-ring.animate .ring-fill { animation: ringClose 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+  .batch-complete-check { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 36px; height: 36px; opacity: 0; }
+  .batch-complete-check svg { width: 36px; height: 36px; }
+  .batch-complete-check path { fill: none; stroke: white; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 36; stroke-dashoffset: 36; }
+  .batch-complete-ring.animate .batch-complete-check { opacity: 1; transition: opacity 0.2s ease 1.5s; }
+  .batch-complete-ring.animate .batch-complete-check path { animation: checkDraw 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.5s forwards; }
+  .batch-complete-glow { position: absolute; top: 50%; left: 50%; width: 140px; height: 140px; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, rgba(124,92,252,0.25) 0%, transparent 70%); opacity: 0; }
+  .batch-complete-ring.animate .batch-complete-glow { animation: glowPulse 1.2s ease 1.4s forwards; }
+  .batch-complete-label { position: absolute; top: calc(50% + 80px); left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.5); opacity: 0; white-space: nowrap; }
+  .batch-complete-ring.animate .batch-complete-label { animation: labelFade 0.5s ease 1.8s forwards; }
+  @keyframes ringClose { 0% { stroke-dashoffset: 327; } 100% { stroke-dashoffset: 0; } }
   @keyframes checkDraw { to { stroke-dashoffset: 0; } }
-  @keyframes glowPulse { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); } 50% { opacity: 0.4; transform: translate(-50%, -50%) scale(1.2); } 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.4); } }
-  @keyframes labelFade { from { opacity: 0; transform: translateX(-50%) translateY(4px); } to { opacity: 0.6; transform: translateX(-50%) translateY(0); } }
+  @keyframes glowPulse { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); } 40% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); } 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); } }
+  @keyframes labelFade { from { opacity: 0; transform: translateX(-50%) translateY(6px); } to { opacity: 0.7; transform: translateX(-50%) translateY(0); } }
+  @keyframes ringBounce { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
   .section { margin-bottom: 24px; }
   .section.batch-hidden { display: none; }
   .section-header { display: flex; align-items: center; gap: 8px; padding: 0 0 10px 0; border-bottom: 1px solid var(--border-subtle); margin-bottom: 2px; }
@@ -170,8 +173,18 @@
   <div id="batchCompleteOverlay" class="batch-complete-overlay">
     <div id="batchCompleteRing" class="batch-complete-ring">
       <div class="batch-complete-glow"></div>
-      <svg viewBox="0 0 80 80"><circle class="ring-bg" cx="40" cy="40" r="36"/><circle class="ring-fill" cx="40" cy="40" r="36"/></svg>
-      <div class="batch-complete-check"><svg viewBox="0 0 28 28"><path d="M7 14.5L12 19.5L21 9"/></svg></div>
+      <svg class="ring-svg" viewBox="0 0 120 120">
+        <defs>
+          <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#7c5cfc"/>
+            <stop offset="50%" style="stop-color:#a78bfa"/>
+            <stop offset="100%" style="stop-color:#34d399"/>
+          </linearGradient>
+        </defs>
+        <circle class="ring-bg" cx="60" cy="60" r="52"/>
+        <circle class="ring-fill" cx="60" cy="60" r="52"/>
+      </svg>
+      <div class="batch-complete-check"><svg viewBox="0 0 36 36"><path d="M10 18L16 24L26 12"/></svg></div>
       <div class="batch-complete-label">Next batch</div>
     </div>
   </div>
@@ -379,25 +392,43 @@ function checkBatchComplete() {
     void ring.offsetWidth;
     
     overlay.classList.add('show');
-    ring.classList.add('animate');
     
-    // Haptic feedback if available
-    if (navigator.vibrate) navigator.vibrate(10);
+    // Small delay before ring starts drawing (builds anticipation)
+    setTimeout(() => {
+      ring.classList.add('animate');
+      // Haptic at ring start
+      if (navigator.vibrate) navigator.vibrate(10);
+    }, 200);
     
+    // Second haptic when checkmark appears
+    setTimeout(() => {
+      if (navigator.vibrate) navigator.vibrate([8, 60, 12]);
+    }, 1900);
+    
+    // Bounce the ring slightly when complete
+    setTimeout(() => {
+      ring.style.animation = 'ringBounce 0.4s ease';
+      setTimeout(() => { ring.style.animation = ''; }, 400);
+    }, 2100);
+    
+    // Hold for a satisfying moment, then fade out and advance
     setTimeout(() => {
       overlay.classList.remove('show');
-      ring.classList.remove('animate');
-      // Reset SVG for next use
-      const fill = ring.querySelector('.ring-fill');
-      fill.style.strokeDashoffset = '226';
-      void fill.offsetWidth;
-      fill.style.strokeDashoffset = '';
       
-      currentBatch++;
-      localStorage.setItem(BATCH_STORAGE, currentBatch);
-      updateBatchVisibility();
-      updateProgress();
-    }, 1800);
+      setTimeout(() => {
+        ring.classList.remove('animate');
+        // Reset SVG for next use
+        const fill = ring.querySelector('.ring-fill');
+        fill.style.strokeDashoffset = '327';
+        void fill.offsetWidth;
+        fill.style.strokeDashoffset = '';
+        
+        currentBatch++;
+        localStorage.setItem(BATCH_STORAGE, currentBatch);
+        updateBatchVisibility();
+        updateProgress();
+      }, 500);
+    }, 3000);
   }
 }
 
