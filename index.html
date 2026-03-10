@@ -223,34 +223,46 @@ const SPRINT = {
   date: 'March 10, 2026',
   key: 'sprint-2026-03-10',
   sections: [
-    { id: 'batch1', title: '🚨 SF Dinner Emergency (Tomorrow)', priority: 'now', batch: 1, tasks: [
-      { id: 'sf-photo-1', name: 'Book photographer for SF events (Mar 11-12)', detail: 'No photographer booked for either dinner. Check fire drill doc for vendor contacts.', tag: 'URGENT', tagClass: 'tag-urgent', source: 'asana' },
-      { id: 'sf-shabnam', name: 'Text Shabnam — confirm both nights, ask if she knows photographers', detail: 'Chef confirmed but send confirmation text', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' },
-      { id: 'sf-grace', name: 'Follow up with Grace re: inviting extra folks for SF and LA', detail: 'You asked her Sunday — confirm she acted on it', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' }
+    { id: 'batch1', title: '🚨 SF Emergency — Photographer + Helper', priority: 'now', batch: 1, tasks: [
+      { id: 'sf-photo-1', name: 'Book photographer for SF events (Mar 11-12)', detail: 'ZERO booked for either dinner. Check emergency vendor rolodex for contacts.', tag: 'URGENT', tagClass: 'tag-urgent', source: 'asana' },
+      { id: 'sf-helper', name: 'Find helper for SF events (Hannah out — wisdom teeth)', detail: 'TaskRabbit template in vendor rolodex. Or enlist a guest.', tag: 'URGENT', tagClass: 'tag-urgent', source: 'airtable' },
+      { id: 'sf-venue-confirm', name: 'Confirm Tuesday Insiders venue (Airbnb)', detail: 'Max paid BnB. Confirm address + access details.', tag: 'CONFIRM', tagClass: 'tag-call', source: 'airtable' }
     ]},
-    { id: 'batch2', title: 'Event Prep', priority: 'now', batch: 2, tasks: [
-      { id: 'sf-insiders-print', name: 'SF Insiders dinner — printing + run of show', detail: 'Mar 11 (TOMORROW). Menu, question cards, seating.', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
-      { id: 'sf-aces-print', name: 'SF Aces dinner — printing + run of show', detail: 'Mar 12 @ Helen Min\'s. 8-12 ppl.', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
+    { id: 'batch2', title: '🍳 Chef — SF + NY', priority: 'now', batch: 2, tasks: [
+      { id: 'sf-shabnam', name: 'Text Shabnam — confirm both SF nights + ask if she knows photographers', detail: 'Confirmed but send confirmation text. Ask about dietary/menu.', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' },
+      { id: 'sf-shabnam-menu', name: 'Finalize menu with Shabnam + send headcount (both nights)', detail: 'Pull meal preferences from Luma first', tag: 'FOOD', tagClass: 'tag-create', source: 'airtable' },
       { id: 'ny-chef', name: 'Book chef for NY events (Mar 17-18)', detail: 'Oren photo confirmed, need chef for both NY dinners', tag: 'BOOK', tagClass: 'tag-call', source: 'asana' }
     ]},
-    { id: 'batch3', title: 'Daily Tasks', priority: 'next', batch: 3, tasks: [
+    { id: 'batch3', title: '🖨️ SF Dinner Prep (Everything Else)', priority: 'now', batch: 3, tasks: [
+      { id: 'sf-insiders-print', name: 'SF Insiders — printing + run of show (Mar 11)', detail: 'Pairing/question cards, name cards, menus, run of show doc', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
+      { id: 'sf-insiders-luma', name: 'SF Insiders — create Luma event if not done', detail: 'Check if Luma page exists', tag: 'CHECK', tagClass: 'tag-create', source: 'airtable' },
+      { id: 'sf-insiders-rsvp', name: 'SF Insiders — check RSVP count, text members if low', detail: 'Event is TOMORROW', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
+      { id: 'sf-aces-print', name: 'SF Aces — printing + run of show (Mar 12)', detail: 'Helen Min\'s, 8-12 ppl. Name cards, question cards, menus.', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
+      { id: 'sf-aces-rsvp', name: 'SF Aces — check RSVP count, text members if low', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
+      { id: 'sf-aces-seeds', name: 'SF Aces — collect conversation seeds', detail: '', tag: 'PREP', tagClass: 'tag-draft', source: 'airtable' },
+      { id: 'sf-printing-deliver', name: 'Arrange printing delivery to both SF venues', detail: 'Insiders BnB + Helen\'s (30 Lopez Ave)', tag: 'LOGISTICS', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'sf-grace', name: 'Follow up with Grace — extra folks for SF and LA', detail: 'You asked her, confirm she acted on it', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' }
+    ]},
+    { id: 'batch4', title: 'Daily Tasks', priority: 'next', batch: 4, tasks: [
       { id: 'gc-spark', name: 'Send out daily group chat spark', detail: 'Seed members, draft questions', tag: 'DRAFT', tagClass: 'tag-draft', source: 'asana' },
       { id: 'finance-email', name: 'Check Finance Email', detail: 'Recurring', tag: '', tagClass: '', source: 'asana' },
       { id: 'billing-notion', name: 'Check Billing and Payment Issues Notion page', detail: 'Overdue from Mar 6', tag: '', tagClass: '', source: 'asana' }
     ]},
-    { id: 'batch4', title: 'This Week', priority: 'next', batch: 4, tasks: [
+    { id: 'batch5', title: 'This Week', priority: 'next', batch: 5, tasks: [
       { id: 'sage-contract', name: 'Sign contract for Sage Lodge (yearly trip)', detail: 'Overdue', tag: 'SIGN', tagClass: 'tag-urgent', source: 'asana' },
       { id: 'preston-blankets', name: 'Talk to Preston about blankets for yearly trip', detail: 'You texted him, still need the blankets convo', tag: 'CALL', tagClass: 'tag-call', source: 'asana' },
-      { id: 'ny-insiders-print', name: 'NY Insiders dinner — printing + run of show (Mar 18)', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
-      { id: 'ny-aces-print', name: 'NY Aces dinner — run of show (Mar 17)', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
+      { id: 'ny-insiders-print', name: 'NY Insiders — printing + run of show (Mar 18)', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
+      { id: 'ny-aces-print', name: 'NY Aces — run of show (Mar 17)', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
       { id: 'deals-chat', name: 'Send out deals chat mid week text', detail: 'Due Wed Mar 11', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' }
     ]},
-    { id: 'batch5', title: 'Overdue / Carry Forward', priority: 'later', batch: 5, tasks: [
+    { id: 'batch6', title: 'Overdue / Carry Forward', priority: 'later', batch: 6, tasks: [
       { id: 'mike-bio', name: 'Update Mike\'s bio and headshot (The Veteran Fund)', detail: 'Overdue Mar 6', tag: '', tagClass: '', source: 'asana' },
       { id: 'storyteller', name: 'Redo storyteller doc in Notion', detail: 'Overdue Mar 5', tag: '', tagClass: '', source: 'asana' },
       { id: 'seed-members', name: 'Seed 4 members for future prompts', detail: 'Overdue Mar 6', tag: '', tagClass: '', source: 'asana' },
       { id: 'photo-gallery', name: 'Create photo sharing system for group', detail: 'Overdue Mar 5', tag: '', tagClass: '', source: 'asana' },
-      { id: 'yearly-gift', name: 'Find yearly trip gift', detail: 'Overdue Mar 9', tag: '', tagClass: '', source: 'asana' }
+      { id: 'yearly-gift', name: 'Find yearly trip gift', detail: 'Overdue Mar 9', tag: '', tagClass: '', source: 'asana' },
+      { id: 'porsche-photos', name: 'Share best 4 Porsche Lap photos to WhatsApp', detail: 'From Mar 6 event', tag: '', tagClass: '', source: 'airtable' },
+      { id: 'porsche-recap', name: 'Porsche Lap — event recap + review Luma feedback', detail: '', tag: '', tagClass: '', source: 'airtable' }
     ]}
   ]
 };
