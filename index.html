@@ -220,19 +220,37 @@
 // ============================================================
 const SPRINT = {
   title: 'Daily Sprint',
-  date: 'March 11, 2026',
-  key: 'sprint-2026-03-11',
+  date: 'March 10, 2026',
+  key: 'sprint-2026-03-10',
   sections: [
-    { id: 'batch1', title: 'Morning Must-Dos', priority: 'now', batch: 1, tasks: [
-      { id: 'custom-morning-1', name: 'Call Porsche, book driving experience (Mar 6)', detail: 'Need to finalize reservation', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
-      { id: 'custom-morning-2', name: 'Group chat sparks (seed members, draft questions)', detail: 'Prepare content for group chat engagement', tag: 'DRAFT', tagClass: 'tag-draft', source: 'manual' }
+    { id: 'batch1', title: '🚨 SF Dinner Emergency (Tomorrow)', priority: 'now', batch: 1, tasks: [
+      { id: 'sf-photo-1', name: 'Book photographer for SF events (Mar 11-12)', detail: 'No photographer booked for either dinner. Check fire drill doc for vendor contacts.', tag: 'URGENT', tagClass: 'tag-urgent', source: 'asana' },
+      { id: 'sf-shabnam', name: 'Text Shabnam — confirm both nights, ask if she knows photographers', detail: 'Chef confirmed but send confirmation text', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' },
+      { id: 'sf-grace', name: 'Follow up with Grace re: inviting extra folks for SF and LA', detail: 'You asked her Sunday — confirm she acted on it', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' }
     ]},
-    { id: 'batch2', title: 'Today', priority: 'next', batch: 2, tasks: [
-      { id: 'custom-afternoon-1', name: 'Prep for Max talk', detail: 'Before 1pm', tag: '', tagClass: '', source: 'manual' },
-      { id: 'custom-afternoon-2', name: 'Book flights', detail: '', tag: '', tagClass: '', source: 'manual' }
+    { id: 'batch2', title: 'Event Prep', priority: 'now', batch: 2, tasks: [
+      { id: 'sf-insiders-print', name: 'SF Insiders dinner — printing + run of show', detail: 'Mar 11 (TOMORROW). Menu, question cards, seating.', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
+      { id: 'sf-aces-print', name: 'SF Aces dinner — printing + run of show', detail: 'Mar 12 @ Helen Min\'s. 8-12 ppl.', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
+      { id: 'ny-chef', name: 'Book chef for NY events (Mar 17-18)', detail: 'Oren photo confirmed, need chef for both NY dinners', tag: 'BOOK', tagClass: 'tag-call', source: 'asana' }
     ]},
-    { id: 'batch3', title: 'This Week', priority: 'next', batch: 3, tasks: [
-      { id: 'asana-1213533331777374', name: 'Send out deals chat mid week text', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' }
+    { id: 'batch3', title: 'Daily Tasks', priority: 'next', batch: 3, tasks: [
+      { id: 'gc-spark', name: 'Send out daily group chat spark', detail: 'Seed members, draft questions', tag: 'DRAFT', tagClass: 'tag-draft', source: 'asana' },
+      { id: 'finance-email', name: 'Check Finance Email', detail: 'Recurring', tag: '', tagClass: '', source: 'asana' },
+      { id: 'billing-notion', name: 'Check Billing and Payment Issues Notion page', detail: 'Overdue from Mar 6', tag: '', tagClass: '', source: 'asana' }
+    ]},
+    { id: 'batch4', title: 'This Week', priority: 'next', batch: 4, tasks: [
+      { id: 'sage-contract', name: 'Sign contract for Sage Lodge (yearly trip)', detail: 'Overdue', tag: 'SIGN', tagClass: 'tag-urgent', source: 'asana' },
+      { id: 'preston-blankets', name: 'Talk to Preston about blankets for yearly trip', detail: 'You texted him, still need the blankets convo', tag: 'CALL', tagClass: 'tag-call', source: 'asana' },
+      { id: 'ny-insiders-print', name: 'NY Insiders dinner — printing + run of show (Mar 18)', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
+      { id: 'ny-aces-print', name: 'NY Aces dinner — run of show (Mar 17)', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
+      { id: 'deals-chat', name: 'Send out deals chat mid week text', detail: 'Due Wed Mar 11', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' }
+    ]},
+    { id: 'batch5', title: 'Overdue / Carry Forward', priority: 'later', batch: 5, tasks: [
+      { id: 'mike-bio', name: 'Update Mike\'s bio and headshot (The Veteran Fund)', detail: 'Overdue Mar 6', tag: '', tagClass: '', source: 'asana' },
+      { id: 'storyteller', name: 'Redo storyteller doc in Notion', detail: 'Overdue Mar 5', tag: '', tagClass: '', source: 'asana' },
+      { id: 'seed-members', name: 'Seed 4 members for future prompts', detail: 'Overdue Mar 6', tag: '', tagClass: '', source: 'asana' },
+      { id: 'photo-gallery', name: 'Create photo sharing system for group', detail: 'Overdue Mar 5', tag: '', tagClass: '', source: 'asana' },
+      { id: 'yearly-gift', name: 'Find yearly trip gift', detail: 'Overdue Mar 9', tag: '', tagClass: '', source: 'asana' }
     ]}
   ]
 };
