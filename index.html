@@ -223,20 +223,63 @@ const SPRINT = {
   date: 'March 11, 2026',
   key: 'sprint-2026-03-11',
   sections: [
-    { id: 'batch1', title: 'Morning Must-Dos', priority: 'now', batch: 1, tasks: [
-      { id: 'custom-morning-1', name: 'Send Vishal forwardable email for tomorrow SF dinner', detail: 'EAA Insiders dinner, March 11', tag: 'EMAIL', tagClass: 'tag-call', source: 'manual' },
-      { id: 'custom-morning-2', name: 'Confirm chef + photographer for SF dinner tomorrow', detail: 'Check vendor status in Airtable', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
-      { id: 'custom-morning-3', name: 'Figure out Eurie Kim breakfast plan', detail: 'Asana #1213611745269641', tag: 'PLAN', tagClass: 'tag-draft', source: 'asana' }
+    { id: 'batch1', title: '🔴 SF Dinner Tomorrow (Mar 11)', priority: 'now', batch: 1, tasks: [
+      { id: 'at-sf-menu', name: 'Finalize menu with chef and send final headcount', detail: 'EAA Insiders SF dinner, Vishal hosting', tag: 'CALL', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-sf-luma', name: 'Pull meal preferences from Luma', detail: 'EAA Insiders SF', tag: 'DO', tagClass: 'tag-draft', source: 'airtable' },
+      { id: 'at-sf-confirm', name: 'Text guests confirmation + address', detail: '3406 Market St, SF 94114', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
+      { id: 'at-sf-rsvp', name: 'Check RSVP count, text members if low', detail: 'EAA Insiders SF', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
+      { id: 'at-sf-cards', name: 'Create pairing/question cards', detail: 'Theme: Learning and Unlearning', tag: 'CREATE', tagClass: 'tag-draft', source: 'airtable' },
+      { id: 'at-sf-names', name: 'Create name cards', detail: 'EAA Insiders SF', tag: 'CREATE', tagClass: 'tag-draft', source: 'airtable' },
+      { id: 'at-sf-printer', name: 'Send files to printer', detail: 'Name cards + question cards', tag: 'DO', tagClass: 'tag-draft', source: 'airtable' },
+      { id: 'at-sf-order', name: 'Order any additional things needed (wineglasses, napkins, etc)', detail: 'EAA Insiders SF', tag: 'ORDER', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'custom-morning-1', name: 'Send Vishal forwardable email', detail: 'Draft ready, just send', tag: 'EMAIL', tagClass: 'tag-call', source: 'manual' }
     ]},
-    { id: 'batch2', title: 'Today', priority: 'next', batch: 2, tasks: [
-      { id: 'custom-afternoon-1', name: 'Send host outreach to Chris Lyons', detail: 'WhatsApp, April Aces NY', tag: 'SEND', tagClass: 'tag-call', source: 'manual' },
-      { id: 'custom-afternoon-2', name: 'Send host outreach to Heather Hartnett', detail: 'WhatsApp, April Aces NY', tag: 'SEND', tagClass: 'tag-call', source: 'manual' },
-      { id: 'custom-afternoon-3', name: 'Send host outreach to Max Rimple', detail: 'Email, April Aces NY', tag: 'SEND', tagClass: 'tag-call', source: 'manual' },
-      { id: 'custom-afternoon-4', name: 'Send host outreach to Adams Conrad', detail: 'Email, April Aces NY', tag: 'SEND', tagClass: 'tag-call', source: 'manual' },
-      { id: 'asana-1213612624698482', name: 'Check Finance Email', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' }
+    { id: 'batch2', title: 'Today - Must Do', priority: 'now', batch: 2, tasks: [
+      { id: 'custom-morning-3', name: 'Figure out Eurie Kim breakfast plan', detail: 'Asana task', tag: 'PLAN', tagClass: 'tag-draft', source: 'asana' },
+      { id: 'asana-finance', name: 'Check Finance Email', detail: '', tag: 'DO', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-invoices', name: 'Pay invoices', detail: 'Overdue Mar 9', tag: 'PAY', tagClass: 'tag-call', source: 'asana' },
+      { id: 'asana-billing', name: 'Check Billing and Payment Issues Notion page', detail: 'Overdue Mar 6', tag: 'DO', tagClass: 'tag-text', source: 'asana' }
     ]},
-    { id: 'batch3', title: 'This Week', priority: 'next', batch: 3, tasks: [
-      { id: 'asana-1213533331777374', name: 'Send out deals chat mid week text', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' }
+    { id: 'batch3', title: 'Host Outreach (Done Today)', priority: 'next', batch: 3, tasks: [
+      { id: 'host-heather', name: 'Send host outreach to Heather Hartnett', detail: 'WhatsApp - SENT ✅', tag: 'DONE', tagClass: 'tag-text', source: 'manual' },
+      { id: 'host-adams', name: 'Send host outreach to Adams Conrad', detail: 'Email - SENT ✅ (said no, lives in Atlanta, hotel in NY)', tag: 'DONE', tagClass: 'tag-text', source: 'manual' },
+      { id: 'host-fady', name: 'Send host outreach to Fady', detail: 'Email - SENT ✅', tag: 'DONE', tagClass: 'tag-text', source: 'manual' },
+      { id: 'host-allan', name: 'Send host outreach to Allan Jean Baptist', detail: 'Email - SENT ✅', tag: 'DONE', tagClass: 'tag-text', source: 'manual' },
+      { id: 'host-pipeline', name: 'Send host pipeline writeup to Max', detail: 'Get his input on April NY + Miami idea', tag: 'SEND', tagClass: 'tag-call', source: 'manual' }
+    ]},
+    { id: 'batch4', title: 'Aces SF Dinner (Mar 12) Prep', priority: 'next', batch: 4, tasks: [
+      { id: 'at-acesf-menu', name: 'Finalize menu with chef and send final headcount', detail: 'Aces SF, Helen Min hosting', tag: 'CALL', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-acesf-luma', name: 'Pull meal preferences from Luma', detail: 'Aces SF', tag: 'DO', tagClass: 'tag-draft', source: 'airtable' },
+      { id: 'at-acesf-confirm', name: 'Text guests confirmation + address', detail: '30 Lopez Ave, SF 94116', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
+      { id: 'at-acesf-rsvp', name: 'Check RSVP count, text members if low', detail: 'Aces SF', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
+      { id: 'at-acesf-cards', name: 'Create pairing/question cards', detail: 'Aces SF', tag: 'CREATE', tagClass: 'tag-draft', source: 'airtable' },
+      { id: 'at-acesf-names', name: 'Create name cards', detail: 'Aces SF', tag: 'CREATE', tagClass: 'tag-draft', source: 'airtable' },
+      { id: 'at-acesf-printer', name: 'Send files to printer', detail: 'Aces SF', tag: 'DO', tagClass: 'tag-draft', source: 'airtable' },
+      { id: 'at-acesf-order', name: 'Order any additional things needed', detail: 'Aces SF', tag: 'ORDER', tagClass: 'tag-call', source: 'airtable' }
+    ]},
+    { id: 'batch5', title: 'NY Events Next Week (Mar 17-18) Prep', priority: 'next', batch: 5, tasks: [
+      { id: 'at-aceny-chef', name: 'Book chef - confirm menu and date', detail: 'Aces NY Mar 17, Jason Shuman hosting', tag: 'CALL', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-aceny-photo', name: 'Book photographer/storyteller + send guide', detail: 'Aces NY Mar 17', tag: 'CALL', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-aceny-helper', name: 'Book helper/producer + send guide', detail: 'Aces NY Mar 17', tag: 'CALL', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-aceny-seeds', name: 'Collect conversation seeds', detail: 'Aces NY Mar 17', tag: 'DO', tagClass: 'tag-draft', source: 'airtable' },
+      { id: 'at-aceny-ros', name: 'Create run-of-show', detail: 'Aces NY Mar 17', tag: 'CREATE', tagClass: 'tag-draft', source: 'airtable' },
+      { id: 'at-eaany-ros', name: 'Create run-of-show', detail: 'EAA Insiders NY Mar 18, Christian hosting at Robs', tag: 'CREATE', tagClass: 'tag-draft', source: 'airtable' },
+      { id: 'at-eaany-seeds', name: 'Collect conversation seeds', detail: 'EAA Insiders NY Mar 18', tag: 'DO', tagClass: 'tag-draft', source: 'airtable' },
+      { id: 'at-eaany-vendor', name: 'Text vendors + host the run-of-show', detail: 'EAA Insiders NY Mar 18', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' }
+    ]},
+    { id: 'batch6', title: 'Overdue Asana Tasks', priority: 'later', batch: 6, tasks: [
+      { id: 'asana-storyteller', name: 'Redo the storyteller doc in Notion', detail: 'Overdue Mar 5', tag: 'DO', tagClass: 'tag-draft', source: 'asana' },
+      { id: 'asana-photos', name: 'Create a system for saving/sharing best photos', detail: 'Overdue Mar 5', tag: 'DO', tagClass: 'tag-draft', source: 'asana' },
+      { id: 'asana-mike', name: 'Update Mikes bio and headshot (The Veteran Fund)', detail: 'Overdue Mar 6', tag: 'DO', tagClass: 'tag-draft', source: 'asana' },
+      { id: 'asana-photopay', name: 'Update Storyteller Notion doc + draft photographer pay structure', detail: 'Overdue Mar 6', tag: 'DO', tagClass: 'tag-draft', source: 'asana' },
+      { id: 'asana-seed', name: 'Seed 4 members for future prompts', detail: 'Overdue Mar 6', tag: 'DO', tagClass: 'tag-draft', source: 'asana' },
+      { id: 'asana-deals', name: 'Put in weekly activity and add strikes in deals chat', detail: 'Overdue Mar 8', tag: 'DO', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-gc', name: 'Send out daily group chat spark', detail: 'Overdue Mar 9', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-gift', name: 'Find a yearly trip gift to give to everyone', detail: 'Overdue Mar 9, Sage Lodge May 27-29', tag: 'DO', tagClass: 'tag-draft', source: 'asana' }
+    ]},
+    { id: 'batch7', title: 'This Week', priority: 'later', batch: 7, tasks: [
+      { id: 'asana-dealsmid', name: 'Send out deals chat mid week text', detail: 'Wednesday Mar 11', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-nominations', name: 'Email all members re: member nominations', detail: 'Friday Mar 13', tag: 'EMAIL', tagClass: 'tag-call', source: 'asana' }
     ]}
   ]
 };
