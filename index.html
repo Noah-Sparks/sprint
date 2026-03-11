@@ -99,6 +99,7 @@
   .action-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; color: var(--text-muted); font-size: 9px; font-weight: 600; font-family: inherit; padding: 3px 7px; cursor: pointer; transition: all 0.15s ease; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; }
   .action-btn:hover { background: var(--surface-hover); color: var(--text-secondary); border-color: var(--text-muted); }
   .action-btn.next:hover { color: var(--orange); border-color: var(--orange); background: var(--orange-bg); }
+  .action-btn.tmrw:hover { color: var(--yellow); border-color: var(--yellow); background: var(--yellow-bg); }
   .action-btn.later:hover { color: var(--blue); border-color: var(--blue); background: var(--blue-bg); }
   .tomorrow-section { display: none; }
   .tomorrow-section.has-items { display: block; }
@@ -211,7 +212,7 @@
     <div id="tomorrow-tasks"></div>
   </div>
   <div class="notes-section"><div class="notes-label">Notes</div><textarea class="notes-area" id="notes" placeholder="Paste themes, attendee counts, anything..."></textarea></div>
-  <div class="hint">Hover tasks for next / later buttons. Checks saved locally + Supabase.</div>
+  <div class="hint">Hover tasks for next / later / tmrw buttons. Checks saved locally + Supabase.</div>
 </div>
 
 <script>
@@ -324,6 +325,7 @@ SPRINT.sections.forEach(sec => {
       <div class="task-actions">
         <button class="action-btn next" onclick="moveToNextBatch('${task.id}')">next</button>
         <button class="action-btn later" onclick="moveToEnd('${task.id}')">later</button>
+        <button class="action-btn tmrw" onclick="moveToTomorrow('${task.id}')">tmrw</button>
       </div>`;
     secEl.appendChild(div);
   });
@@ -509,8 +511,33 @@ async function syncVendorStatus(taskId, taskName) {
 }
 
 // ============================================================
-// MOVE TO NEXT BATCH / LATER
+// MOVE TO NEXT BATCH / LATER / TOMORROW
 // ============================================================
+function moveToTomorrow(id) {
+  const task = document.querySelector(`.task[data-id="${id}"]`);
+  if (!task) return;
+  const nameEl = task.querySelector('.task-name');
+  const detailEl = task.querySelector('.task-detail');
+  
+  task.classList.add('moving');
+  setTimeout(() => {
+    task.remove();
+    tomorrowItems.push({ id, name: nameEl.innerHTML, detail: detailEl ? detailEl.textContent : '' });
+    localStorage.setItem(TOMORROW_STORAGE, JSON.stringify(tomorrowItems));
+    syncTomorrowToSupabase(id);
+    renderTomorrow();
+    updateProgress();
+    checkBatchComplete();
+  }, 300);
+}
+
+async function syncTomorrowToSupabase(taskId) {
+  if (!sb) return;
+  try {
+    await sb.from('tasks').update({ moved_to: 'tomorrow' }).eq('task_id', taskId).eq('sprint_key', SPRINT.key);
+  } catch(e) { console.error('Tomorrow sync error:', e); }
+}
+
 function moveToNextBatch(id) {
   const task = document.querySelector(`.task[data-id="${id}"]`);
   if (!task) return;
