@@ -425,13 +425,22 @@ function checkBatchComplete() {
   
   const tasks = currentSection.querySelectorAll('.task[data-id]');
   
-  // Check if all remaining tasks are done (empty batch = complete)
+  // Check if all remaining tasks are done or moved out (empty = complete)
   let allDone = true;
   tasks.forEach(t => {
     if (!t.querySelector('input:checked')) allDone = false;
   });
   
-  if (allDone && currentBatch < 7) {
+  // If batch is empty (all moved out), skip animation and advance immediately
+  if (tasks.length === 0 && currentBatch < SPRINT.sections.length) {
+    currentBatch++;
+    localStorage.setItem(BATCH_STORAGE, currentBatch);
+    updateBatchVisibility();
+    updateProgress();
+    return;
+  }
+  
+  if (allDone && tasks.length > 0 && currentBatch < SPRINT.sections.length) {
     const overlay = document.getElementById('batchCompleteOverlay');
     const ring = document.getElementById('batchCompleteRing');
     
