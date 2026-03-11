@@ -287,6 +287,8 @@ let state = JSON.parse(localStorage.getItem(STORAGE) || '{}');
 let tomorrowItems = JSON.parse(localStorage.getItem(TOMORROW_STORAGE) || '[]');
 let currentBatch = parseInt(localStorage.getItem(BATCH_STORAGE) || '1');
 let showAllBatches = false;
+const MOVED_STORAGE = SPRINT.key + '-moved';
+let movedTasks = JSON.parse(localStorage.getItem(MOVED_STORAGE) || '{}');
 
 // ============================================================
 // RENDER
@@ -559,9 +561,6 @@ async function syncTomorrowToSupabase(taskId) {
 }
 
 // Moved-tasks state: { taskId: targetBatchNum }
-const MOVED_STORAGE = SPRINT.key + '-moved';
-let movedTasks = JSON.parse(localStorage.getItem(MOVED_STORAGE) || '{}');
-
 function saveMovedTasks() {
   localStorage.setItem(MOVED_STORAGE, JSON.stringify(movedTasks));
   syncMovedToSupabase();
