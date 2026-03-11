@@ -223,7 +223,16 @@ const SPRINT = {
   date: 'March 11, 2026',
   key: 'sprint-2026-03-12',
   sections: [
-    { id: 'batch1', title: 'Morning Must-Dos', priority: 'now', batch: 1, tasks: [
+    { id: 'batch1', title: '🔥 Dinner Prep (Tonight + Tomorrow)', priority: 'now', batch: 1, tasks: [
+      { id: 'dinner-question-cards', name: 'Print question cards for both dinners', detail: 'Insiders tonight + Aces tomorrow', tag: 'URGENT', tagClass: 'tag-urgent', source: 'manual' },
+      { id: 'dinner-order-drinks', name: 'Order drinks for dinners', detail: 'Both SF events', tag: 'URGENT', tagClass: 'tag-urgent', source: 'manual' },
+      { id: 'dinner-sticky-sharpies', name: 'Get sticky notes + sharpies', detail: 'For dinner name tags / activities', tag: 'ERRAND', tagClass: 'tag-call', source: 'manual' },
+      { id: 'dinner-shabnam-print', name: 'Print something for Chef Shabnam', detail: 'Insiders dinner tonight', tag: 'URGENT', tagClass: 'tag-urgent', source: 'manual' },
+      { id: 'airtable-pay-chef', name: 'Pay Chef', detail: 'Airtable task — confirm payment for SF dinners', tag: 'DINNER', tagClass: 'tag-urgent', source: 'airtable' },
+      { id: 'airtable-book-photographer', name: 'Book photographer', detail: 'Airtable task — both SF events', tag: 'DINNER', tagClass: 'tag-urgent', source: 'airtable' },
+      { id: 'airtable-create-menu', name: 'Create Menu', detail: 'Airtable task', tag: 'DINNER', tagClass: 'tag-urgent', source: 'airtable' }
+    ]},
+    { id: 'batch2', title: 'Morning Must-Dos', priority: 'now', batch: 2, tasks: [
       { id: 'custom-morning-1', name: 'Call Porsche, book driving experience (Mar 6)', detail: 'Need to finalize reservation', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
       { id: 'custom-morning-2', name: 'Group chat sparks (seed members, draft questions)', detail: 'Prepare content for group chat engagement', tag: 'DRAFT', tagClass: 'tag-draft', source: 'manual' },
       { id: 'asana-finance-email', name: 'Check Finance Email', detail: 'Overdue from Mar 10', tag: 'OVERDUE', tagClass: 'tag-urgent', source: 'asana' },
@@ -231,7 +240,7 @@ const SPRINT = {
       { id: 'asana-add-caitlin', name: 'Add Caitlin from CRV to receipt list', detail: 'Overdue from Mar 10', tag: 'OVERDUE', tagClass: 'tag-urgent', source: 'asana' },
       { id: 'custom-afternoon-1', name: 'Prep for Max talk', detail: 'Before 1pm', tag: '', tagClass: '', source: 'manual' }
     ]},
-    { id: 'batch2', title: 'Today', priority: 'next', batch: 2, tasks: [
+    { id: 'batch3', title: 'Today', priority: 'next', batch: 3, tasks: [
       { id: 'custom-afternoon-2', name: 'Book flights', detail: '', tag: '', tagClass: '', source: 'manual' },
       { id: 'asana-charge-leif', name: 'Charge Leif for annual trip and send invoice ($1999)', detail: 'Overdue from Mar 10', tag: 'OVERDUE', tagClass: 'tag-urgent', source: 'asana' },
       { id: 'asana-eurie-kim', name: 'Figure out Eurie Kim breakfast plan', detail: 'Overdue from Mar 10', tag: 'OVERDUE', tagClass: 'tag-urgent', source: 'asana' },
@@ -240,7 +249,7 @@ const SPRINT = {
       { id: 'asana-deals-chat', name: 'Put in weekly activity and add strikes in deals chat', detail: 'Overdue from Mar 8 (Aces Operations)', tag: 'OVERDUE', tagClass: 'tag-urgent', source: 'asana' },
       { id: 'asana-gc-spark', name: 'Send out daily group chat spark', detail: 'Overdue from Mar 9 (Aces Operations)', tag: 'OVERDUE', tagClass: 'tag-urgent', source: 'asana' }
     ]},
-    { id: 'batch3', title: 'This Week', priority: 'later', batch: 3, tasks: [
+    { id: 'batch4', title: 'This Week', priority: 'later', batch: 4, tasks: [
       { id: 'asana-photo-system', name: 'Create system for saving/sharing best photos', detail: 'Overdue from Mar 5 (Aces Operations)', tag: 'OVERDUE', tagClass: 'tag-warn', source: 'asana' },
       { id: 'asana-storyteller', name: 'Redo the storyteller doc in Notion', detail: 'Overdue from Mar 5', tag: 'OVERDUE', tagClass: 'tag-warn', source: 'asana' },
       { id: 'asana-billing', name: 'Check Billing and Payment Issues Notion page', detail: 'Overdue from Mar 6', tag: 'OVERDUE', tagClass: 'tag-warn', source: 'asana' },
