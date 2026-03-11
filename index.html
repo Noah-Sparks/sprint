@@ -705,36 +705,104 @@ function saveCompletedTimestamps() {
   localStorage.setItem(COMPLETED_TS_STORAGE, JSON.stringify(completedTimestamps));
 }
 
+// Retry queue for failed syncs
+let syncRetryQueue = [];
+let syncRetryTimer = null;
+
 async function syncToSupabase(taskId, done, taskName, taskSource) {
   if (!sb) return;
+  const now = new Date().toISOString();
+  
+  // Track completion timestamp locally
+  if (done && !completedTimestamps[taskId]) {
+    completedTimestamps[taskId] = now;
+    saveCompletedTimestamps();
+  } else if (!done) {
+    delete completedTimestamps[taskId];
+    saveCompletedTimestamps();
+  }
+  
+  const payload = {
+    task_id: taskId,
+    name: taskName,
+    done: done,
+    sprint_key: SPRINT.key,
+    source: taskSource || 'manual',
+    updated_at: now,
+    completed_at: done ? (completedTimestamps[taskId] || now) : null
+  };
+  
   try {
-    const now = new Date().toISOString();
-    
-    // Track completion timestamp locally
-    if (done && !completedTimestamps[taskId]) {
-      completedTimestamps[taskId] = now;
-      saveCompletedTimestamps();
-    } else if (!done) {
-      delete completedTimestamps[taskId];
-      saveCompletedTimestamps();
-    }
-    
-    const payload = {
-      task_id: taskId,
-      name: taskName,
-      done: done,
-      sprint_key: SPRINT.key,
-      source: taskSource || 'manual',
-      updated_at: now,
-      completed_at: done ? (completedTimestamps[taskId] || now) : null
-    };
-    
     const { error } = await sb.from('tasks').upsert(payload, { onConflict: 'task_id,sprint_key' });
-    if (error) console.error('Supabase sync error:', error);
-  } catch(e) { console.error('Supabase sync error:', e); }
+    if (error) {
+      console.error('Supabase sync error:', error);
+      queueRetry(payload);
+    } else {
+      // Show brief sync indicator
+      showSyncStatus('synced');
+    }
+  } catch(e) {
+    console.error('Supabase sync error:', e);
+    queueRetry(payload);
+  }
 }
 
-// Bulk sync ALL tasks on page unload (catches anything missed)
+function queueRetry(payload) {
+  syncRetryQueue.push(payload);
+  showSyncStatus('pending');
+  if (!syncRetryTimer) {
+    syncRetryTimer = setInterval(async () => {
+      if (syncRetryQueue.length === 0) {
+        clearInterval(syncRetryTimer);
+        syncRetryTimer = null;
+        return;
+      }
+      const batch = [...syncRetryQueue];
+      syncRetryQueue = [];
+      try {
+        const { error } = await sb.from('tasks').upsert(batch, { onConflict: 'task_id,sprint_key' });
+        if (error) {
+          syncRetryQueue.push(...batch);
+          showSyncStatus('error');
+        } else {
+          showSyncStatus('synced');
+        }
+      } catch(e) {
+        syncRetryQueue.push(...batch);
+        showSyncStatus('error');
+      }
+    }, 5000); // retry every 5s
+  }
+}
+
+function showSyncStatus(status) {
+  let el = document.getElementById('syncStatus');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'syncStatus';
+    el.style.cssText = 'position:fixed;bottom:12px;right:12px;font-size:10px;padding:4px 8px;border-radius:4px;z-index:999;transition:opacity 0.3s;font-family:inherit;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;';
+    document.body.appendChild(el);
+  }
+  if (status === 'synced') {
+    el.textContent = '✓ synced';
+    el.style.background = 'rgba(34,197,94,0.15)';
+    el.style.color = '#22c55e';
+    el.style.opacity = '1';
+    setTimeout(() => { el.style.opacity = '0'; }, 2000);
+  } else if (status === 'pending') {
+    el.textContent = '⟳ syncing...';
+    el.style.background = 'rgba(245,158,11,0.15)';
+    el.style.color = '#f59e0b';
+    el.style.opacity = '1';
+  } else if (status === 'error') {
+    el.textContent = '✗ sync failed';
+    el.style.background = 'rgba(239,68,68,0.15)';
+    el.style.color = '#ef4444';
+    el.style.opacity = '1';
+  }
+}
+
+// Bulk sync — SAFE version that never overwrites done=true with done=false
 function bulkSyncAllTasks() {
   if (!sb) return;
   const allTasks = document.querySelectorAll('.task[data-id]');
@@ -744,18 +812,20 @@ function bulkSyncAllTasks() {
     const name = t.dataset.name;
     const source = t.dataset.source || 'manual';
     const done = !!state[id];
+    // ONLY sync tasks that are done=true. Never push done=false to Supabase
+    // to avoid overwriting completions from another device.
+    if (!done) return;
     rows.push({
       task_id: id,
       name: name,
-      done: done,
+      done: true,
       sprint_key: SPRINT.key,
       source: source,
       updated_at: new Date().toISOString(),
-      completed_at: done ? (completedTimestamps[id] || new Date().toISOString()) : null
+      completed_at: completedTimestamps[id] || new Date().toISOString()
     });
   });
   if (rows.length === 0) return;
-  // Use sendBeacon for reliable unload sync
   const url = SB_URL + '/rest/v1/tasks?on_conflict=task_id,sprint_key';
   const headers = {
     'apikey': SB_KEY,
@@ -764,11 +834,39 @@ function bulkSyncAllTasks() {
     'Prefer': 'resolution=merge-duplicates'
   };
   try {
-    const blob = new Blob([JSON.stringify(rows)], { type: 'application/json' });
-    // sendBeacon doesn't support custom headers, so use fetch with keepalive
     fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(rows), keepalive: true })
       .catch(() => {});
   } catch(e) {}
+}
+
+// Seed tasks into Supabase (creates rows for tasks not yet in DB, always done=false)
+async function seedTasksToSupabase() {
+  if (!sb) return;
+  try {
+    const { data: existing } = await sb.from('tasks')
+      .select('task_id')
+      .eq('sprint_key', SPRINT.key);
+    const existingIds = new Set((existing || []).map(r => r.task_id));
+    
+    const allTasks = document.querySelectorAll('.task[data-id]');
+    const newRows = [];
+    allTasks.forEach(t => {
+      const id = t.dataset.id;
+      if (existingIds.has(id)) return;
+      newRows.push({
+        task_id: id,
+        name: t.dataset.name,
+        done: !!state[id],
+        sprint_key: SPRINT.key,
+        source: t.dataset.source || 'manual',
+        updated_at: new Date().toISOString(),
+        completed_at: state[id] ? (completedTimestamps[id] || new Date().toISOString()) : null
+      });
+    });
+    if (newRows.length > 0) {
+      await sb.from('tasks').insert(newRows);
+    }
+  } catch(e) { console.error('Seed error:', e); }
 }
 
 // Sync on page unload, visibility change, and periodically
@@ -808,8 +906,8 @@ setInterval(bulkSyncAllTasks, 120000);
   } catch(e) { /* silent */ }
 })();
 
-// Initial bulk sync on load (seeds all tasks into Supabase so we have the full picture)
-setTimeout(bulkSyncAllTasks, 3000);
+// Seed new tasks on load (safe — only inserts missing rows, never overwrites)
+setTimeout(seedTasksToSupabase, 3000);
 
 // ============================================================
 // PARTICLES (sprint complete celebration)
