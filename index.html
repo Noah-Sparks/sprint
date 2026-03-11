@@ -98,7 +98,7 @@
   .task-actions { display: flex; gap: 4px; opacity: 0; transition: opacity 0.15s ease; flex-shrink: 0; margin-top: 2px; }
   .action-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; color: var(--text-muted); font-size: 9px; font-weight: 600; font-family: inherit; padding: 3px 7px; cursor: pointer; transition: all 0.15s ease; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; }
   .action-btn:hover { background: var(--surface-hover); color: var(--text-secondary); border-color: var(--text-muted); }
-  .action-btn.tmrw:hover { color: var(--orange); border-color: var(--orange); background: var(--orange-bg); }
+  .action-btn.next:hover { color: var(--orange); border-color: var(--orange); background: var(--orange-bg); }
   .action-btn.later:hover { color: var(--blue); border-color: var(--blue); background: var(--blue-bg); }
   .tomorrow-section { display: none; }
   .tomorrow-section.has-items { display: block; }
@@ -211,7 +211,7 @@
     <div id="tomorrow-tasks"></div>
   </div>
   <div class="notes-section"><div class="notes-label">Notes</div><textarea class="notes-area" id="notes" placeholder="Paste themes, attendee counts, anything..."></textarea></div>
-  <div class="hint">Hover tasks for tmrw / later buttons. Checks saved locally + Supabase.</div>
+  <div class="hint">Hover tasks for next / later buttons. Checks saved locally + Supabase.</div>
 </div>
 
 <script>
@@ -322,7 +322,7 @@ SPRINT.sections.forEach(sec => {
         ${task.detail ? `<div class="task-detail">${task.detail}</div>` : ''}
       </div>
       <div class="task-actions">
-        <button class="action-btn tmrw" onclick="moveToTomorrow('${task.id}')">tmrw</button>
+        <button class="action-btn next" onclick="moveToNextBatch('${task.id}')">next</button>
         <button class="action-btn later" onclick="moveToEnd('${task.id}')">later</button>
       </div>`;
     secEl.appendChild(div);
@@ -509,38 +509,41 @@ async function syncVendorStatus(taskId, taskName) {
 }
 
 // ============================================================
-// MOVE TO TOMORROW
+// MOVE TO NEXT BATCH / LATER
 // ============================================================
-function moveToTomorrow(id) {
+function moveToNextBatch(id) {
   const task = document.querySelector(`.task[data-id="${id}"]`);
   if (!task) return;
-  const nameEl = task.querySelector('.task-name');
-  const detailEl = task.querySelector('.task-detail');
+  const currentSection = task.closest('.section[data-batch]');
+  if (!currentSection) return;
+  const currentBatchNum = parseInt(currentSection.dataset.batch);
+  
+  // Find the next batch section
+  const nextSection = document.querySelector(`.section[data-batch="${currentBatchNum + 1}"]`);
+  if (!nextSection) {
+    // Already in the last batch, just move to end
+    moveToEnd(id);
+    return;
+  }
   
   task.classList.add('moving');
   setTimeout(() => {
-    task.remove();
-    tomorrowItems.push({ id, name: nameEl.innerHTML, detail: detailEl ? detailEl.textContent : '' });
-    localStorage.setItem(TOMORROW_STORAGE, JSON.stringify(tomorrowItems));
-    // Sync to Supabase so sprint builder can pick it up
-    syncTomorrowToSupabase(id);
-    renderTomorrow();
+    task.classList.remove('moving');
+    // Insert after the section header
+    const header = nextSection.querySelector('.section-header');
+    if (header && header.nextSibling) {
+      nextSection.insertBefore(task, header.nextSibling);
+    } else {
+      nextSection.appendChild(task);
+    }
     updateProgress();
     checkBatchComplete();
   }, 300);
 }
 
-async function syncTomorrowToSupabase(taskId) {
-  if (!sb) return;
-  try {
-    await sb.from('tasks').update({ moved_to: 'tomorrow' }).eq('task_id', taskId).eq('sprint_key', SPRINT.key);
-  } catch(e) { console.error('Tomorrow sync error:', e); }
-}
-
 function moveToEnd(id) {
   const task = document.querySelector(`.task[data-id="${id}"]`);
   if (!task) return;
-  // Find the last batch section
   const allBatches = document.querySelectorAll('.section[data-batch]');
   const lastBatch = allBatches[allBatches.length - 1];
   if (!lastBatch) return;
