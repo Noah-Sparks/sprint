@@ -424,8 +424,8 @@ function checkBatchComplete() {
   if (!currentSection) return;
   
   const tasks = currentSection.querySelectorAll('.task[data-id]');
-  if (tasks.length === 0) return;
   
+  // Check if all remaining tasks are done (empty batch = complete)
   let allDone = true;
   tasks.forEach(t => {
     if (!t.querySelector('input:checked')) allDone = false;
