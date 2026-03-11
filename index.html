@@ -297,6 +297,46 @@ document.getElementById('sprintDate').textContent = SPRINT.date;
 const sectionsEl = document.getElementById('sections');
 const checkSvg = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6l2.5 2.5 4.5-5"/></svg>';
 
+// Build all task elements, keyed by target batch
+const tasksByBatch = {};
+const allTasks = [];
+
+SPRINT.sections.forEach(sec => {
+  sec.tasks.forEach(task => {
+    if (tomorrowItems.find(t => t.id === task.id)) return;
+    // If task was moved, render in target batch instead of original
+    const targetBatch = movedTasks[task.id] || sec.batch;
+    if (!tasksByBatch[targetBatch]) tasksByBatch[targetBatch] = [];
+    allTasks.push({ ...task, originalBatch: sec.batch, targetBatch });
+    tasksByBatch[targetBatch].push(task);
+  });
+});
+
+function buildTaskEl(task) {
+  const isDone = !!state[task.id];
+  const sourceTag = task.source ? `<span class="tag tag-source tag-source-${task.source}">${task.source}</span>` : '';
+  const div = document.createElement('div');
+  div.className = 'task' + (isDone ? ' done' : '');
+  div.dataset.id = task.id;
+  div.dataset.name = task.name;
+  div.dataset.source = task.source || 'manual';
+  div.innerHTML = `
+    <div class="checkbox-wrap">
+      <input type="checkbox" ${isDone ? 'checked' : ''}>
+      <div class="checkbox-visual">${checkSvg}</div>
+    </div>
+    <div class="task-content">
+      <div class="task-name">${task.name} ${task.tag ? `<span class="tag ${task.tagClass}">${task.tag}</span>` : ''} ${sourceTag}</div>
+      ${task.detail ? `<div class="task-detail">${task.detail}</div>` : ''}
+    </div>
+    <div class="task-actions">
+      <button class="action-btn next" onclick="moveToNextBatch('${task.id}')">next</button>
+      <button class="action-btn later" onclick="moveToEnd('${task.id}')">later</button>
+      <button class="action-btn tmrw" onclick="moveToTomorrow('${task.id}')">tmrw</button>
+    </div>`;
+  return div;
+}
+
 SPRINT.sections.forEach(sec => {
   const secEl = document.createElement('div');
   secEl.className = 'section';
@@ -304,30 +344,10 @@ SPRINT.sections.forEach(sec => {
   secEl.dataset.batch = sec.batch;
   secEl.innerHTML = `<div class="section-header"><div class="section-indicator priority-${sec.priority}"></div><span class="section-title">${sec.title}</span><span class="section-count"></span></div>`;
   
-  sec.tasks.forEach(task => {
-    if (tomorrowItems.find(t => t.id === task.id)) return;
-    const isDone = !!state[task.id];
-    const sourceTag = task.source ? `<span class="tag tag-source tag-source-${task.source}">${task.source}</span>` : '';
-    const div = document.createElement('div');
-    div.className = 'task' + (isDone ? ' done' : '');
-    div.dataset.id = task.id;
-    div.dataset.name = task.name;
-    div.dataset.source = task.source || 'manual';
-    div.innerHTML = `
-      <div class="checkbox-wrap">
-        <input type="checkbox" ${isDone ? 'checked' : ''}>
-        <div class="checkbox-visual">${checkSvg}</div>
-      </div>
-      <div class="task-content">
-        <div class="task-name">${task.name} ${task.tag ? `<span class="tag ${task.tagClass}">${task.tag}</span>` : ''} ${sourceTag}</div>
-        ${task.detail ? `<div class="task-detail">${task.detail}</div>` : ''}
-      </div>
-      <div class="task-actions">
-        <button class="action-btn next" onclick="moveToNextBatch('${task.id}')">next</button>
-        <button class="action-btn later" onclick="moveToEnd('${task.id}')">later</button>
-        <button class="action-btn tmrw" onclick="moveToTomorrow('${task.id}')">tmrw</button>
-      </div>`;
-    secEl.appendChild(div);
+  // Render tasks that belong in this batch (original + moved here)
+  const batchTasks = tasksByBatch[sec.batch] || [];
+  batchTasks.forEach(task => {
+    secEl.appendChild(buildTaskEl(task));
   });
   
   sectionsEl.appendChild(secEl);
@@ -538,6 +558,29 @@ async function syncTomorrowToSupabase(taskId) {
   } catch(e) { console.error('Tomorrow sync error:', e); }
 }
 
+// Moved-tasks state: { taskId: targetBatchNum }
+const MOVED_STORAGE = SPRINT.key + '-moved';
+let movedTasks = JSON.parse(localStorage.getItem(MOVED_STORAGE) || '{}');
+
+function saveMovedTasks() {
+  localStorage.setItem(MOVED_STORAGE, JSON.stringify(movedTasks));
+  syncMovedToSupabase();
+}
+
+async function syncMovedToSupabase() {
+  if (!sb) return;
+  try {
+    for (const [taskId, targetBatch] of Object.entries(movedTasks)) {
+      await sb.from('tasks').upsert({
+        task_id: taskId,
+        sprint_key: SPRINT.key,
+        moved_to: 'batch-' + targetBatch,
+        updated_at: new Date().toISOString()
+      }, { onConflict: 'task_id,sprint_key' });
+    }
+  } catch(e) { console.error('Moved sync error:', e); }
+}
+
 function moveToNextBatch(id) {
   const task = document.querySelector(`.task[data-id="${id}"]`);
   if (!task) return;
@@ -545,18 +588,20 @@ function moveToNextBatch(id) {
   if (!currentSection) return;
   const currentBatchNum = parseInt(currentSection.dataset.batch);
   
-  // Find the next batch section
-  const nextSection = document.querySelector(`.section[data-batch="${currentBatchNum + 1}"]`);
-  if (!nextSection) {
-    // Already in the last batch, just move to end
-    moveToEnd(id);
-    return;
-  }
+  const allBatches = [...document.querySelectorAll('.section[data-batch]')];
+  const maxBatch = Math.max(...allBatches.map(s => parseInt(s.dataset.batch)));
+  const targetBatch = Math.min(currentBatchNum + 1, maxBatch);
+  
+  const nextSection = document.querySelector(`.section[data-batch="${targetBatch}"]`);
+  if (!nextSection || targetBatch === currentBatchNum) return;
+  
+  // Save to state
+  movedTasks[id] = targetBatch;
+  saveMovedTasks();
   
   task.classList.add('moving');
   setTimeout(() => {
     task.classList.remove('moving');
-    // Insert after the section header
     const header = nextSection.querySelector('.section-header');
     if (header && header.nextSibling) {
       nextSection.insertBefore(task, header.nextSibling);
@@ -574,6 +619,12 @@ function moveToEnd(id) {
   const allBatches = document.querySelectorAll('.section[data-batch]');
   const lastBatch = allBatches[allBatches.length - 1];
   if (!lastBatch) return;
+  const lastBatchNum = parseInt(lastBatch.dataset.batch);
+  
+  // Save to state
+  movedTasks[id] = lastBatchNum;
+  saveMovedTasks();
+  
   task.classList.add('moving');
   setTimeout(() => { 
     task.classList.remove('moving'); 
