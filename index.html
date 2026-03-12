@@ -222,15 +222,51 @@
 const SPRINT = {
   title: 'Daily Sprint',
   date: 'March 12, 2026',
-  key: 'sprint-2026-03-12',
+  key: 'sprint-2026-03-12-v2',
   sections: [
-    { id: 'batch1', title: 'Morning Must-Dos', priority: 'now', batch: 1, tasks: [
-
-      { id: 'custom-morning-2', name: 'Check GC for responses', detail: 'Review group chat activity, respond to threads', tag: 'CHECK', tagClass: 'tag-check', source: 'manual' }
+    { id: 'batch1', title: '🔥 Tonight: Aces SF Dinner (Helen Min)', priority: 'now', batch: 1, tasks: [
+      { id: 'at-vendors-ros', name: 'Text vendors + host the run-of-show', detail: 'Aces March Dinner NY', tag: 'EVENT', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-thank-you-sf', name: 'Send thank you texts to SF dinner attendees', detail: 'Aces March Dinner SF (last night)', tag: 'EVENT', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-collect-seeds-ny', name: 'Collect conversation seeds', detail: 'Aces March Dinner NY', tag: 'EVENT', tagClass: 'tag-draft', source: 'airtable' },
+      { id: 'at-printing-sf', name: 'Have printing delivered to venue', detail: 'EAA Insiders March Dinner SF', tag: 'EVENT', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-pay-printer', name: 'Pay printer', detail: 'EAA Insiders March Dinner SF', tag: 'FINANCE', tagClass: 'tag-call', source: 'airtable' }
     ]},
     { id: 'batch2', title: 'Today', priority: 'next', batch: 2, tasks: [
-      { id: 'custom-afternoon-1', name: 'Prep for Max talk', detail: 'Before 1pm', tag: '', tagClass: '', source: 'manual' },
-      { id: 'custom-afternoon-2', name: 'Book flights', detail: '', tag: '', tagClass: '', source: 'manual' }
+      { id: 'custom-gc', name: 'Check GC for responses', detail: 'Thursday — review group chat activity', tag: 'CHECK', tagClass: 'tag-check', source: 'manual' },
+      { id: 'custom-caroline', name: 'Call Caroline Toch Docal', detail: 'Rolled from yesterday', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
+      { id: 'custom-eurie', name: 'Call Eurie Kim assistant re breakfast plan', detail: '', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
+      { id: 'custom-shawn', name: 'Cancel Shawn Xu April dinner, move to June', detail: '', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
+      { id: 'custom-flights', name: 'Book flights', detail: '', tag: '', tagClass: '', source: 'manual' },
+      { id: 'at-luma-april-sf', name: 'Create Luma event (full setup)', detail: 'Aces April Dinner SF', tag: 'EVENT', tagClass: 'tag-draft', source: 'airtable' },
+      { id: 'at-host-april-ny', name: 'Find and confirm host', detail: 'EAA Insiders April Dinner NY', tag: 'EVENT', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-insiders-post-emails', name: 'Send post-event emails (Emma, Alex, David)', detail: 'Insiders SF dinner non-member follow-ups', tag: 'EMAIL', tagClass: 'tag-draft', source: 'manual' }
+    ]},
+    { id: 'batch3', title: 'Overdue — Asana', priority: 'later', batch: 3, tasks: [
+      { id: 'asana-storyteller', name: 'Redo storyteller doc in Notion', detail: 'Due Mar 5', tag: 'OVERDUE', tagClass: 'tag-overdue', source: 'asana' },
+      { id: 'asana-photos', name: 'Photo sharing system for members', detail: 'Due Mar 5', tag: 'OVERDUE', tagClass: 'tag-overdue', source: 'asana' },
+      { id: 'asana-mike', name: 'Update Mike bio + headshot (Veteran Fund)', detail: 'Due Mar 6', tag: 'OVERDUE', tagClass: 'tag-overdue', source: 'asana' },
+      { id: 'asana-photopay', name: 'Photographer pay structure text', detail: 'Due Mar 6', tag: 'OVERDUE', tagClass: 'tag-overdue', source: 'asana' },
+      { id: 'asana-seed', name: 'Seed 4 members for future prompts', detail: 'Due Mar 6', tag: 'OVERDUE', tagClass: 'tag-overdue', source: 'asana' },
+      { id: 'asana-billing', name: 'Check Billing/Payment Issues Notion page', detail: 'Due Mar 6', tag: 'OVERDUE', tagClass: 'tag-overdue', source: 'asana' },
+      { id: 'asana-deals', name: 'Deals chat: weekly activity + strikes', detail: 'Due Mar 8', tag: 'OVERDUE', tagClass: 'tag-overdue', source: 'asana' },
+      { id: 'asana-gc', name: 'Send out daily group chat spark', detail: 'Due Mar 9', tag: 'OVERDUE', tagClass: 'tag-overdue', source: 'asana' },
+      { id: 'asana-invoices', name: 'Pay invoices', detail: 'Due Mar 9', tag: 'OVERDUE', tagClass: 'tag-overdue', source: 'asana' },
+      { id: 'asana-gift', name: 'Yearly trip gift selection', detail: 'Due Mar 9', tag: 'OVERDUE', tagClass: 'tag-overdue', source: 'asana' },
+      { id: 'asana-caitlin1', name: 'Add Caitlin from CRV to receipt list', detail: 'Due Mar 10', tag: 'OVERDUE', tagClass: 'tag-overdue', source: 'asana' },
+      { id: 'asana-caitlin2', name: 'Send receipt to Caitlin', detail: 'Due Mar 10', tag: 'OVERDUE', tagClass: 'tag-overdue', source: 'asana' },
+      { id: 'asana-leif', name: 'Charge Leif $1999 annual trip invoice', detail: 'Due Mar 10', tag: 'OVERDUE', tagClass: 'tag-overdue', source: 'asana' },
+      { id: 'asana-katie', name: 'Katie Keller: dues pause ~4 months', detail: 'Due Mar 10', tag: 'OVERDUE', tagClass: 'tag-overdue', source: 'asana' },
+      { id: 'asana-eurie', name: 'Figure out Eurie Kim breakfast plan', detail: 'Due Mar 10', tag: 'OVERDUE', tagClass: 'tag-overdue', source: 'asana' },
+      { id: 'asana-finance', name: 'Check finance email', detail: 'Due Mar 10', tag: 'OVERDUE', tagClass: 'tag-overdue', source: 'asana' }
+    ]},
+    { id: 'batch4', title: 'This Week — Upcoming Events', priority: 'later', batch: 4, tasks: [
+      { id: 'at-ny-rsvp', name: 'Check RSVP count, text members if low', detail: 'Aces March Dinner NY (Mar 17)', tag: 'EVENT', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-ny-questions', name: 'Create pairing/question cards', detail: 'Aces March Dinner NY (Mar 17)', tag: 'EVENT', tagClass: 'tag-draft', source: 'airtable' },
+      { id: 'at-insiders-ny-rsvp', name: 'Check RSVP count, text members if low', detail: 'EAA Insiders March Dinner NY (Mar 18)', tag: 'EVENT', tagClass: 'tag-call', source: 'airtable' },
+      { id: 'at-insiders-ny-questions', name: 'Create pairing/question cards', detail: 'EAA Insiders March Dinner NY (Mar 18)', tag: 'EVENT', tagClass: 'tag-draft', source: 'airtable' },
+      { id: 'custom-jason', name: 'Jason Schumann: venue + theme call', detail: 'Aces NY Mar 17', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
+      { id: 'custom-christian', name: 'Christian: theme call', detail: 'Insiders NY Mar 18', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
+      { id: 'custom-josh', name: 'Josh Lumer: venue + theme call', detail: 'Insiders LA Mar 20', tag: 'CALL', tagClass: 'tag-call', source: 'manual' }
     ]}
   ]
 };
