@@ -1,0 +1,7 @@
+{
+  "description": "Tasks that have been completed and should NEVER be re-added to sprints. The nightly builder and any AI session rebuilding the sprint MUST check this list before adding manual tasks.",
+  "completed": [
+    {"id": "custom-morning-1", "name": "Call Porsche, book driving experience", "completed_date": "2026-03-05"},
+    {"id": "custom-flights", "name": "Book flights", "completed_date": "2026-03-12"}
+  ]
+}
