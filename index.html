@@ -221,45 +221,16 @@
 // ============================================================
 const SPRINT = {
   title: 'Daily Sprint',
-  date: 'March 12, 2026',
+  date: 'March 13, 2026',
   key: 'sprint-2026-03-13',
   sections: [
-    { id: 'batch1', title: '🔥 Aces SF Dinner Tonight', priority: 'now', batch: 1, tasks: [
-      { id: 'dinner-question-cards-aces', name: 'Print question cards for Aces dinner', detail: 'Helen Min hosting, 30 Lopez Ave SF', tag: 'DINNER', tagClass: 'tag-urgent', source: 'manual' },
-      { id: 'dinner-drinks-aces', name: 'Order drinks for Aces dinner', detail: '', tag: 'DINNER', tagClass: 'tag-urgent', source: 'manual' },
-      { id: 'airtable-pay-chef-aces', name: 'Pay Chef (Aces SF)', detail: 'Confirm payment', tag: 'DINNER', tagClass: 'tag-urgent', source: 'airtable' },
-      { id: 'airtable-photographer-aces', name: 'Confirm photographer (Aces SF)', detail: '', tag: 'DINNER', tagClass: 'tag-urgent', source: 'airtable' },
-      { id: 'dinner-post-event-texts', name: 'Send post-event follow-up texts to attendees', detail: 'After dinner tonight', tag: 'POST-EVENT', tagClass: 'tag-urgent', source: 'manual' }
+    { id: 'batch1', title: 'Morning Must-Dos', priority: 'now', batch: 1, tasks: [
+      { id: 'custom-morning-1', name: 'Call Porsche, book driving experience (Mar 6)', detail: 'Need to finalize reservation', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
+      { id: 'custom-morning-2', name: 'Group chat sparks (seed members, draft questions)', detail: 'Prepare content for group chat engagement', tag: 'DRAFT', tagClass: 'tag-draft', source: 'manual' }
     ]},
-    { id: 'batch2', title: 'Calls + Outreach', priority: 'now', batch: 2, tasks: [
-      { id: 'call-caroline', name: 'Call Caroline Toch Docal', detail: 'Moved from yesterday', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
-      { id: 'call-eurie-assistant', name: 'Call Eurie Kim\'s assistant', detail: '', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
-      { id: 'cancel-shawn-june', name: 'Cancel dinner with Shawn Xu, move to June', detail: 'Was April 16 — reschedule to June', tag: 'ACTION', tagClass: 'tag-urgent', source: 'manual' },
-      { id: 'aces-ny-april-host', name: 'Find host for Aces NY April dinner', detail: 'Start outreach — who can host?', tag: 'OUTREACH', tagClass: 'tag-draft', source: 'manual' }
-    ]},
-    { id: 'batch3', title: 'Daily Tasks', priority: 'now', batch: 3, tasks: [
-      { id: 'asana-finance-email', name: 'Check Finance Email', detail: 'Overdue from Mar 10', tag: 'OVERDUE', tagClass: 'tag-urgent', source: 'asana' },
-      { id: 'asana-gc-spark', name: 'Send out daily group chat spark', detail: 'Overdue from Mar 9', tag: 'OVERDUE', tagClass: 'tag-urgent', source: 'asana' },
-      { id: 'custom-morning-2', name: 'Group chat sparks (seed members, draft questions)', detail: '', tag: 'DRAFT', tagClass: 'tag-draft', source: 'manual' },
+    { id: 'batch2', title: 'Today', priority: 'next', batch: 2, tasks: [
+      { id: 'custom-afternoon-1', name: 'Prep for Max talk', detail: 'Before 1pm', tag: '', tagClass: '', source: 'manual' },
       { id: 'custom-afternoon-2', name: 'Book flights', detail: '', tag: '', tagClass: '', source: 'manual' }
-    ]},
-    { id: 'batch4', title: 'Overdue (Action Required)', priority: 'next', batch: 4, tasks: [
-      { id: 'asana-charge-leif', name: 'Charge Leif for annual trip and send invoice ($1999)', detail: 'Overdue from Mar 10', tag: 'OVERDUE', tagClass: 'tag-urgent', source: 'asana' },
-      { id: 'asana-eurie-kim', name: 'Figure out Eurie Kim breakfast plan', detail: 'Overdue from Mar 10', tag: 'OVERDUE', tagClass: 'tag-urgent', source: 'asana' },
-      { id: 'asana-katie-keller', name: 'Katie Keller: count towards dues and pause ~4 months', detail: 'Overdue from Mar 10', tag: 'OVERDUE', tagClass: 'tag-urgent', source: 'asana' },
-      { id: 'asana-pay-invoices', name: 'Pay invoices', detail: 'Overdue from Mar 9', tag: 'OVERDUE', tagClass: 'tag-urgent', source: 'asana' },
-      { id: 'asana-deals-chat', name: 'Put in weekly activity and add strikes in deals chat', detail: 'Overdue from Mar 8', tag: 'OVERDUE', tagClass: 'tag-urgent', source: 'asana' },
-      { id: 'asana-receipt-caitlin', name: 'Send receipt to Caitlin (Hannah from CRV)', detail: 'Overdue from Mar 10', tag: 'OVERDUE', tagClass: 'tag-urgent', source: 'asana' },
-      { id: 'asana-add-caitlin', name: 'Add Caitlin from CRV to receipt list', detail: 'Overdue from Mar 10', tag: 'OVERDUE', tagClass: 'tag-urgent', source: 'asana' },
-      { id: 'asana-seed-members', name: 'Seed 4 members for future prompts', detail: 'Overdue from Mar 6', tag: 'OVERDUE', tagClass: 'tag-urgent', source: 'asana' },
-      { id: 'asana-mike-bio', name: "Update Mike's bio and headshot (The Veteran Fund)", detail: 'Overdue from Mar 6', tag: 'OVERDUE', tagClass: 'tag-warn', source: 'asana' }
-    ]},
-    { id: 'batch5', title: 'This Week', priority: 'later', batch: 5, tasks: [
-      { id: 'asana-photo-system', name: 'Create system for saving/sharing best photos', detail: 'Overdue from Mar 5', tag: 'OVERDUE', tagClass: 'tag-warn', source: 'asana' },
-      { id: 'asana-storyteller', name: 'Redo the storyteller doc in Notion', detail: 'Overdue from Mar 5', tag: 'OVERDUE', tagClass: 'tag-warn', source: 'asana' },
-      { id: 'asana-billing', name: 'Check Billing and Payment Issues Notion page', detail: 'Overdue from Mar 6', tag: 'OVERDUE', tagClass: 'tag-warn', source: 'asana' },
-      { id: 'asana-storyteller-pay', name: 'Update Storyteller Notion doc + draft photographer pay structure', detail: 'Overdue from Mar 6', tag: 'OVERDUE', tagClass: 'tag-warn', source: 'asana' },
-      { id: 'asana-yearly-gift', name: 'Find a yearly trip gift to give to everyone', detail: 'Overdue from Mar 9', tag: 'OVERDUE', tagClass: 'tag-warn', source: 'asana' }
     ]}
   ]
 };
