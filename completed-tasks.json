@@ -1,7 +1,19 @@
-{
-  "description": "Tasks that have been completed and should NEVER be re-added to sprints. The nightly builder and any AI session rebuilding the sprint MUST check this list before adding manual tasks.",
-  "completed": [
-    {"id": "custom-morning-1", "name": "Call Porsche, book driving experience", "completed_date": "2026-03-05"},
-    {"id": "custom-flights", "name": "Book flights", "completed_date": "2026-03-12"}
-  ]
-}
+[
+  "asana-1213533331796674",
+  "asana-1213563386062863",
+  "asana-1213563386188421",
+  "asana-1213563565671877",
+  "asana-1213609296937264",
+  "asana-1213609441065126",
+  "asana-1213609441074286",
+  "asana-1213609441088046",
+  "asana-1213611225185329",
+  "asana-1213637797007325",
+  "asana-1213637797024211",
+  "asana-1213637801090348",
+  "asana-1213637801124499",
+  "asana-1213637950847268",
+  "asana-1213638002727355",
+  "completed",
+  "description"
+]
