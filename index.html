@@ -471,11 +471,10 @@ try { if (window.supabase) sb = window.supabase.createClient(SB_URL, SB_KEY); } 
 // Stored in localStorage for security (not committed to GitHub)
 // ============================================================
 function getApiTokens() {
-  const tokens = JSON.parse(localStorage.getItem('sprint-api-tokens') || '{}');
   return {
-    asana: tokens.asana || '',
-    airtable: tokens.airtable || '',
-    airtableBase: tokens.airtableBase || 'appw2CNLQBWO3TvZ6'
+    asana: '2/1212673880804841/1213444609854993:b74c67e14ec939a404c1b3ec5d614548',
+    airtable: 'pat8nrTlTmickdIM8.dbd89d52094d29265ef991fc3f9db39817abc9fbcfc9ae6ea515b7b97fada87d',
+    airtableBase: 'appw2CNLQBWO3TvZ6'
   };
 }
 
