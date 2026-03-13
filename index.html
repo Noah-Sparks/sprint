@@ -755,6 +755,7 @@ function moveToTomorrow(id) {
     tomorrowItems.push({ id, name: nameEl.innerHTML, detail: detailEl ? detailEl.textContent : '' });
     localStorage.setItem(TOMORROW_STORAGE, JSON.stringify(tomorrowItems));
     syncTomorrowToSupabase(id);
+    syncDueDateChange(id, getTomorrowDate());
     renderTomorrow();
     updateProgress();
     checkBatchComplete();
@@ -766,6 +767,40 @@ async function syncTomorrowToSupabase(taskId) {
   try {
     await sb.from('tasks').update({ moved_to: 'tomorrow' }).eq('task_id', taskId).eq('sprint_key', SPRINT.key);
   } catch(e) { console.error('Tomorrow sync error:', e); }
+}
+
+// Sync due date change to Asana/Airtable
+async function syncDueDateChange(taskId, newDate) {
+  const tokens = getApiTokens();
+  if (taskId.startsWith('asana-')) {
+    if (!tokens.asana) return;
+    const gid = taskId.replace('asana-', '');
+    try {
+      const res = await fetch(`https://app.asana.com/api/1.0/tasks/${gid}`, {
+        method: 'PUT',
+        headers: { 'Authorization': `Bearer ${tokens.asana}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: { due_on: newDate } })
+      });
+      if (res.ok) showToast(`✓ Due date updated in Asana → ${newDate}`, 'success');
+      else showToast('⚠ Asana due date update failed', 'error');
+    } catch(e) { showToast('⚠ Asana sync error', 'error'); }
+  } else if (taskId.startsWith('airtable-')) {
+    // Airtable Due Date is a formula field (computed from Event Date - Days Before Event)
+    // so we can't directly set it. Just show a note.
+    showToast('ℹ Moved in sprint (Airtable date is auto-calculated)', 'info');
+  }
+}
+
+function getTomorrowDate() {
+  const d = new Date();
+  d.setDate(d.getDate() + 1);
+  return d.toISOString().split('T')[0];
+}
+
+function getLaterDate() {
+  const d = new Date();
+  d.setDate(d.getDate() + 3);
+  return d.toISOString().split('T')[0];
 }
 
 // Moved-tasks state: { taskId: targetBatchNum }
@@ -848,6 +883,8 @@ function undoTomorrow(id) {
   if (sb) {
     sb.from('tasks').update({ moved_to: null }).eq('task_id', id).eq('sprint_key', SPRINT.key).then(() => {}).catch(() => {});
   }
+  // Restore due date to today in Asana
+  syncDueDateChange(id, new Date().toISOString().split('T')[0]);
   location.reload();
 }
 
