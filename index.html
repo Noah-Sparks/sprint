@@ -226,37 +226,39 @@
 // ============================================================
 const SPRINT = {
   title: 'Daily Sprint',
-  date: 'March 31, 2026',
-  key: 'sprint-2026-03-31',
+  date: 'April 2, 2026',
+  key: 'sprint-2026-04-02',
   sections: [
-    { id: 'batch1', title: '⚡ Morning Momentum', priority: 'now', batch: 1, tasks: [
-      { id: 'asana-1213873066415934', name: 'Seed 4 members for future prompts', detail: '', tag: '', tagClass: '', source: 'asana' }
+    { id: 'batch1', title: '⚡ Member Spotlights', priority: 'now', batch: 1, tasks: [
+      { id: 't1', name: 'Draft member spotlight outreach emails (Aces)', detail: 'Pick members, write DM/email asking them to participate', tag: 'EMAIL', tagClass: 'tag-text', source: 'manual' },
+      { id: 't2', name: 'Draft member spotlight outreach emails (Insiders)', detail: 'Pick members, write DM/email asking them to participate', tag: 'EMAIL', tagClass: 'tag-text', source: 'manual' }
     ]},
-    { id: 'batch2', title: '🧠 Deep Work', priority: 'next', batch: 2, tasks: [
-      { id: 'airtable-rec6ejR83uA6xgAIh', name: 'Create name cards', detail: 'EAA Insiders SF Dinner - April', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' }
+    { id: 'batch2', title: '🏔️ Sage Lodge & Yearly Trip', priority: 'now', batch: 2, tasks: [
+      { id: 't3', name: 'Reply to Sage Lodge re: menus + seating', detail: 'Choose menu options, confirm seating arrangement', tag: 'EMAIL', tagClass: 'tag-text', source: 'manual' },
+      { id: 't4', name: 'Create comms plan for yearly trip', detail: 'Timeline for announcements, next steps, member communication cadence', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' }
     ]},
-    { id: 'batch3', title: '📞 Outreach & Booking', priority: 'next', batch: 3, tasks: [
-      { id: 'airtable-recGM9k7qBfA6O6jS', name: 'Book helper/producer + send them guide', detail: 'Aces NY Dinner - April', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'airtable-recptSUBvahw02AQ1', name: 'Book chef - confirm menu and date', detail: 'Aces NY Dinner - April', tag: 'EVENT', tagClass: 'tag-create', source: 'airtable' },
-      { id: 'airtable-rec1AQiYg4lo20xpT', name: 'Book chef - confirm menu and date', detail: 'EAA Insiders NY Dinner - April', tag: 'EVENT', tagClass: 'tag-create', source: 'airtable' }
+    { id: 'batch3', title: '📋 Finalize April Events', priority: 'next', batch: 3, tasks: [
+      { id: 'airtable-reciflp1D1VMCAzQv', name: 'Text vendors + host the run-of-show', detail: 'EAA Insiders SF Dinner - April (TONIGHT)', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
+      { id: 'airtable-rec88AjPc2VC4mOIl', name: 'Text all RSVPs individually for confirmation', detail: 'EAA Insiders SF Dinner - April (TONIGHT)', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
+      { id: 'airtable-recptSUBvahw02AQ1', name: 'Book chef - confirm menu and date', detail: 'Aces NY Dinner - April (Apr 21)', tag: 'EVENT', tagClass: 'tag-create', source: 'airtable' },
+      { id: 'airtable-rec1AQiYg4lo20xpT', name: 'Book chef - confirm menu and date', detail: 'EAA Insiders NY Dinner - April (Apr 22)', tag: 'EVENT', tagClass: 'tag-create', source: 'airtable' },
+      { id: 'airtable-recGM9k7qBfA6O6jS', name: 'Book helper/producer + send them guide', detail: 'Aces NY Dinner - April', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' }
     ]},
-    { id: 'batch4', title: '⚙️ Afternoon Ops', priority: 'later', batch: 4, tasks: [
-      { id: 'asana-1213878774856134', name: 'Check Billing and Payment Issues Notion page', detail: '', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' },
-      { id: 'asana-1213880679715885', name: 'Check Finance Email', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' }
+    { id: 'batch4', title: '💬 Group Chat', priority: 'next', batch: 4, tasks: [
+      { id: 'asana-gc-spark', name: 'Send daily GC spark', detail: 'Overdue from yesterday', tag: 'GC', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-deals', name: 'Send deals chat mid-week text', detail: 'Overdue from yesterday', tag: 'GC', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1213873066415934', name: 'Seed 4 members for future prompts', detail: '8 days overdue', tag: '', tagClass: '', source: 'asana' }
     ]},
-    { id: 'batch5', title: '💰 Pay Vendors', priority: 'later', batch: 5, tasks: [
+    { id: 'batch5', title: '✈️ Travel & Logistics', priority: 'later', batch: 5, tasks: [
+      { id: 'asana-1213811560806977', name: 'Get flights to NY', detail: 'Due today, Apr 21-23 triple-header', tag: '', tagClass: '', source: 'asana' }
+    ]},
+    { id: 'batch6', title: '💰 Admin & Payments', priority: 'low', batch: 6, tasks: [
+      { id: 'asana-1213878774856134', name: 'Check Billing and Payment Issues Notion page', detail: '16 days overdue', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' },
+      { id: 'asana-1213880679715885', name: 'Check Finance Email', detail: '', tag: '', tagClass: '', source: 'asana' },
       { id: 'asana-1213881318991953', name: 'Pay invoices', detail: '', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' },
       { id: 'airtable-recmhkASkzD2Y7DYr', name: 'Pay photographer', detail: 'Aces | March Dinner (LA)', tag: 'PAY', tagClass: 'tag-pay', source: 'airtable' },
       { id: 'airtable-recNYyD0elxY5di8N', name: 'Pay chef', detail: 'Aces | March Dinner (NY)', tag: 'PAY', tagClass: 'tag-pay', source: 'airtable' },
       { id: 'airtable-recGM6rnj2PkArcCY', name: 'Pay chef', detail: 'EAA Insiders | March Dinner (NY)', tag: 'PAY', tagClass: 'tag-pay', source: 'airtable' }
-    ]},
-    { id: 'batch6', title: '📋 Can Wait', priority: 'low', batch: 6, tasks: [
-      { id: 'asana-1213811560806977', name: 'Get flights to NY', detail: '', tag: '', tagClass: '', source: 'asana' },
-      { id: 'airtable-reciflp1D1VMCAzQv', name: 'Text vendors + host the run-of-show', detail: 'EAA Insiders SF Dinner - April', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'airtable-rec88AjPc2VC4mOIl', name: 'Text all RSVPs individually for confirmation', detail: 'EAA Insiders SF Dinner - April', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'airtable-recBhBMJd5u1yxsnj', name: 'Finalize menu with chef', detail: 'EAA Insiders SF Dinner - April', tag: 'EVENT', tagClass: 'tag-create', source: 'airtable' },
-      { id: 'airtable-recb2Gn0YZcEwTs4m', name: 'Finalize menu with chef and send final headcount', detail: 'EAA Insiders SF Dinner - April', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'airtable-recwzcTSGzvg3wTYj', name: 'Pull meal preferences from Luma', detail: 'EAA Insiders SF Dinner - April', tag: 'EVENT', tagClass: 'tag-create', source: 'airtable' }
     ]}
   ]
 };
