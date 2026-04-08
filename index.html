@@ -285,7 +285,7 @@ const TOMORROW_STORAGE = SPRINT.key + '-tomorrow';
 const BATCH_STORAGE = SPRINT.key + '-batch';
 let state = JSON.parse(localStorage.getItem(STORAGE) || '{}');
 let tomorrowItems = JSON.parse(localStorage.getItem(TOMORROW_STORAGE) || '[]');
-let currentBatch = parseInt(localStorage.getItem(BATCH_STORAGE) || '1');
+let currentBatch = parseInt(localStorage.getItem(BATCH_STORAGE) || '2');
 let showAllBatches = false;
 const MOVED_STORAGE = SPRINT.key + '-moved';
 let movedTasks = JSON.parse(localStorage.getItem(MOVED_STORAGE) || '{}');
@@ -487,7 +487,11 @@ function updateBatchVisibility() {
     }
   });
   
-  document.getElementById('batchIndicator').textContent = showAllBatches ? 'All batches' : `Batch ${currentBatch} of 7`;
+  const maxBatchNum = Math.max(...SPRINT.sections.map(s => s.batch));
+  const minBatchNum = Math.min(...SPRINT.sections.map(s => s.batch));
+  const batchDisplay = currentBatch - minBatchNum + 1;
+  const totalBatches = SPRINT.sections.length;
+  document.getElementById('batchIndicator').textContent = showAllBatches ? 'All batches' : `Batch ${batchDisplay} of ${totalBatches}`;
   document.getElementById('toggleAllBtn').textContent = showAllBatches ? 'Show current' : 'Show all';
 }
 
