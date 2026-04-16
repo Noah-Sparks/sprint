@@ -229,43 +229,55 @@ const SPRINT = {
   date: 'April 16, 2026',
   key: 'sprint-2026-04-16',
   sections: [
-    { id: 'batch2', title: '🧠 Deep Work', priority: 'next', batch: 2, tasks: [
-      { id: 'asana-1214088852452465', name: 'Create master dinners document (comprehensive SOP)', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
-      { id: 'asana-1214089811430439', name: 'Create onboarding form/documentation', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
-      { id: 'asana-1213990184784186', name: '[Yearly Trip] Build Google Form (activities w/ prices, flights, dietary, dinner themes, who they want to meet)', detail: '', tag: '', tagClass: '', source: 'asana' },
-      { id: 'airtable-rec0C5na6NF2zVBHa', name: 'Create run-of-show', detail: 'Aces NY Dinner - April', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
-      { id: 'asana-1213965994979057', name: '[Yearly Trip] Create Google Sheet with clean UI to track form responses', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' }
+    { id: 'batch1', title: '💬 Group Chat', priority: 'now', batch: 1, tasks: [
+      { id: 'manual-gc-spark', name: 'Spark the group chat', detail: 'Post engagement prompt to Aces + Insiders WhatsApp', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' },
+      { id: 'asana-1213982403497259', name: 'Send out deals chat mid week text', detail: 'Overdue from yesterday', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' }
     ]},
-    { id: 'batch3', title: '📞 Outreach & Booking', priority: 'next', batch: 3, tasks: [
-      { id: 'airtable-recs5CtU3mlYUPw4i', name: 'Check RSVP count, text members if low', detail: 'EAA Insiders NY Dinner - April', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'asana-1213966157908356', name: '[Yearly Trip] Book sprinter van for Thursday night Old Saloon run ($250)', detail: '', tag: '', tagClass: '', source: 'asana' },
+    { id: 'batch2', title: '📄 Docs for Max + Akash', priority: 'now', batch: 2, tasks: [
+      { id: 'asana-1214089811430439', name: 'Send onboarding and offboarding docs to Max', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
+      { id: 'manual-nomination-email', name: 'Edit nomination email for Akash', detail: 'New task', tag: 'DRAFT', tagClass: 'tag-draft', source: 'manual' },
+      { id: 'manual-support-resources', name: 'Create doc of all support resources for Aces and share it', detail: 'New task', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' }
+    ]},
+    { id: 'batch3', title: '🍽️ NY Dinner Logistics (Apr 21-22)', priority: 'next', batch: 3, tasks: [
+      { id: 'manual-cleaner-rob', name: 'Find a cleaner for Rob's place', detail: 'Insiders NY Dinner Apr 22 (Theo hosting at Rob's)', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
+      { id: 'manual-plates-glasses', name: 'Figure out extra plates and wine glasses', detail: 'Aces NY Dinner Apr 21 (Patrick Finnegan hosting)', tag: 'CALL', tagClass: 'tag-call', source: 'manual' },
+      { id: 'airtable-rec0C5na6NF2zVBHa', name: 'Create run-of-show', detail: 'Aces NY Dinner - April (due today)', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
+      { id: 'airtable-reczvrFyyxglwQU06', name: 'Text vendors + host the run-of-show', detail: 'Aces NY Dinner - April (due today)', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
+      { id: 'airtable-recs5CtU3mlYUPw4i', name: 'Check RSVP count, text members if low', detail: 'EAA Insiders NY Dinner - April (overdue)', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
+      { id: 'airtable-recLCrT5xHyAiigQF', name: 'Create run-of-show', detail: 'EAA Insiders NY Dinner - April (due tomorrow)', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
+      { id: 'airtable-recE4BO1nFpwaCvrG', name: 'Text vendors + host the run-of-show', detail: 'EAA Insiders NY Dinner - April (due tomorrow)', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' }
+    ]},
+    { id: 'batch4', title: '📧 Emails', priority: 'next', batch: 4, tasks: [
+      { id: 'manual-answer-emails', name: 'Answer all emails', detail: 'Clear inbox', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' },
       { id: 'asana-1214034381259576', name: 'Send catch-up emails to members to schedule calls', detail: '', tag: 'CALL', tagClass: 'tag-call', source: 'asana' }
     ]},
-    { id: 'batch4', title: '⚙️ Afternoon Ops', priority: 'later', batch: 4, tasks: [
-      { id: 'asana-1214063087105095', name: 'Check Billing and Payment Issues Notion page', detail: '', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' },
-      { id: 'asana-1214063141446433', name: 'Check Finance Email', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' }
+    { id: 'batch5', title: '📖 Dinner Playbook for Max', priority: 'next', batch: 5, tasks: [
+      { id: 'asana-1214088852452465', name: 'Create dinner playbook for Max', detail: 'Comprehensive SOP / master dinners document', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' }
     ]},
-    { id: 'batch5', title: '💰 Pay Vendors', priority: 'later', batch: 5, tasks: [
-      { id: 'asana-1214063036999493', name: 'Pay invoices', detail: '', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' },
-      { id: 'airtable-recNYyD0elxY5di8N', name: 'Pay chef', detail: 'Aces | March Dinner (NY)', tag: 'PAY', tagClass: 'tag-pay', source: 'airtable' },
+    { id: 'batch6', title: '✈️ Yearly Trip', priority: 'later', batch: 6, tasks: [
+      { id: 'asana-1213990184784186', name: 'Build Google Form (activities, flights, dietary, dinner themes, who they want to meet)', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
+      { id: 'asana-1213965994979057', name: 'Create Google Sheet with clean UI to track form responses', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
+      { id: 'asana-1213965972249158', name: 'Tell Rob and Tom they need rental cars', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1213965995005780', name: 'Special guests: who to invite if extra space?', detail: '', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1213966157908356', name: 'Book sprinter van for Thursday night Old Saloon run ($250)', detail: '', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' },
+      { id: 'asana-1213966157945822', name: 'Arrange shuttle from Lone Mountain Transportation (at least for departures)', detail: '', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1213965995005472', name: 'Airbnb folks rental cars: cover or on them?', detail: '', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1213965995005460', name: 'Best space at Sage Lodge for Thursday roundtables (ask Nina)', detail: '', tag: 'CALL', tagClass: 'tag-call', source: 'asana' },
+      { id: 'asana-1213965615608573', name: 'Thursday lunch: pay for everyone or on them?', detail: '', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' },
+      { id: 'asana-1213965615599731', name: 'Game night details: poker (you and Akash deal or real dealers?) + what else', detail: '', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1213965615574368', name: 'Shuttle: arrange for everyone or just send the info?', detail: '', tag: '', tagClass: '', source: 'asana' }
+    ]},
+    { id: 'batch7', title: '💰 Pay Vendors + Admin', priority: 'low', batch: 7, tasks: [
+      { id: 'asana-1214063087105095', name: 'Check Billing and Payment Issues Notion page', detail: 'Overdue', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' },
+      { id: 'asana-1214063141446433', name: 'Check Finance Email', detail: 'Overdue', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1214063036999493', name: 'Pay invoices', detail: 'Overdue', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' },
       { id: 'airtable-recKCakTiV8gjs358', name: 'Pay helper', detail: 'EAA Insiders SF Dinner - April', tag: 'PAY', tagClass: 'tag-pay', source: 'airtable' },
       { id: 'airtable-recKnO5t93xVIpx9C', name: 'Pay chef', detail: 'EAA Insiders SF Dinner - April', tag: 'PAY', tagClass: 'tag-pay', source: 'airtable' },
-      { id: 'airtable-recGM6rnj2PkArcCY', name: 'Pay chef', detail: 'EAA Insiders | March Dinner (NY)', tag: 'PAY', tagClass: 'tag-pay', source: 'airtable' }
-    ]},
-    { id: 'batch6', title: '📋 Can Wait', priority: 'low', batch: 6, tasks: [
+      { id: 'airtable-recGM6rnj2PkArcCY', name: 'Pay chef', detail: 'EAA Insiders | March Dinner (NY)', tag: 'PAY', tagClass: 'tag-pay', source: 'airtable' },
+      { id: 'airtable-recNYyD0elxY5di8N', name: 'Pay chef', detail: 'Aces | March Dinner (NY)', tag: 'PAY', tagClass: 'tag-pay', source: 'airtable' },
       { id: 'asana-1214043448616057', name: 'Send handwritten thank-you note to Caroline Toch Docal', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
       { id: 'asana-1214043448365134', name: 'Send handwritten thank-you note to Eurie Kim (breakfast host)', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
-      { id: 'asana-1213982403497259', name: 'Send out deals chat mid week text', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
-      { id: 'asana-1213966157945822', name: '[Yearly Trip] Arrange shuttle from Lone Mountain Transportation (at least for departures)', detail: '', tag: '', tagClass: '', source: 'asana' },
-      { id: 'asana-1213965995005472', name: '[Yearly Trip] Airbnb folks rental cars: cover or on them?', detail: '', tag: '', tagClass: '', source: 'asana' },
-      { id: 'asana-1213965995005460', name: '[Yearly Trip] Best space at Sage Lodge for Thursday roundtables (ask Nina)', detail: '', tag: '', tagClass: '', source: 'asana' },
-      { id: 'asana-1213965615608573', name: '[Yearly Trip] Thursday lunch: pay for everyone or on them?', detail: '', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' },
-      { id: 'asana-1213965615599731', name: '[Yearly Trip] Game night details: poker (you and Akash deal or real dealers?) + what else', detail: '', tag: '', tagClass: '', source: 'asana' },
-      { id: 'asana-1213965615574368', name: '[Yearly Trip] Shuttle: arrange for everyone or just send the info?', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
-      { id: 'airtable-reczvrFyyxglwQU06', name: 'Text vendors + host the run-of-show', detail: 'Aces NY Dinner - April', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'asana-1214022479313896', name: 'Who have we done 1on1 check-ins with and how are we going to track this in the console?', detail: '', tag: '', tagClass: '', source: 'asana' },
-      { id: 'asana-1213965995005780', name: '[Yearly Trip] Special guests: who to invite if extra space?', detail: '', tag: '', tagClass: '', source: 'asana' },
-      { id: 'asana-1213965972249158', name: '[Yearly Trip] Tell Rob and Tom they need rental cars', detail: '', tag: '', tagClass: '', source: 'asana' }
+      { id: 'asana-1214022479313896', name: 'Track 1-on-1 check-ins in the console', detail: '', tag: '', tagClass: '', source: 'asana' }
     ]}
   ]
 };
