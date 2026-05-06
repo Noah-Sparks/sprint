@@ -227,38 +227,51 @@
 const SPRINT = {
   title: 'Daily Sprint',
   date: 'May 6, 2026',
-  key: 'sprint-2026-05-06',
+  key: 'sprint-2026-05-06b',
   sections: [
-    { id: 'batch2', title: '🧠 Deep Work', priority: 'next', batch: 2, tasks: [
-      { id: 'asana-1214034388884711', name: 'Create system for when too many invites to an event (overflow/waitlist process)', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
-      { id: 'airtable-recRig1XpulMDLUQp', name: 'Create 2-page Canva invite', detail: 'Aces | June Special Event (LA)', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
-      { id: 'airtable-recba35hdfexsGBbt', name: 'Create Luma event (full setup)', detail: 'Aces | June Special Event (LA)', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
-      { id: 'asana-1213965855262773', name: '[Yearly Trip] Build custom Notion itineraries (or have Amanda do it)', detail: 'After form responses come in', tag: '', tagClass: '', source: 'asana' }
+    { id: 'batch1', title: '🔥 Do First (Community)', priority: 'now', batch: 1, tasks: [
+      { id: 'noah-spark-aces', name: 'Spark Aces group chat', detail: '', tag: 'GC', tagClass: 'tag-text', source: 'manual' },
+      { id: 'noah-spark-insiders', name: 'Spark Insiders group chat', detail: '', tag: 'GC', tagClass: 'tag-text', source: 'manual' },
+      { id: 'asana-1214557949752040', name: 'Send deals chat mid-week reminder', detail: 'Wednesday standard', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'noah-will-lennox', name: 'Respond to Will Lennox', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' }
     ]},
-    { id: 'batch3', title: '📞 Outreach & Booking', priority: 'next', batch: 3, tasks: [
-      { id: 'airtable-recQp5zl72JgyYO9t', name: 'Find and confirm host for dinner - get name, address, availability', detail: 'Aces | June Special Event (LA)', tag: 'EVENT', tagClass: 'tag-create', source: 'airtable' },
-      { id: 'airtable-rechKgTXC963553BY', name: 'Book helper/producer + send them guide', detail: 'Aces | June Special Event (LA)', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'airtable-reclhot87ctPrpRos', name: 'Book chef - confirm menu and date', detail: 'Aces | June Special Event (LA)', tag: 'EVENT', tagClass: 'tag-create', source: 'airtable' },
-      { id: 'airtable-reclv77k0HdVlsG9I', name: 'Book photographer/storyteller + Send them guide', detail: 'Aces | June Special Event (LA)', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
-      { id: 'airtable-recSHjGBCmwKSVyS5', name: 'Find and confirm host for dinner - get name, address, availability', detail: 'EAA Insiders | June Dinner (NY)', tag: 'EVENT', tagClass: 'tag-create', source: 'airtable' },
-      { id: 'airtable-recYXY7H8pitwBq28', name: 'Find and confirm host for dinner - get name, address, availability', detail: 'Aces | June Dinner (NY)', tag: 'EVENT', tagClass: 'tag-create', source: 'airtable' },
-      { id: 'airtable-recoDHEhmYaM1Q5t4', name: 'Find and confirm host for dinner - get name, address, availability', detail: 'EAA Insiders | June Dinner (SF)', tag: 'EVENT', tagClass: 'tag-create', source: 'airtable' }
+    { id: 'batch2', title: '🎯 Personal Quick Wins', priority: 'now', batch: 2, tasks: [
+      { id: 'noah-ballet-tickets', name: 'Buy ballet tickets', detail: '', tag: '', tagClass: '', source: 'manual' },
+      { id: 'noah-japan', name: 'Look at Japan', detail: '', tag: '', tagClass: '', source: 'manual' }
     ]},
-    { id: 'batch4', title: '⚙️ Afternoon Ops', priority: 'later', batch: 4, tasks: [
+    { id: 'batch3', title: '🧠 Deep Work — Planning Docs', priority: 'next', batch: 3, tasks: [
+      { id: 'noah-yearly-trip-doc', name: 'Create final doc with ALL yearly trip tasks', detail: 'Shuttles, themes, rental cars, itineraries, special guests — one master doc', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' },
+      { id: 'noah-gc-plan', name: 'Work on group chat solid plan doc', detail: 'Moving forward strategy', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' },
+      { id: 'noah-june-events', name: 'June events — finalize themes and dates', detail: 'SF Insiders Jun 16, SF Aces Jun 18, LA special Jun 10, NY TBD', tag: 'EVENT', tagClass: 'tag-create', source: 'manual' }
+    ]},
+    { id: 'batch4', title: '📞 Outreach & Research', priority: 'next', batch: 4, tasks: [
+      { id: 'noah-roundtables', name: 'Find roundtables for Aces and Insiders', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' },
+      { id: 'noah-1on1-emails', name: 'Send emails to schedule more 1:1 member calls', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' },
+      { id: 'airtable-recQp5zl72JgyYO9t', name: 'Find and confirm host for dinner', detail: 'Aces | June Special Event (LA)', tag: 'EVENT', tagClass: 'tag-create', source: 'airtable' },
+      { id: 'airtable-recSHjGBCmwKSVyS5', name: 'Find and confirm host for dinner', detail: 'EAA Insiders | June Dinner (NY)', tag: 'EVENT', tagClass: 'tag-create', source: 'airtable' },
+      { id: 'airtable-recYXY7H8pitwBq28', name: 'Find and confirm host for dinner', detail: 'Aces | June Dinner (NY)', tag: 'EVENT', tagClass: 'tag-create', source: 'airtable' },
+      { id: 'airtable-recoDHEhmYaM1Q5t4', name: 'Find and confirm host for dinner', detail: 'EAA Insiders | June Dinner (SF)', tag: 'EVENT', tagClass: 'tag-create', source: 'airtable' }
+    ]},
+    { id: 'batch5', title: '⚙️ Yearly Trip (Due Today)', priority: 'later', batch: 5, tasks: [
+      { id: 'asana-1213966157945822', name: 'Book Lone Mountain Transportation for departures', detail: '', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1213965972328736', name: 'Finalize dinner themes from form responses', detail: '', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1213965972249158', name: 'Tell Rob + Tom they need rental cars', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1213965855262773', name: 'Build custom Notion itineraries (or delegate to Amanda)', detail: '', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1213965995005780', name: 'Special guests — who to invite if extra space?', detail: '', tag: '', tagClass: '', source: 'asana' }
+    ]},
+    { id: 'batch6', title: '⚙️ Afternoon Ops', priority: 'later', batch: 6, tasks: [
       { id: 'asana-1214558104546456', name: 'Check Billing and Payment Issues Notion page', detail: '', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' },
       { id: 'asana-1214558104502506', name: 'Check Finance Email', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
-      { id: 'asana-1214557949741969', name: 'Check Finance Email', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' }
+      { id: 'asana-1214558045395916', name: 'Pay invoices', detail: '', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' },
+      { id: 'asana-1214034388884711', name: 'Create overflow/waitlist system', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' }
     ]},
-    { id: 'batch5', title: '💰 Pay Vendors', priority: 'later', batch: 5, tasks: [
-      { id: 'asana-1214558045395916', name: 'Pay invoices', detail: '', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' }
-    ]},
-    { id: 'batch6', title: '📋 Can Wait', priority: 'low', batch: 6, tasks: [
-      { id: 'asana-1213965995005780', name: '[Yearly Trip] Special guests: who to invite if extra space?', detail: '', tag: '', tagClass: '', source: 'asana' },
-      { id: 'airtable-reciUCITJfgizXol0', name: 'Decide event concept and theme', detail: 'Aces | June Special Event (LA)', tag: 'EVENT', tagClass: 'tag-create', source: 'airtable' },
-      { id: 'asana-1214557949752040', name: 'Send out deals chat mid week text', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
-      { id: 'asana-1213966157945822', name: '[Yearly Trip] Arrange shuttle from Lone Mountain Transportation (at least for departures)', detail: '', tag: '', tagClass: '', source: 'asana' },
-      { id: 'asana-1213965972328736', name: '[Yearly Trip] Dinner themes decided by form responses', detail: 'After form responses come in', tag: '', tagClass: '', source: 'asana' },
-      { id: 'asana-1213965972249158', name: '[Yearly Trip] Tell Rob and Tom they need rental cars', detail: '', tag: '', tagClass: '', source: 'asana' }
+    { id: 'batch7', title: '📋 June Event Booking (This Week)', priority: 'low', batch: 7, tasks: [
+      { id: 'airtable-recRig1XpulMDLUQp', name: 'Create 2-page Canva invite', detail: 'Aces | June Special Event (LA)', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
+      { id: 'airtable-recba35hdfexsGBbt', name: 'Create Luma event (full setup)', detail: 'Aces | June Special Event (LA)', tag: 'CREATE', tagClass: 'tag-create', source: 'airtable' },
+      { id: 'airtable-rechKgTXC963553BY', name: 'Book helper/producer + send guide', detail: 'Aces | June Special Event (LA)', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
+      { id: 'airtable-reclhot87ctPrpRos', name: 'Book chef — confirm menu and date', detail: 'Aces | June Special Event (LA)', tag: 'EVENT', tagClass: 'tag-create', source: 'airtable' },
+      { id: 'airtable-reclv77k0HdVlsG9I', name: 'Book photographer + send guide', detail: 'Aces | June Special Event (LA)', tag: 'TEXT', tagClass: 'tag-text', source: 'airtable' },
+      { id: 'airtable-reciUCITJfgizXol0', name: 'Decide event concept and theme', detail: 'Aces | June Special Event (LA)', tag: 'EVENT', tagClass: 'tag-create', source: 'airtable' }
     ]}
   ]
 };
