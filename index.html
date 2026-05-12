@@ -226,37 +226,43 @@
 // ============================================================
 const SPRINT = {
   title: 'Daily Sprint',
-  date: 'May 11, 2026',
-  key: 'sprint-2026-05-11',
+  date: 'May 12, 2026',
+  key: 'sprint-2026-05-12',
   sections: [
-    { id: 'batch1', title: '🔥 Spark Group Chats', priority: 'now', batch: 1, tasks: [
-      { id: 'gc-aces-1', name: 'Post in Aces group chat', detail: 'Question of the Day or member-led format. Text Tom McLeod first for advice (Asana task)', tag: 'GC', tagClass: 'tag-create', source: 'manual' },
-      { id: 'gc-insiders-1', name: 'Post in Insiders group chat', detail: 'Question of the Day or member-led format', tag: 'GC', tagClass: 'tag-create', source: 'manual' }
-    ]},
-    { id: 'batch2', title: '📬 Clear Inbox & Texts', priority: 'next', batch: 2, tasks: [
+    { id: 'batch1', title: '📬 Clear Inbox & Texts', priority: 'now', batch: 1, tasks: [
       { id: 'inbox-1', name: 'Answer all emails', detail: 'Superhuman — clear everything pending', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' },
-      { id: 'inbox-2', name: 'Answer all texts & WhatsApp messages', detail: 'Respond to anything waiting', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' },
-      { id: 'asana-1214558104570123', name: 'Put in weekly activity and add strikes in deals chat', detail: 'Overdue from Saturday', tag: 'GC', tagClass: 'tag-create', source: 'asana' }
+      { id: 'inbox-2', name: 'Answer all texts & WhatsApp messages', detail: 'Respond to anything waiting', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' }
     ]},
-    { id: 'batch3', title: '🏔️ Yearly Trip (May 27-29)', priority: 'next', batch: 3, tasks: [
-      { id: 'asana-yearly-nina', name: 'Send Nina final entrée counts + dietary restrictions', detail: 'Due today — time sensitive', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
-      { id: 'asana-1213966157945822', name: '[Yearly Trip] Arrange shuttle from Lone Mountain Transportation', detail: 'At least for departures. Overdue.', tag: 'CALL', tagClass: 'tag-text', source: 'asana' },
-      { id: 'asana-1213965972249158', name: '[Yearly Trip] Tell Rob and Tom they need rental cars', detail: 'Quick text', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
-      { id: 'asana-1214586918341084', name: 'Greenlight costumes for Maxi to order for yearly trip', detail: 'Overdue — Maxi waiting on you', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
-      { id: 'asana-1213965972328736', name: '[Yearly Trip] Dinner themes decided by form responses', detail: 'Check form responses', tag: '', tagClass: '', source: 'asana' },
-      { id: 'asana-1213965855262773', name: '[Yearly Trip] Build custom Notion itineraries (or have Amanda do it)', detail: 'After form responses come in', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
-      { id: 'asana-1213965995005780', name: '[Yearly Trip] Special guests: who to invite if extra space?', detail: '', tag: '', tagClass: '', source: 'asana' }
+    { id: 'batch2', title: '📋 Activities Form Follow-Up', priority: 'now', batch: 2, tasks: [
+      { id: 'form-1', name: 'Check who has NOT filled out the activities form', detail: 'Pull form responses, cross-reference against full attendee list', tag: 'CHECK', tagClass: 'tag-create', source: 'manual' },
+      { id: 'form-2', name: 'Send personal messages to everyone missing', detail: 'Individual texts/DMs — not a group blast', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' }
     ]},
-    { id: 'batch4', title: '📋 GC Strategy — Plan Going Forward', priority: 'next', batch: 4, tasks: [
-      { id: 'gc-plan-1', name: 'Map out GC content calendar for next 2-4 weeks', detail: 'What formats, which members to feature, cadence for Aces + Insiders', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' },
-      { id: 'gc-plan-2', name: 'Decide which member-led formats to roll out', detail: 'The Pairing, Spotlight, Vulnerability Seed, etc. — pick 2-3 to start', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' },
-      { id: 'gc-plan-3', name: 'Identify members to DM for upcoming GC posts', detail: 'Build pipeline of 5-10 members for next few weeks', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' }
+    { id: 'batch3', title: '🤝 Check In with Maxi', priority: 'next', batch: 3, tasks: [
+      { id: 'maxi-1', name: 'Check in with Maxi', detail: 'Gifts, name tags, trip items, costumes — get status on everything he\'s handling', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1214586918341084', name: 'Greenlight costumes for Maxi to order', detail: 'He\'s waiting on you', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' }
     ]},
-    { id: 'batch5', title: '⚙️ Admin (if time)', priority: 'later', batch: 5, tasks: [
-      { id: 'asana-1214593769522553', name: 'Check Billing and Payment Issues Notion page', detail: '', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' },
-      { id: 'asana-1214557949741969', name: 'Check Finance Email', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
-      { id: 'asana-1214593769534382', name: 'Pay invoices', detail: '', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' },
-      { id: 'asana-1213611255821918', name: 'Email all members re: member nominations', detail: 'Overdue from May 8', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' }
+    { id: 'batch4', title: '🏠 Housing List → Elle', priority: 'next', batch: 4, tasks: [
+      { id: 'housing-1', name: 'Create final housing/rooming list', detail: 'Finalize room assignments for Sage Lodge', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' },
+      { id: 'housing-2', name: 'Send rooming list to Elle at Sage Lodge', detail: 'Due May 16 in Asana but get it done early', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' }
+    ]},
+    { id: 'batch5', title: '🍽️ Dinner Themes & Questions', priority: 'next', batch: 5, tasks: [
+      { id: 'asana-1213965972328736', name: 'Finalize dinner themes from form responses', detail: 'Review what members voted for, lock in themes for each night', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
+      { id: 'dinner-q-1', name: 'Create dinner questions for each theme', detail: 'Write conversation questions tailored to each dinner theme', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' }
+    ]},
+    { id: 'batch6', title: '📝 Individual Itineraries', priority: 'next', batch: 6, tasks: [
+      { id: 'asana-1213965855262773', name: 'Build custom Notion itineraries for each member', detail: 'Personalized schedules based on activity form responses. Overdue.', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' }
+    ]},
+    { id: 'batch7', title: '🏔️ Everything Else — Trip & Ops', priority: 'later', batch: 7, tasks: [
+      { id: 'asana-yearly-nina', name: 'Send Nina final entrée counts + dietary restrictions', detail: 'Overdue — time sensitive', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1213966157945822', name: 'Arrange shuttle from Lone Mountain Transportation', detail: 'At least for departures. Due tomorrow.', tag: 'CALL', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1213965972249158', name: 'Tell Rob and Tom they need rental cars', detail: 'Quick text. Due tomorrow.', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1213965995005780', name: 'Special guests: who to invite if extra space?', detail: '', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214558104570123', name: 'Put in weekly activity and add strikes in deals chat', detail: 'Overdue from Saturday', tag: 'GC', tagClass: 'tag-create', source: 'asana' },
+      { id: 'asana-1214593769522553', name: 'Check Billing and Payment Issues Notion page', detail: 'Overdue', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' },
+      { id: 'asana-1214557949741969', name: 'Check Finance Email', detail: 'Overdue', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1214593769534382', name: 'Pay invoices', detail: 'Overdue', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' },
+      { id: 'asana-1213611255821918', name: 'Email all members re: member nominations', detail: 'Overdue from May 8', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1214557949741970', name: 'Send out deals chat mid week text', detail: 'Due tomorrow', tag: 'GC', tagClass: 'tag-create', source: 'asana' }
     ]}
   ]
 };
