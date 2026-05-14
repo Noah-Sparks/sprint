@@ -226,39 +226,33 @@
 // ============================================================
 const SPRINT = {
   title: 'Daily Sprint',
-  date: 'May 13, 2026',
-  key: 'sprint-2026-05-13',
+  date: 'May 14, 2026',
+  key: 'sprint-2026-05-14',
   sections: [
-    { id: 'batch1', title: '💬 Max + Group Chats', priority: 'now', batch: 1, tasks: [
-      { id: 'max-gc', name: 'Talk to Max about group chat', detail: 'First thing — discuss GC strategy', tag: 'CALL', tagClass: 'tag-text', source: 'manual' },
-      { id: 'gc-spark', name: 'Spark each group chat', detail: 'Aces + Insiders — post prompts', tag: 'GC', tagClass: 'tag-create', source: 'manual' }
+    { id: 'batch1', title: '💬 Deals Chat + Emails', priority: 'now', batch: 1, tasks: [
+      { id: 'deals-reminder', name: 'Send deals chat reminders', detail: 'Mid-week reminder to both communities', tag: 'GC', tagClass: 'tag-create', source: 'manual' },
+      { id: 'emails', name: 'Answer emails', detail: 'Clear inbox, respond to pending messages', tag: 'EMAIL', tagClass: 'tag-text', source: 'manual' }
     ]},
-    { id: 'batch2', title: '📬 Follow-Ups', priority: 'now', batch: 2, tasks: [
-      { id: 'fu-eberjey', name: 'Follow up with Eberjey', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' },
-      { id: 'fu-leah', name: 'Follow up with Leah', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' },
-      { id: 'fu-nina', name: 'Follow up with Nina', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' },
-      { id: 'fu-printer', name: 'Follow up with printer', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' }
+    { id: 'batch2', title: '📞 Sage Lodge / Leah', priority: 'now', batch: 2, tasks: [
+      { id: 'leah-call', name: 'Get on a call with Leah at Sage Lodge', detail: 'Rooming list due Friday', tag: 'CALL', tagClass: 'tag-text', source: 'manual' }
     ]},
-    { id: 'batch3', title: '🏔️ Activities & Trip Work', priority: 'next', batch: 3, tasks: [
-      { id: 'activities', name: 'Work on activities', detail: 'Yearly trip activity planning', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' }
+    { id: 'batch3', title: '🏔️ Itinerary Template + Canva', priority: 'next', batch: 3, tasks: [
+      { id: 'itinerary-template', name: 'Work on custom itinerary template', detail: 'Build the template structure for all 40 guests', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' },
+      { id: 'canva-itinerary', name: 'Work on Canva itinerary design', detail: 'Visual design for the itineraries', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' }
     ]},
-    { id: 'batch4', title: '📞 Calls & Check-Ins', priority: 'next', batch: 4, tasks: [
-      { id: 'schedule-iris', name: 'Schedule call with Iris', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' },
-      { id: 'maxi-checkin', name: 'Check in with Maxi', detail: 'Gifts, name tags, trip items', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
-      { id: 'call-dillon', name: 'Call with Dillon', detail: '', tag: 'CALL', tagClass: 'tag-text', source: 'manual' },
-      { id: 'schedule-nina', name: 'Schedule call with Nina', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' }
+    { id: 'batch4', title: '🎨 Max + Dinner Themes', priority: 'next', batch: 4, tasks: [
+      { id: 'max-themes', name: 'Talk to Max about dinner themes', detail: 'Themes for the dinners + how the different cards work', tag: 'CALL', tagClass: 'tag-text', source: 'manual' },
+      { id: 'question-cards', name: 'Create question cards for both dinners', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' }
     ]},
-    { id: 'batch5', title: '📅 June Events & Lumas', priority: 'next', batch: 5, tasks: [
-      { id: 'june-lumas', name: 'Work on June event Luma pages', detail: 'Check Airtable tasks for June events', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' },
-      { id: 'fu-shawn-julia', name: 'Follow up with Shawn and Julia about theme', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' }
+    { id: 'batch5', title: '🏷️ Sprint Shop', priority: 'next', batch: 5, tasks: [
+      { id: 'sprint-shop', name: 'Call Sprint Shop', detail: 'Work out details for name tags and cards', tag: 'CALL', tagClass: 'tag-text', source: 'manual' }
     ]},
-    { id: 'batch6', title: '🏔️ Trip Misc & Max Check-In', priority: 'later', batch: 6, tasks: [
-      { id: 'trip-max', name: 'Check in with Max on trip items', detail: 'Anything else needed for yearly trip', tag: 'CALL', tagClass: 'tag-text', source: 'manual' },
-      { id: 'trip-misc', name: 'Any remaining trip tasks', detail: 'Shuttle, Rob/Tom rental cars, rooming list, etc.', tag: 'CHECK', tagClass: 'tag-create', source: 'manual' },
-      { id: 'comp-tags', name: 'Create tags for everyone comped for next year trip', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' }
+    { id: 'batch6', title: '📅 June Lumas + Handoffs', priority: 'later', batch: 6, tasks: [
+      { id: 'june-lumas', name: 'Create Luma invites for all 5 June events', detail: 'All 5 events need Luma pages', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' },
+      { id: 'akash-transport', name: 'Hand off transportation scheduling to Akash', detail: 'Yearly trip shuttle/transport coordination', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' }
     ]},
-    { id: 'batch7', title: '🌙 End of Day', priority: 'later', batch: 7, tasks: [
-      { id: 'deals-chat', name: 'Send deals chat mid-week reminder', detail: 'Always a late-in-the-day task', tag: 'GC', tagClass: 'tag-create', source: 'asana' }
+    { id: 'batch7', title: '🌙 Everything Else', priority: 'later', batch: 7, tasks: [
+      { id: 'remaining', name: 'Remaining overdue tasks', detail: 'Tom McLeod text, member nominations email, overflow system', tag: 'CHECK', tagClass: 'tag-create', source: 'manual' }
     ]}
   ]
 };
