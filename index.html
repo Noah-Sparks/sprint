@@ -226,40 +226,37 @@
 // ============================================================
 const SPRINT = {
   title: 'Daily Sprint',
-  date: 'May 15, 2026',
-  key: 'sprint-2026-05-15',
+  date: 'May 18, 2026',
+  key: 'sprint-2026-05-18',
   sections: [
     { id: 'batch1', title: '💬 Spark the Group Chats', priority: 'now', batch: 1, tasks: [
       { id: 'gc-aces', name: 'Spark the Aces group chat', detail: 'Post engagement prompt / question of the day', tag: 'GC', tagClass: 'tag-create', source: 'manual' },
       { id: 'gc-insiders', name: 'Spark the Insiders group chat', detail: 'Post engagement prompt / question of the day', tag: 'GC', tagClass: 'tag-create', source: 'manual' }
     ]},
-    { id: 'batch2', title: '🎨 Finalize Materials with Liv', priority: 'now', batch: 2, tasks: [
-      { id: 'liv-materials', name: 'Finalize all materials with Liv', detail: 'Lock designs, print-ready files, any last revisions', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' }
+    { id: 'batch2', title: '🏔️ Personal Itineraries', priority: 'now', batch: 2, tasks: [
+      { id: 'itineraries', name: 'Draft personal itineraries with pairings', detail: 'Build individual itineraries for ~40 guests. Goal: finish all drafts by Wed for Max review', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' }
     ]},
-    { id: 'batch3', title: '🏔️ Personal Itineraries + Emails', priority: 'now', batch: 3, tasks: [
-      { id: 'itineraries', name: 'Work on personal itineraries for all members', detail: 'Build individual itineraries for ~40 guests (use Shamin template)', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' },
-      { id: 'itinerary-emails', name: 'Draft itinerary emails to members', detail: 'Include cowboy dress reminder', tag: 'EMAIL', tagClass: 'tag-text', source: 'manual' }
+    { id: 'batch3', title: '🎨 Print Materials', priority: 'now', batch: 3, tasks: [
+      { id: 'print-finalize', name: 'Finalize all print materials', detail: 'Question cards, name tags, name cards, welcome cards, ask me about cards. All done by Liv, filled out by us, sent to printer by Wed', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' }
     ]},
-    { id: 'batch4', title: '📱 Texts', priority: 'next', batch: 4, tasks: [
-      { id: 'text-shamin', name: 'Text Shamin', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' },
-      { id: 'text-seth', name: 'Text Seth Heffgot', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' }
+    { id: 'batch4', title: '🔁 Handoffs', priority: 'now', batch: 4, tasks: [
+      { id: 'akash-transport', name: 'Pass transportation to Akash', detail: 'Connect him with rentals + shuttle. Send all flight details so everyone has a ride. Have him coordinate rental car pickups', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' },
+      { id: 'maxi-printing', name: 'Pass printing to Maxi', detail: 'Send all print files to printer Wed, arrange Uber pickup Fri. Make sure she has ordered everything needed', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' }
     ]},
-    { id: 'batch5', title: '🚨 Overdue Sage Lodge Tasks', priority: 'next', batch: 5, tasks: [
-      { id: 'shamin-painting', name: 'Reach out to Shamin re: painting class', detail: 'Only signup, offer to switch activity', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
-      { id: 'extend-activities', name: '🚨 Extend activities to half-day + resolve waitlists', detail: 'URGENT per Asana', tag: 'URGENT', tagClass: 'tag-now', source: 'asana' },
-      { id: 'sage-payment', name: 'Final pre-payment to Sage Lodge', detail: 'Overdue May 13', tag: 'URGENT', tagClass: 'tag-now', source: 'asana' },
-      { id: 'dietary-nina', name: 'Send dietary restrictions list to Nina', detail: 'Overdue May 13', tag: 'EMAIL', tagClass: 'tag-text', source: 'asana' },
-      { id: 'activity-totals', name: 'Pull activity sign-up totals from form', detail: 'Horseback / rafting / fly fishing / spa. Overdue May 13', tag: 'CHECK', tagClass: 'tag-create', source: 'asana' }
+    { id: 'batch5', title: '📆 June Events', priority: 'next', batch: 5, tasks: [
+      { id: 'june-themes', name: 'Lock in June themes', detail: '2 NYC dinners, 2 SF dinners, LA GP/LP art show', tag: 'PLAN', tagClass: 'tag-create', source: 'manual' },
+      { id: 'june-lumas', name: 'Create Luma pages for June events', detail: 'After themes are locked', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' },
+      { id: 'june-announce', name: 'Announce June events', detail: 'WhatsApp + any other channels', tag: 'GC', tagClass: 'tag-create', source: 'manual' }
     ]},
-    { id: 'batch6', title: '🚐 Transport + Logistics', priority: 'next', batch: 6, tasks: [
-      { id: 'shuttle', name: 'Arrange shuttle from Lone Mountain Transportation', detail: 'Overdue May 13', tag: 'CALL', tagClass: 'tag-text', source: 'asana' },
-      { id: 'rob-tom-cars', name: 'Tell Rob and Tom they need rental cars', detail: 'Overdue May 13', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
-      { id: 'rental-suv', name: 'Confirm rental SUV count based on activity totals', detail: 'Overdue May 11', tag: 'CHECK', tagClass: 'tag-create', source: 'asana' }
+    { id: 'batch6', title: '🏔️ Sage Lodge Logistics', priority: 'next', batch: 6, tasks: [
+      { id: 'sage-payment', name: 'Review and pay final Sage Lodge deposit', detail: 'OVERDUE', tag: 'URGENT', tagClass: 'tag-now', source: 'manual' },
+      { id: 'final-counts', name: 'Lock in final activity counts', detail: 'Make sure Lucas can film horseback riding + rafting', tag: 'CHECK', tagClass: 'tag-create', source: 'manual' },
+      { id: 'maxi-orders', name: 'Confirm Maxi has ordered everything needed', detail: 'Check in on all supplies/materials', tag: 'CHECK', tagClass: 'tag-create', source: 'manual' }
     ]},
-    { id: 'batch7', title: '📦 Tomorrow Prep', priority: 'later', batch: 7, tasks: [
-      { id: 'stamps-order', name: 'Buy stamps + letter supplies + handwritten note materials', detail: 'Amazon order, due tomorrow May 16', tag: 'SHOP', tagClass: 'tag-create', source: 'asana' },
-      { id: 'rooming-list', name: 'Send rooming list to Elle at Sage Lodge', detail: 'Due tomorrow May 16', tag: 'EMAIL', tagClass: 'tag-text', source: 'asana' },
-      { id: 'deals-chat', name: 'Deals chat weekly activity + strikes', detail: 'Due Saturday May 17', tag: 'GC', tagClass: 'tag-create', source: 'asana' }
+    { id: 'batch7', title: '👋 Onboarding + Admin', priority: 'later', batch: 7, tasks: [
+      { id: 'onboard-aces', name: 'Onboard new Aces class into group chat', detail: 'Welcome messages, intros', tag: 'GC', tagClass: 'tag-create', source: 'manual' },
+      { id: 'onboard-insiders', name: 'Onboard new Insiders class into group chat', detail: 'Welcome messages, intros', tag: 'GC', tagClass: 'tag-create', source: 'manual' },
+      { id: 'billing', name: 'Stay up to date on billing + receipts', detail: 'Quick pass', tag: 'ADMIN', tagClass: 'tag-create', source: 'manual' }
     ]}
   ]
 };
