@@ -226,37 +226,66 @@
 // ============================================================
 const SPRINT = {
   title: 'Daily Sprint',
-  date: 'May 18, 2026',
-  key: 'sprint-2026-05-18',
+  date: 'May 22, 2026',
+  key: 'sprint-2026-05-22',
   sections: [
-    { id: 'batch1', title: '💬 Spark the Group Chats', priority: 'now', batch: 1, tasks: [
-      { id: 'gc-aces', name: 'Spark the Aces group chat', detail: 'Post engagement prompt / question of the day', tag: 'GC', tagClass: 'tag-create', source: 'manual' },
-      { id: 'gc-insiders', name: 'Spark the Insiders group chat', detail: 'Post engagement prompt / question of the day', tag: 'GC', tagClass: 'tag-create', source: 'manual' }
+    { id: 'batch2', title: '🧠 Deep Work', priority: 'next', batch: 2, tasks: [
+      { id: 'asana-1214034388884711', name: 'Create system for when too many invites to an event (overflow/waitlist process)', detail: '', tag: 'CREATE', tagClass: 'tag-create', source: 'asana' },
+      { id: 'asana-1213965855262773', name: '[Yearly Trip] Build custom Notion itineraries (or have Amanda do it)', detail: 'After form responses come in', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812029708357', name: '[Noah] Lock group chat plan + draft all pre-trip + day-of WhatsApp messages', detail: 'Reference 2025 cadence. Group name: \'Aces Yearly Trip 2026 🏔️\' or variant. Send ...', tag: 'DRAFT', tagClass: 'tag-draft', source: 'asana' },
+      { id: 'asana-1214812029677707', name: '[Noah] Lock LA printing vendor + design specs', detail: 'Vendor exists per Noah\'s doc — confirm capabilities (incl. name tags). Print job...', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812042408436', name: '[Noah] Build Lone Mountain shuttle schedule + send to Kylee (reservations@lonemountainlimo.com / 406-580-8122)', detail: 'Consolidate guests by flight. Send pickup list (Wed inbound) + drop-off list (Fr...', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1214812029715612', name: '[Noah] Build full driver game plan (who\'s driving what car, when, for which activity)', detail: 'Master driver/transport plan for all activity blocks: Wed arrivals, Thu activiti...', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214870797246529', name: '[Liv] Design all print materials — Canva master itinerary + name cards + theme/pairing cards + Ask Me About cards + walk & talk cards', detail: 'Handed off to Liv (designer) May 14. Bundle: Canva master itinerary (printed for...', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214811959374049', name: '[Noah] Build 45 personal itineraries (use 2025 Shamin template)', detail: 'Per attendee: key activities, room details, 3 specific members to connect with. ...', tag: '', tagClass: '', source: 'asana' }
     ]},
-    { id: 'batch2', title: '🏔️ Personal Itineraries', priority: 'now', batch: 2, tasks: [
-      { id: 'itineraries', name: 'Draft personal itineraries with pairings', detail: 'Build individual itineraries for ~40 guests. Goal: finish all drafts by Wed for Max review', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' }
+    { id: 'batch3', title: '📞 Outreach & Booking', priority: 'next', batch: 3, tasks: [
+      { id: 'asana-1214812042302240', name: '[Noah] Form follow-up texts to 16 non-respondents', detail: 'Personal texts. Already in progress per Noah\'s doc.', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1214812029507852', name: '[Noah] Follow up with Leah on individual activity billing (~$2,135 estimate)', detail: 'Process for charging guests directly.', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812029770463', name: '[Noah] Book rental cars (GoRentals at BZN)', detail: '3 vehicles: Denali XL 7-seat (Airbnb #1, May 27-29), 4Runner 5-seat (Airbnb #2, ...', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812029762627', name: '[Noah] Send personal itinerary email (Fri May 22) — include cowboy dress reminder', detail: 'Use 2025 template (Shamin example in inbox). Each guest gets their itinerary, ro...', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' }
     ]},
-    { id: 'batch3', title: '🎨 Print Materials', priority: 'now', batch: 3, tasks: [
-      { id: 'print-finalize', name: 'Finalize all print materials', detail: 'Question cards, name tags, name cards, welcome cards, ask me about cards. All done by Liv, filled out by us, sent to printer by Wed', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' }
+    { id: 'batch4', title: '⚙️ Afternoon Ops', priority: 'later', batch: 4, tasks: [
+      { id: 'asana-1214723203324312', name: 'Check Finance Email', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1214723367272555', name: 'Check Billing and Payment Issues Notion page', detail: '', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' },
+      { id: 'asana-1214593842926503', name: 'Check Finance Email', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' }
     ]},
-    { id: 'batch4', title: '🔁 Handoffs', priority: 'now', batch: 4, tasks: [
-      { id: 'akash-transport', name: 'Pass transportation to Akash', detail: 'Connect him with rentals + shuttle. Send all flight details so everyone has a ride. Have him coordinate rental car pickups', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' },
-      { id: 'maxi-printing', name: 'Pass printing to Maxi', detail: 'Send all print files to printer Wed, arrange Uber pickup Fri. Make sure she has ordered everything needed', tag: 'TEXT', tagClass: 'tag-text', source: 'manual' }
+    { id: 'batch5', title: '💰 Pay Vendors', priority: 'later', batch: 5, tasks: [
+      { id: 'asana-1214723203251479', name: 'Pay invoices', detail: '', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' }
     ]},
-    { id: 'batch5', title: '📆 June Events', priority: 'next', batch: 5, tasks: [
-      { id: 'june-themes', name: 'Lock in June themes', detail: '2 NYC dinners, 2 SF dinners, LA GP/LP art show', tag: 'PLAN', tagClass: 'tag-create', source: 'manual' },
-      { id: 'june-lumas', name: 'Create Luma pages for June events', detail: 'After themes are locked', tag: 'CREATE', tagClass: 'tag-create', source: 'manual' },
-      { id: 'june-announce', name: 'Announce June events', detail: 'WhatsApp + any other channels', tag: 'GC', tagClass: 'tag-create', source: 'manual' }
-    ]},
-    { id: 'batch6', title: '🏔️ Sage Lodge Logistics', priority: 'next', batch: 6, tasks: [
-      { id: 'sage-payment', name: 'Review and pay final Sage Lodge deposit', detail: 'OVERDUE', tag: 'URGENT', tagClass: 'tag-now', source: 'manual' },
-      { id: 'final-counts', name: 'Lock in final activity counts', detail: 'Make sure Lucas can film horseback riding + rafting', tag: 'CHECK', tagClass: 'tag-create', source: 'manual' },
-      { id: 'maxi-orders', name: 'Confirm Maxi has ordered everything needed', detail: 'Check in on all supplies/materials', tag: 'CHECK', tagClass: 'tag-create', source: 'manual' }
-    ]},
-    { id: 'batch7', title: '👋 Onboarding + Admin', priority: 'later', batch: 7, tasks: [
-      { id: 'onboard-aces', name: 'Onboard new Aces class into group chat', detail: 'Welcome messages, intros', tag: 'GC', tagClass: 'tag-create', source: 'manual' },
-      { id: 'onboard-insiders', name: 'Onboard new Insiders class into group chat', detail: 'Welcome messages, intros', tag: 'GC', tagClass: 'tag-create', source: 'manual' },
-      { id: 'billing', name: 'Stay up to date on billing + receipts', detail: 'Quick pass', tag: 'ADMIN', tagClass: 'tag-create', source: 'manual' }
+    { id: 'batch6', title: '📋 Can Wait', priority: 'low', batch: 6, tasks: [
+      { id: 'asana-1213609471884017', name: 'Email all members re: member nominations', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1214812042298823', name: '[Max + Noah] LOCK coordination roles for on-site team (Noah / Akash / Maxi / Lucas)', detail: '2025 lesson from Jackson playbook: the on-site manager role needs MORE structure...', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812029708216', name: '[Noah] Ask LA print vendor if they can print name tags', detail: '', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214811959328788', name: '[Noah] Ask Nina re: GoRentals contact + pricing for our group', detail: '', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812029338643', name: '[Noah] Confirm rental SUV count based on activity totals', detail: 'Working: 3 SUVs (1 per Airbnb + 1 at lodge = 17 seats total). May not cover Thu ...', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812042404497', name: '[Noah] Ask Nina about Sage Lodge shuttle capabilities (besides 13-pax van)', detail: 'Could solve activity + lunch transport capacity issue.', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812231681198', name: '[Noah] Confirm Event Barn capacity for poker setup', detail: 'Ask Nina, check BEO. 2 poker tables × 6 chairs = 12 seats. Need to know if more ...', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812029223834', name: '[Noah] Check guest arrival times for early arrivals (mid-morning Wed)', detail: 'Sage allows early bag drop. Identify guests arriving before 4 PM check-in.', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812231669933', name: '[Noah] Brief Akash + Maxi on their handoff items', detail: '', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812042378209', name: '[Noah] Name tag superlatives research → hand off to Maxi for ordering', detail: 'Name + made-up superlative per guest, all 45 attendees. Noah + Max write the sup...', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812029688489', name: '[Noah] Ask Nina for property map', detail: 'Useful for personal itineraries.', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812129036653', name: '[Noah] Ask Nina re: logo printing on menus + materials', detail: 'Send logo file. Confirmed by Nina May 12.', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214620618002828', name: 'Text Tom McLeod - ask for advice on group chat for Monday', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1213966157922817', name: '[Yearly Trip] Send Nina final entrée counts + dietary restrictions', detail: '2 weeks before trip', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1214718210987718', name: '[Yearly Trip] Check in with Maxi — gifts, name tags, trip items', detail: '', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812129036639', name: '[Noah] Pull activity sign-up totals from form (horseback / rafting / fly fishing / spa)', detail: 'Drives rental car count (Task #48) and shuttle capacity planning.', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812129069725', name: '[Noah] Send dietary restrictions list to Nina', detail: 'Pulled from form responses. Family-style dinners — Sage staff will brief tables ...', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1214811959329049', name: '[Noah] Final pre-payment to Sage Lodge', detail: '', tag: 'PAY', tagClass: 'tag-pay', source: 'asana' },
+      { id: 'asana-1214593534259719', name: 'Send out deals chat mid week text', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1213966157945822', name: '[Yearly Trip] Arrange shuttle from Lone Mountain Transportation (at least for departures)', detail: '', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1213965972249158', name: '[Yearly Trip] Tell Rob and Tom they need rental cars', detail: '', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214819236138343', name: 'Alert: Asana invitation could not be delivered to maxi@thecommunitycompany.com', detail: 'Asana was unable to deliver your invitation for maxi@thecommunitycompany.com to ...', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214816880968955', name: '[Noah] Reach out to Shamin re: painting class — only signup, offer to switch', detail: 'Shamin is currently the only person signed up for the painting class. Reach out ...', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214813309626027', name: '🚨 [Noah] Extend activities to half-day + resolve waitlists (URGENT)', detail: 'Current roster issues:', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812029762686', name: '[Noah] Buy stamps + letter supplies + handwritten note materials (Amazon) — URGENT, order this week', detail: 'Today is May 14. Order by Sat May 16 to ensure arrival before May 25 departure.', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214718211123890', name: '[Yearly Trip] Send rooming list to Elle at Sage Lodge', detail: '', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' },
+      { id: 'asana-1214716337195217', name: 'Put in weekly activity and add strikes in deals chat', detail: '', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812231671440', name: '[Noah] Solve Thu activities + lunch transport capacity (17 seats may not cover 30+ ppl)', detail: 'Options: Sage shuttle, Lone Mountain Limo extra run, multiple trips, carpool wit...', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214811959372730', name: '[Noah] Confirm Follow Yer Nose / Bakery for Thu lunch (12:30–2:30 PM window)', detail: '5 min drive / 40 min walk from Sage. Guests drop in whenever after activities. V...', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812029762613', name: '[Noah] Ask Leah to handle morning activity briefing at Thu 7 AM breakfast', detail: '', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214811959370347', name: '[Noah] Lock round-table format + speaker/facilitator (Thu 4–6 PM, Beartooth)', detail: 'Cameron Porter could advise. Currently open.', tag: '', tagClass: '', source: 'asana' },
+      { id: 'asana-1214812129150756', name: '[Noah] CONSOLIDATED: Send all print materials to LA printer (one job)', detail: 'All-in-one print order. Includes:', tag: 'TEXT', tagClass: 'tag-text', source: 'asana' }
     ]}
   ]
 };
